@@ -1,1 +1,491 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Generador de rutinas visuales con pictogramas procedentes de ARASAAC."
+  >
+  <title>Generador de rutinas visuales</title>
+  <link rel="stylesheet" href="estilos.css?v=6">
 
+  <style>
+    .panel-rutinas{
+      background:#ffffff;
+      border:1px solid #d9e2ec;
+      border-radius:26px;
+      box-shadow:0 18px 42px rgba(16,42,67,.16);
+      padding:34px 46px 40px;
+    }
+
+    .panel-rutinas .panel-encabezado{
+      display:block;
+      margin-bottom:28px;
+    }
+
+    .texto-panel-rutinas{
+      max-width:820px;
+      margin:14px 0 0;
+      color:#486581;
+      line-height:1.65;
+      font-size:1rem;
+    }
+
+    .configuracion-rutina{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      align-items:end;
+      margin-top:24px;
+      padding:20px;
+      border:1px solid #d9e2ec;
+      border-radius:22px;
+      background:#fbfdff;
+    }
+
+    .campo-configuracion label{
+      display:block;
+      margin:0 0 8px;
+      color:#072f57;
+      font-weight:900;
+    }
+
+    .campo-configuracion select,
+    .campo-configuracion input{
+      width:100%;
+      min-height:54px;
+      border:1px solid #d9e2ec;
+      border-radius:16px;
+      padding:0 14px;
+      font:inherit;
+      color:#102a43;
+      background:#ffffff;
+    }
+
+    .boton-rutina{
+      border:0;
+      cursor:pointer;
+      min-height:54px;
+      padding:12px 24px;
+      border-radius:999px;
+      background:#0f766e;
+      color:#ffffff;
+      font-weight:900;
+      font-family:inherit;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+    }
+
+    .boton-rutina:hover{
+      background:#0b4f4a;
+    }
+
+    .pasos-rutina{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .paso-rutina{
+      border:1px solid #d9e2ec;
+      border-radius:22px;
+      padding:18px;
+      background:#ffffff;
+      box-shadow:0 10px 22px rgba(16,42,67,.06);
+    }
+
+    .paso-rutina h3{
+      margin:0 0 14px;
+      color:#072f57;
+      font-size:1.08rem;
+    }
+
+    .busqueda-paso{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+    }
+
+    .busqueda-paso input{
+      min-height:48px;
+      border:1px solid #d9e2ec;
+      border-radius:14px;
+      padding:0 12px;
+      font:inherit;
+    }
+
+    .busqueda-paso button{
+      border:0;
+      cursor:pointer;
+      min-height:48px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:#0f766e;
+      color:#ffffff;
+      font-weight:900;
+      font-family:inherit;
+    }
+
+    .resultados-paso{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .opcion-picto{
+      border:1px solid #d9e2ec;
+      border-radius:16px;
+      padding:8px;
+      background:#fbfdff;
+      cursor:pointer;
+      text-align:center;
+      font-family:inherit;
+    }
+
+    .opcion-picto.seleccionado{
+      border-color:#0f766e;
+      box-shadow:0 0 0 3px rgba(15,118,110,.16);
+      background:#f0fdfa;
+    }
+
+    .opcion-picto img{
+      width:100%;
+      height:82px;
+      object-fit:contain;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .opcion-picto span{
+      display:block;
+      color:#486581;
+      font-size:.78rem;
+      font-weight:800;
+    }
+
+    .rutina-preview{
+      margin-top:30px;
+      padding:26px;
+      border:1px solid #d9e2ec;
+      border-radius:26px;
+      background:#ffffff;
+      box-shadow:0 18px 42px rgba(16,42,67,.12);
+    }
+
+    .rutina-preview h2{
+      margin:0 0 18px;
+      color:#072f57;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:2rem;
+    }
+
+    .rutina-lienzo{
+      background:#ffffff;
+      border:2px solid #d9e2ec;
+      border-radius:22px;
+      padding:24px;
+    }
+
+    .rutina-titulo{
+      text-align:center;
+      margin:0 0 20px;
+      color:#072f57;
+      font-size:2rem;
+      font-weight:900;
+    }
+
+    .rutina-secuencia{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+
+    .rutina-item{
+      border:2px solid #d9e2ec;
+      border-radius:18px;
+      padding:14px;
+      text-align:center;
+      background:#fbfdff;
+      min-height:190px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .rutina-item img{
+      width:100%;
+      height:120px;
+      object-fit:contain;
+    }
+
+    .rutina-item p{
+      margin:10px 0 0;
+      color:#072f57;
+      font-weight:900;
+      font-size:1rem;
+    }
+
+    .acciones-descarga{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .licencia-rutina{
+      margin-top:20px;
+      padding:16px 18px;
+      border-radius:20px;
+      background:#f0fdfa;
+      border:1px solid rgba(15,118,110,.18);
+      color:#486581;
+      line-height:1.65;
+      font-size:.94rem;
+    }
+
+    .licencia-rutina strong{
+      color:#0f766e;
+    }
+
+    [hidden]{
+      display:none !important;
+    }
+
+    @media (max-width:900px){
+      .pasos-rutina{
+        grid-template-columns:1fr;
+      }
+
+      .rutina-secuencia{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width:700px){
+      .panel-rutinas{
+        padding:26px 20px 30px;
+      }
+
+      .configuracion-rutina{
+        grid-template-columns:1fr;
+      }
+
+      .busqueda-paso{
+        grid-template-columns:1fr;
+      }
+
+      .resultados-paso{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .rutina-secuencia{
+        grid-template-columns:1fr;
+      }
+
+      .acciones-descarga{
+        flex-direction:column;
+      }
+
+      .boton-rutina{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="salto-contenido" href="#contenido-principal">
+    Ir al contenido
+  </a>
+
+  <header class="cabecera">
+    <nav class="navegacion" aria-label="Navegación principal">
+      <a class="marca" href="index.html" aria-label="Inicio">
+        <span class="marca-icono" aria-hidden="true">RUT</span>
+        <span>Banco Digital</span>
+      </a>
+
+      <a class="enlace-cabecera" href="index.html">
+        Volver a materiales
+      </a>
+    </nav>
+
+    <div class="portada">
+      <div class="bloque-institucional" aria-label="Identidad institucional">
+        <img
+          class="logo-crebe"
+          src="logo-crebe.png"
+          alt="Logo del CREBE Señor de los Milagros - Ucayali"
+        >
+        <div class="texto-institucional">
+          <p class="nombre-institucional">
+            CREBE "Señor de los Milagros" - Ucayali
+          </p>
+          <p class="detalle-institucional">
+            Centro de Recursos de Educación Básica Especial
+          </p>
+        </div>
+      </div>
+
+      <p class="etiqueta">Plataforma educativa accesible</p>
+      <h1>Generador de rutinas visuales</h1>
+      <p class="subtitulo">
+        Organiza secuencias de actividades con pictogramas procedentes de
+        ARASAAC y descarga la rutina como PDF o JPG
+      </p>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <section class="panel-rutinas" aria-labelledby="titulo-rutinas">
+      <div class="panel-encabezado">
+        <p class="sobretitulo">Rutinas y secuencias visuales</p>
+        <h2 id="titulo-rutinas">Crea una rutina paso a paso</h2>
+        <p class="texto-panel-rutinas">
+          Elige la cantidad de pasos, busca un pictograma para cada actividad y
+          arma una secuencia visual. Luego podrás descargarla en JPG o PDF para
+          imprimirla o compartirla como material de apoyo.
+        </p>
+      </div>
+
+      <div class="configuracion-rutina">
+        <div class="campo-configuracion">
+          <label for="titulo-rutina">Título de la rutina</label>
+          <input
+            id="titulo-rutina"
+            type="text"
+            value="Mi rutina visual"
+            placeholder="Ejemplo: Rutina de la mañana"
+          >
+        </div>
+
+        <div class="campo-configuracion">
+          <label for="cantidad-pasos">Cantidad de secuencias</label>
+          <select id="cantidad-pasos">
+            <option value="2">2 pasos</option>
+            <option value="3">3 pasos</option>
+            <option value="4" selected>4 pasos</option>
+            <option value="5">5 pasos</option>
+            <option value="6">6 pasos</option>
+            <option value="7">7 pasos</option>
+            <option value="8">8 pasos</option>
+          </select>
+        </div>
+
+        <button id="crear-pasos" class="boton-rutina" type="button">
+          Crear secuencia
+        </button>
+      </div>
+
+      <div id="pasos-rutina" class="pasos-rutina"></div>
+
+      <div class="licencia-rutina">
+        <strong>Procedencia de los pictogramas:</strong>
+        los pictogramas consultados proceden de ARASAAC. Autor: Sergio Palao.
+        Propiedad: Gobierno de Aragón, España. Licencia: Creative Commons
+        BY-NC-SA. Esta página no es una plataforma oficial de ARASAAC; funciona
+        como generador educativo de apoyo.
+      </div>
+    </section>
+
+    <section class="rutina-preview" aria-labelledby="titulo-preview">
+      <h2 id="titulo-preview">Vista previa de la rutina</h2>
+
+      <div id="rutina-lienzo" class="rutina-lienzo">
+        <h3 id="rutina-titulo-preview" class="rutina-titulo">
+          Mi rutina visual
+        </h3>
+
+        <div id="rutina-secuencia" class="rutina-secuencia"></div>
+      </div>
+
+      <div class="acciones-descarga">
+        <button id="descargar-jpg" class="boton-rutina" type="button">
+          Descargar JPG
+        </button>
+
+        <button id="descargar-pdf" class="boton-rutina" type="button">
+          Descargar PDF
+        </button>
+      </div>
+    </section>
+
+    <section
+      id="aviso-pedagogico"
+      class="seccion-aviso"
+      aria-labelledby="titulo-aviso"
+    >
+      <aside class="aviso-pedagogico">
+        <div class="aviso-icono" aria-hidden="true">i</div>
+        <div>
+          <h2 id="titulo-aviso">Advertencia pedagógica</h2>
+          <p>
+            Las rutinas visuales son apoyos para anticipar, organizar y comprender
+            actividades. Su uso debe considerar la edad, el contexto, el nivel de
+            comprensión y las necesidades comunicativas de cada estudiante.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-contenido">
+      <div class="footer-bloque">
+        <h2>Generador de rutinas visuales</h2>
+        <p>
+          Recurso educativo para crear secuencias visuales con pictogramas
+          procedentes de ARASAAC.
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Enlaces</h2>
+        <p>
+          <a href="index.html">Materiales educativos accesibles</a><br>
+          <a href="pictogramas.html">Pictogramas y apoyos visuales</a><br>
+          <a href="#titulo-rutinas">Crear rutina</a><br>
+          <a href="#aviso-pedagogico">Advertencia pedagógica</a>
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Institución</h2>
+        <p>
+          CREBE "Señor de los Milagros" - Ucayali<br>
+          Centro de Recursos de Educación Básica Especial
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Atribución</h2>
+        <p>
+          Autor pictogramas: Sergio Palao. Origen: ARASAAC. Licencia:
+          Creative Commons BY-NC-SA. Propiedad: Gobierno de Aragón, España.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-final">
+      <p>
+        © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
+        Bermúdez con apoyo institucional del CREBE "Señor de los Milagros" -
+        Ucayali. Plataforma educativa sin fines de lucro.
+      </p>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    defer
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+    defer
+  ></script>
+  <script src="rutinas.js?v=1" defer></script>
+</body>
+</html>
