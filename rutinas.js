@@ -4,185 +4,243 @@ const URL_IMAGEN = "https://static.arasaac.org/pictograms/";
 const tituloRutina = document.getElementById("titulo-rutina");
 const cantidadPasos = document.getElementById("cantidad-pasos");
 const botonCrearPasos = document.getElementById("crear-pasos");
-const contenedorPasos = document.getElementById("pasos-rutina");
+const pasosLibres = document.getElementById("pasos-libres");
+const estadoPasoActivo = document.getElementById("estado-paso-activo");
+
+const formularioArasaac = document.getElementById("formulario-arasaac");
+const buscadorArasaac = document.getElementById("buscador-arasaac");
+const resultadosArasaac = document.getElementById("resultados-arasaac");
+const estadoBusqueda = document.getElementById("estado-busqueda");
+
+const rutinaLienzo = document.getElementById("rutina-lienzo");
 const rutinaTituloPreview = document.getElementById("rutina-titulo-preview");
 const rutinaSecuencia = document.getElementById("rutina-secuencia");
-const rutinaLienzo = document.getElementById("rutina-lienzo");
+
 const botonDescargarJpg = document.getElementById("descargar-jpg");
 const botonDescargarPdf = document.getElementById("descargar-pdf");
 
-let pasosSeleccionados = [];
+let pasos = [];
+let pasoActivo = 0;
 
-botonCrearPasos.addEventListener("click", crearPasos);
-tituloRutina.addEventListener("input", actualizarPreview);
+botonCrearPasos.addEventListener("click", crearEspacios);
+tituloRutina.addEventListener("input", renderizarPreview);
+formularioArasaac.addEventListener("submit", buscarPictogramas);
 botonDescargarJpg.addEventListener("click", descargarJpg);
 botonDescargarPdf.addEventListener("click", descargarPdf);
 
-crearPasos();
+crearEspacios();
 
-function crearPasos(){
+function crearEspacios(){
   const total = Number(cantidadPasos.value);
-  pasosSeleccionados = Array.from({ length: total }, (_, index) => {
-    return pasosSeleccionados[index] || null;
+
+  pasos = Array.from({ length: total }, (_, index) => {
+    const anterior = pasos[index];
+
+    return anterior || {
+      texto: "",
+      pictograma: null
+    };
   });
 
-  contenedorPasos.innerHTML = "";
+  pasoActivo = 0;
+  renderizarPasos();
+  renderizarPreview();
+  actualizarEstadoPasoActivo();
+}
 
-  for(let i = 0; i < total; i++){
-    const paso = document.createElement("article");
-    paso.className = "paso-rutina";
+function renderizarPasos(){
+  pasosLibres.innerHTML = "";
 
-    paso.innerHTML = `
-      <h3>Paso ${i + 1}</h3>
+  pasos.forEach((paso, index) => {
+    const tarjeta = document.createElement("article");
+    tarjeta.className = `paso-libre ${index === pasoActivo ? "activo" : ""}`;
+    tarjeta.dataset.index = index;
 
-      <div class="busqueda-paso">
-        <input
-          id="busqueda-paso-${i}"
-          type="search"
-          placeholder="Ejemplo: lavarse, comer, jugar"
-          autocomplete="off"
-        >
+    const imagenHtml = paso.pictograma
+      ? `<img src="${paso.pictograma.imagen}" alt="Pictograma de ${escaparTexto(paso.pictograma.palabra)}" crossorigin="anonymous">`
+      : `<p class="placeholder-paso">Haz clic aquí y selecciona un pictograma</p>`;
 
-        <button type="button" data-indice="${i}">
-          Buscar
+    tarjeta.innerHTML = `
+      <div class="paso-superior">
+        <span class="numero-paso">Paso ${index + 1}</span>
+        <button class="quitar-paso" type="button" data-accion="quitar" data-index="${index}">
+          Quitar
         </button>
       </div>
 
-      <div
-        id="resultados-paso-${i}"
-        class="resultados-paso"
-        aria-live="polite"
-      ></div>
+      <div class="marco-paso">
+        ${imagenHtml}
+      </div>
+
+      <input
+        class="texto-paso"
+        type="text"
+        value="${escaparTexto(paso.texto)}"
+        placeholder="Texto del paso"
+        data-accion="texto"
+        data-index="${index}"
+      >
     `;
 
-    const botonBuscar = paso.querySelector("button");
-    botonBuscar.addEventListener("click", function(){
-      buscarPictogramasParaPaso(i);
-    });
-
-    const input = paso.querySelector("input");
-    input.addEventListener("keydown", function(evento){
-      if(evento.key === "Enter"){
-        evento.preventDefault();
-        buscarPictogramasParaPaso(i);
+    tarjeta.addEventListener("click", (evento) => {
+      if(evento.target.dataset.accion === "quitar"){
+        quitarPictograma(index);
+        return;
       }
+
+      if(evento.target.dataset.accion === "texto"){
+        pasoActivo = index;
+        renderizarPasos();
+        actualizarEstadoPasoActivo();
+        return;
+      }
+
+      pasoActivo = index;
+      renderizarPasos();
+      actualizarEstadoPasoActivo();
     });
 
-    contenedorPasos.appendChild(paso);
-  }
+    const inputTexto = tarjeta.querySelector(".texto-paso");
+    inputTexto.addEventListener("input", (evento) => {
+      pasos[index].texto = evento.target.value;
+      renderizarPreview();
+    });
 
-  actualizarPreview();
+    pasosLibres.appendChild(tarjeta);
+  });
 }
 
-async function buscarPictogramasParaPaso(indice){
-  const input = document.getElementById(`busqueda-paso-${indice}`);
-  const resultados = document.getElementById(`resultados-paso-${indice}`);
-  const termino = input.value.trim();
+async function buscarPictogramas(evento){
+  evento.preventDefault();
+
+  const termino = buscadorArasaac.value.trim();
 
   if(!termino){
-    resultados.innerHTML = `<p>Escribe una palabra para buscar.</p>`;
+    estadoBusqueda.textContent = "Escribe una palabra para buscar pictogramas.";
+    resultadosArasaac.innerHTML = "";
     return;
   }
 
-  resultados.innerHTML = `<p>Buscando...</p>`;
+  estadoBusqueda.textContent = "Buscando pictogramas en ARASAAC...";
+  resultadosArasaac.innerHTML = "";
 
   try{
     const respuesta = await fetch(API_BUSQUEDA + encodeURIComponent(termino));
 
     if(!respuesta.ok){
-      throw new Error("Error al consultar ARASAAC.");
+      throw new Error("No se pudo consultar ARASAAC.");
     }
 
     const datos = await respuesta.json();
-    const pictogramas = Array.isArray(datos) ? datos.slice(0, 6) : [];
+    const pictogramas = Array.isArray(datos) ? datos.slice(0, 18) : [];
 
     if(pictogramas.length === 0){
-      resultados.innerHTML = `<p>No se encontraron pictogramas.</p>`;
+      estadoBusqueda.textContent = "No se encontraron pictogramas. Prueba con otra palabra.";
       return;
     }
 
-    resultados.innerHTML = "";
-
-    pictogramas.forEach(function(picto){
-      const id = picto._id || picto.id;
-
-      if(!id){
-        return;
-      }
-
-      const palabra = obtenerPalabra(picto);
-      const imagen = `${URL_IMAGEN}${id}/${id}_500.png`;
-
-      const boton = document.createElement("button");
-      boton.className = "opcion-picto";
-      boton.type = "button";
-
-      boton.innerHTML = `
-        <img
-          src="${imagen}"
-          alt="Pictograma de ${escaparTexto(palabra)}"
-          crossorigin="anonymous"
-        >
-        <span>${escaparTexto(palabra)}</span>
-      `;
-
-      boton.addEventListener("click", function(){
-        seleccionarPicto(indice, {
-          id,
-          palabra,
-          imagen
-        });
-      });
-
-      resultados.appendChild(boton);
-    });
+    estadoBusqueda.textContent = `Selecciona un pictograma para colocarlo en el paso ${pasoActivo + 1}.`;
+    renderizarResultados(pictogramas);
   }catch(error){
     console.error(error);
-    resultados.innerHTML = `<p>No se pudo completar la búsqueda.</p>`;
+    estadoBusqueda.textContent = "No se pudo completar la búsqueda. Revisa la conexión e intenta nuevamente.";
   }
 }
 
-function seleccionarPicto(indice, picto){
-  pasosSeleccionados[indice] = picto;
+function renderizarResultados(pictogramas){
+  resultadosArasaac.innerHTML = "";
 
-  const resultados = document.getElementById(`resultados-paso-${indice}`);
-  const botones = resultados.querySelectorAll(".opcion-picto");
+  pictogramas.forEach((picto) => {
+    const id = picto._id || picto.id;
 
-  botones.forEach(function(boton){
-    boton.classList.remove("seleccionado");
-
-    const img = boton.querySelector("img");
-    if(img && img.src === picto.imagen){
-      boton.classList.add("seleccionado");
+    if(!id){
+      return;
     }
-  });
 
-  actualizarPreview();
+    const palabra = obtenerPalabra(picto);
+    const imagen = `${URL_IMAGEN}${id}/${id}_500.png`;
+
+    const boton = document.createElement("button");
+    boton.className = "opcion-picto";
+    boton.type = "button";
+
+    boton.innerHTML = `
+      <img
+        src="${imagen}"
+        alt="Pictograma de ${escaparTexto(palabra)}"
+        crossorigin="anonymous"
+        loading="lazy"
+      >
+      <span>${escaparTexto(palabra)}</span>
+    `;
+
+    boton.addEventListener("click", () => {
+      asignarPictograma({
+        id,
+        palabra,
+        imagen
+      });
+    });
+
+    resultadosArasaac.appendChild(boton);
+  });
 }
 
-function actualizarPreview(){
+function asignarPictograma(pictograma){
+  pasos[pasoActivo].pictograma = pictograma;
+
+  if(!pasos[pasoActivo].texto.trim()){
+    pasos[pasoActivo].texto = pictograma.palabra;
+  }
+
+  if(pasoActivo < pasos.length - 1){
+    pasoActivo++;
+  }
+
+  renderizarPasos();
+  renderizarPreview();
+  actualizarEstadoPasoActivo();
+
+  estadoBusqueda.textContent = `Pictograma agregado. Ahora está seleccionado el paso ${pasoActivo + 1}.`;
+}
+
+function quitarPictograma(index){
+  pasos[index].pictograma = null;
+  pasos[index].texto = "";
+  pasoActivo = index;
+
+  renderizarPasos();
+  renderizarPreview();
+  actualizarEstadoPasoActivo();
+}
+
+function actualizarEstadoPasoActivo(){
+  estadoPasoActivo.textContent = `Paso ${pasoActivo + 1} seleccionado. Busca un pictograma y haz clic sobre el resultado que deseas colocar.`;
+}
+
+function renderizarPreview(){
   rutinaTituloPreview.textContent = tituloRutina.value.trim() || "Mi rutina visual";
   rutinaSecuencia.innerHTML = "";
 
-  pasosSeleccionados.forEach(function(picto, index){
+  pasos.forEach((paso, index) => {
     const item = document.createElement("div");
     item.className = "rutina-item";
 
-    if(picto){
+    if(paso.pictograma){
       item.innerHTML = `
         <img
-          src="${picto.imagen}"
-          alt="Pictograma de ${escaparTexto(picto.palabra)}"
+          src="${paso.pictograma.imagen}"
+          alt="Pictograma de ${escaparTexto(paso.pictograma.palabra)}"
           crossorigin="anonymous"
         >
-        <p>${index + 1}. ${escaparTexto(picto.palabra)}</p>
+        <p>${index + 1}. ${escaparTexto(paso.texto || paso.pictograma.palabra)}</p>
       `;
     }else{
       item.innerHTML = `
         <div style="height:120px;display:flex;align-items:center;justify-content:center;color:#627d98;font-weight:900;">
           Paso ${index + 1}
         </div>
-        <p>Seleccionar pictograma</p>
+        <p>${index + 1}. Pendiente</p>
       `;
     }
 
@@ -191,55 +249,90 @@ function actualizarPreview(){
 }
 
 async function descargarJpg(){
-  const canvas = await crearCanvasRutina();
-  const enlace = document.createElement("a");
-  enlace.download = crearNombreArchivo("rutina-visual", "jpg");
-  enlace.href = canvas.toDataURL("image/jpeg", 0.95);
-  enlace.click();
+  try{
+    await esperarImagenes(rutinaLienzo);
+
+    const canvas = await html2canvas(rutinaLienzo, {
+      backgroundColor:"#ffffff",
+      scale:2,
+      useCORS:true,
+      allowTaint:false
+    });
+
+    const enlace = document.createElement("a");
+    enlace.download = crearNombreArchivo("rutina-visual", "jpg");
+    enlace.href = canvas.toDataURL("image/jpeg", 0.95);
+    enlace.click();
+  }catch(error){
+    console.error(error);
+    alert("No se pudo generar el JPG. Intenta recargar la página y vuelve a descargar.");
+  }
 }
 
 async function descargarPdf(){
-  const canvas = await crearCanvasRutina();
-  const imagen = canvas.toDataURL("image/jpeg", 0.95);
+  try{
+    await esperarImagenes(rutinaLienzo);
 
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF({
-    orientation: "landscape",
-    unit: "mm",
-    format: "a4"
-  });
+    const canvas = await html2canvas(rutinaLienzo, {
+      backgroundColor:"#ffffff",
+      scale:2,
+      useCORS:true,
+      allowTaint:false
+    });
 
-  const anchoPagina = pdf.internal.pageSize.getWidth();
-  const altoPagina = pdf.internal.pageSize.getHeight();
+    const imagen = canvas.toDataURL("image/jpeg", 0.95);
+    const { jsPDF } = window.jspdf;
 
-  const margen = 10;
-  const anchoDisponible = anchoPagina - margen * 2;
-  const altoDisponible = altoPagina - margen * 2;
+    const pdf = new jsPDF({
+      orientation:"landscape",
+      unit:"mm",
+      format:"a4"
+    });
 
-  const ratioCanvas = canvas.width / canvas.height;
-  const ratioPagina = anchoDisponible / altoDisponible;
+    const anchoPagina = pdf.internal.pageSize.getWidth();
+    const altoPagina = pdf.internal.pageSize.getHeight();
 
-  let anchoImagen = anchoDisponible;
-  let altoImagen = anchoDisponible / ratioCanvas;
+    const margen = 10;
+    const anchoDisponible = anchoPagina - margen * 2;
+    const altoDisponible = altoPagina - margen * 2;
 
-  if(ratioCanvas < ratioPagina){
-    altoImagen = altoDisponible;
-    anchoImagen = altoDisponible * ratioCanvas;
+    const ratioCanvas = canvas.width / canvas.height;
+    const ratioDisponible = anchoDisponible / altoDisponible;
+
+    let anchoImagen = anchoDisponible;
+    let altoImagen = anchoDisponible / ratioCanvas;
+
+    if(ratioCanvas < ratioDisponible){
+      altoImagen = altoDisponible;
+      anchoImagen = altoDisponible * ratioCanvas;
+    }
+
+    const x = (anchoPagina - anchoImagen) / 2;
+    const y = (altoPagina - altoImagen) / 2;
+
+    pdf.addImage(imagen, "JPEG", x, y, anchoImagen, altoImagen);
+    pdf.save(crearNombreArchivo("rutina-visual", "pdf"));
+  }catch(error){
+    console.error(error);
+    alert("No se pudo generar el PDF. Intenta recargar la página y vuelve a descargar.");
   }
-
-  const x = (anchoPagina - anchoImagen) / 2;
-  const y = (altoPagina - altoImagen) / 2;
-
-  pdf.addImage(imagen, "JPEG", x, y, anchoImagen, altoImagen);
-  pdf.save(crearNombreArchivo("rutina-visual", "pdf"));
 }
 
-async function crearCanvasRutina(){
-  return await html2canvas(rutinaLienzo, {
-    backgroundColor: "#ffffff",
-    scale: 2,
-    useCORS: true
-  });
+function esperarImagenes(contenedor){
+  const imagenes = Array.from(contenedor.querySelectorAll("img"));
+
+  return Promise.all(
+    imagenes.map((img) => {
+      if(img.complete){
+        return Promise.resolve();
+      }
+
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    })
+  );
 }
 
 function obtenerPalabra(picto){
