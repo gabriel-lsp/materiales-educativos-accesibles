@@ -1,1 +1,840 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Buscador educativo de pictogramas de apoyo procedentes de ARASAAC para materiales accesibles."
+  >
+  <title>Buscador de pictogramas de apoyo</title>
 
+  <style>
+    :root{
+      --azul-900:#082f49;
+      --azul-800:#0b3f5c;
+      --verde-800:#0b4f4a;
+      --verde-700:#0f766e;
+      --verde-100:#e6f4f1;
+      --verde-50:#f0fdfa;
+      --blanco:#ffffff;
+      --gris-900:#102a43;
+      --gris-700:#334e68;
+      --gris-600:#486581;
+      --gris-500:#627d98;
+      --gris-300:#d9e2ec;
+      --gris-100:#f0f4f8;
+      --sombra:0 18px 42px rgba(16,42,67,.16);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f0f4f8 0%,#ffffff 52%,#f7fafc 100%);
+      color:var(--gris-900);
+    }
+
+    a{
+      color:inherit;
+    }
+
+    .salto-contenido{
+      position:absolute;
+      left:-999px;
+      top:12px;
+      background:var(--gris-900);
+      color:var(--blanco);
+      padding:10px 14px;
+      border-radius:10px;
+      z-index:50;
+    }
+
+    .salto-contenido:focus{
+      left:12px;
+    }
+
+    .cabecera{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 84% 70%,rgba(255,255,255,.11) 0 22%,transparent 23%),
+        radial-gradient(circle at 86% 74%,rgba(255,255,255,.08) 0 36%,transparent 37%),
+        linear-gradient(135deg,#0b3550 0%,#0f4f57 48%,#0f766e 100%);
+      color:var(--blanco);
+      padding:30px 18px 145px;
+    }
+
+    .navegacion{
+      max-width:1120px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .marca{
+      display:inline-flex;
+      align-items:center;
+      gap:14px;
+      color:var(--blanco);
+      text-decoration:none;
+      font-weight:900;
+      font-size:1.05rem;
+    }
+
+    .marca-icono{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--blanco);
+      color:#0b3550;
+      font-weight:900;
+      font-size:.9rem;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .enlace-cabecera{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:10px 22px;
+      border:1px solid rgba(255,255,255,.45);
+      border-radius:999px;
+      color:var(--blanco);
+      text-decoration:none;
+      font-weight:800;
+      background:rgba(255,255,255,.08);
+    }
+
+    .enlace-cabecera:hover{
+      background:rgba(255,255,255,.16);
+    }
+
+    .portada{
+      max-width:1120px;
+      margin:70px auto 0;
+    }
+
+    .bloque-institucional{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      margin-bottom:34px;
+    }
+
+    .logo-crebe{
+      width:92px;
+      height:92px;
+      object-fit:contain;
+    }
+
+    .texto-institucional{
+      border-left:2px solid rgba(255,255,255,.35);
+      padding-left:22px;
+    }
+
+    .nombre-institucional{
+      margin:0 0 8px;
+      color:var(--blanco);
+      font-size:1.2rem;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    .detalle-institucional{
+      margin:0;
+      color:rgba(255,255,255,.94);
+      font-size:1rem;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    .etiqueta{
+      margin:0 0 14px;
+      color:#c9f7ee;
+      font-size:.86rem;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .portada h1{
+      max-width:900px;
+      margin:0 0 22px;
+      color:var(--blanco);
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(2.45rem,5.6vw,4.05rem);
+      line-height:1.04;
+      letter-spacing:-.04em;
+    }
+
+    .subtitulo{
+      max-width:890px;
+      margin:0;
+      color:rgba(255,255,255,.96);
+      font-size:1.22rem;
+      line-height:1.65;
+    }
+
+    main{
+      max-width:1120px;
+      margin:-78px auto 0;
+      padding:0 18px 44px;
+      position:relative;
+      z-index:2;
+    }
+
+    .panel-busqueda,
+    .panel-presentacion,
+    .aviso-pedagogico{
+      background:var(--blanco);
+      border:1px solid var(--gris-300);
+      border-radius:26px;
+      box-shadow:var(--sombra);
+    }
+
+    .panel-busqueda{
+      padding:34px 46px 40px;
+    }
+
+    .panel-encabezado{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:30px;
+    }
+
+    .sobretitulo{
+      margin:0 0 12px;
+      color:var(--verde-700);
+      font-size:.86rem;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .panel-encabezado h2,
+    .panel-presentacion h2,
+    .aviso-pedagogico h2{
+      margin:0;
+      color:#072f57;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(1.9rem,3.6vw,2.65rem);
+      line-height:1.1;
+    }
+
+    .contador{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin:4px 0 0;
+      padding:10px 18px;
+      border-radius:999px;
+      background:var(--verde-100);
+      color:var(--verde-700);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .buscador-pictos{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .campo-picto{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      border:1px solid var(--gris-300);
+      border-radius:16px;
+      padding:0 16px;
+      min-height:58px;
+      background:#fbfdff;
+      color:var(--gris-600);
+    }
+
+    .campo-picto input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--gris-900);
+      font-size:1rem;
+    }
+
+    .boton-picto{
+      border:0;
+      cursor:pointer;
+      min-height:58px;
+      padding:12px 24px;
+      border-radius:999px;
+      background:var(--verde-700);
+      color:var(--blanco);
+      font-weight:900;
+      font-family:inherit;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+    }
+
+    .boton-picto:hover{
+      background:var(--verde-800);
+    }
+
+    .ayuda{
+      margin:12px 0 0;
+      color:var(--gris-500);
+      font-size:.94rem;
+      line-height:1.55;
+    }
+
+    .licencia-visible{
+      margin-top:22px;
+      padding:16px 18px;
+      border-radius:20px;
+      background:var(--verde-50);
+      border:1px solid rgba(15,118,110,.18);
+      color:var(--gris-700);
+      line-height:1.65;
+      font-size:.94rem;
+    }
+
+    .licencia-visible strong{
+      color:var(--verde-700);
+    }
+
+    .catalogo{
+      margin-top:28px;
+    }
+
+    .lista-pictogramas{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .tarjeta-picto{
+      background:var(--blanco);
+      border:1px solid var(--gris-300);
+      border-radius:24px;
+      padding:18px;
+      box-shadow:0 10px 24px rgba(16,42,67,.08);
+      display:flex;
+      flex-direction:column;
+      min-height:315px;
+    }
+
+    .marco-picto{
+      background:#fbfdff;
+      border:1px solid var(--gris-300);
+      border-radius:18px;
+      min-height:170px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+      margin-bottom:14px;
+    }
+
+    .marco-picto img{
+      max-width:100%;
+      max-height:150px;
+      object-fit:contain;
+    }
+
+    .tarjeta-picto h3{
+      margin:0 0 6px;
+      color:#072f57;
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .tarjeta-picto p{
+      margin:0;
+      color:var(--gris-600);
+      line-height:1.45;
+      font-size:.9rem;
+    }
+
+    .acciones-picto{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:auto;
+      padding-top:14px;
+    }
+
+    .acciones-picto a,
+    .acciones-picto button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      border:0;
+      cursor:pointer;
+      text-decoration:none;
+      border-radius:999px;
+      padding:10px 12px;
+      font-family:inherit;
+      font-weight:900;
+      font-size:.88rem;
+    }
+
+    .descargar-png{
+      background:var(--verde-700);
+      color:var(--blanco);
+    }
+
+    .descargar-png:hover{
+      background:var(--verde-800);
+    }
+
+    .abrir-original{
+      background:var(--gris-100);
+      color:var(--gris-700);
+    }
+
+    .estado-vacio,
+    .mensaje-error{
+      margin-top:28px;
+      padding:28px;
+      border-radius:24px;
+      text-align:center;
+      background:var(--blanco);
+      border:1px solid var(--gris-300);
+    }
+
+    .estado-vacio h3,
+    .mensaje-error h3{
+      margin:0 0 8px;
+      color:#072f57;
+    }
+
+    .estado-vacio p,
+    .mensaje-error p{
+      margin:0;
+      color:var(--gris-600);
+      line-height:1.6;
+    }
+
+    .seccion-presentacion,
+    .seccion-aviso{
+      margin-top:30px;
+    }
+
+    .panel-presentacion{
+      padding:30px 38px;
+      display:grid;
+      grid-template-columns:.85fr 1.15fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .panel-presentacion p:last-child{
+      margin:0;
+      color:var(--gris-600);
+      font-size:1rem;
+      line-height:1.7;
+    }
+
+    .aviso-pedagogico{
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      padding:24px 30px;
+      background:var(--verde-50);
+    }
+
+    .aviso-icono{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:var(--verde-700);
+      color:var(--blanco);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+      font-weight:900;
+    }
+
+    .aviso-pedagogico h2{
+      font-size:1.45rem;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .aviso-pedagogico p{
+      margin:8px 0 0;
+      color:var(--gris-600);
+      line-height:1.65;
+    }
+
+    footer{
+      background:#082f49;
+      color:var(--blanco);
+      padding:42px 18px 26px;
+    }
+
+    .footer-contenido{
+      max-width:1120px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:28px;
+    }
+
+    .footer-bloque h2{
+      margin:0 0 12px;
+      font-size:1rem;
+      color:var(--blanco);
+    }
+
+    .footer-bloque p{
+      margin:0;
+      color:#d9eaf7;
+      line-height:1.65;
+      font-size:.94rem;
+    }
+
+    .footer-bloque a{
+      color:#d9eaf7;
+      text-decoration:none;
+    }
+
+    .footer-bloque a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-final{
+      max-width:1120px;
+      margin:28px auto 0;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.18);
+    }
+
+    .footer-final p{
+      margin:0;
+      color:#bcccdc;
+      text-align:center;
+      line-height:1.6;
+      font-size:.9rem;
+    }
+
+    [hidden]{
+      display:none !important;
+    }
+
+    @media (max-width:1000px){
+      .lista-pictogramas{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    @media (max-width:850px){
+      .panel-presentacion{
+        grid-template-columns:1fr;
+      }
+
+      .footer-contenido{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .lista-pictogramas{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width:700px){
+      .cabecera{
+        padding:22px 14px 110px;
+      }
+
+      .navegacion{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .marca,
+      .enlace-cabecera{
+        width:100%;
+      }
+
+      .portada{
+        margin-top:44px;
+      }
+
+      .bloque-institucional{
+        align-items:flex-start;
+      }
+
+      .logo-crebe{
+        width:76px;
+        height:76px;
+      }
+
+      .texto-institucional{
+        padding-left:16px;
+      }
+
+      main{
+        margin-top:-60px;
+        padding:0 14px 34px;
+      }
+
+      .panel-busqueda{
+        padding:26px 20px 30px;
+      }
+
+      .panel-encabezado{
+        flex-direction:column;
+      }
+
+      .buscador-pictos{
+        grid-template-columns:1fr;
+      }
+
+      .lista-pictogramas{
+        grid-template-columns:1fr;
+      }
+
+      .panel-presentacion{
+        padding:24px 20px;
+      }
+
+      .aviso-pedagogico{
+        padding:22px 20px;
+      }
+
+      .footer-contenido{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="salto-contenido" href="#contenido-principal">
+    Ir al contenido
+  </a>
+
+  <header class="cabecera">
+    <nav class="navegacion" aria-label="Navegación principal">
+      <a class="marca" href="index.html" aria-label="Inicio">
+        <span class="marca-icono" aria-hidden="true">PIC</span>
+        <span>Banco Digital</span>
+      </a>
+
+      <a class="enlace-cabecera" href="index.html">
+        Volver a materiales
+      </a>
+    </nav>
+
+    <div class="portada">
+      <div class="bloque-institucional" aria-label="Identidad institucional">
+        <img
+          class="logo-crebe"
+          src="logo-crebe.png"
+          alt="Logo del CREBE Señor de los Milagros - Ucayali"
+        >
+        <div class="texto-institucional">
+          <p class="nombre-institucional">
+            CREBE "Señor de los Milagros" - Ucayali
+          </p>
+          <p class="detalle-institucional">
+            Centro de Recursos de Educación Básica Especial
+          </p>
+        </div>
+      </div>
+
+      <p class="etiqueta">Plataforma educativa accesible</p>
+      <h1>Buscador de pictogramas de apoyo</h1>
+      <p class="subtitulo">
+        Consulta educativa de pictogramas procedentes de ARASAAC para apoyar la
+        comunicación, las rutinas visuales y la accesibilidad cognitiva
+      </p>
+    </div>
+  </header>
+
+  <main id="contenido-principal">
+    <section class="panel-busqueda" aria-labelledby="titulo-busqueda">
+      <div class="panel-encabezado">
+        <div>
+          <p class="sobretitulo">Pictogramas y apoyos visuales</p>
+          <h2 id="titulo-busqueda">Busca pictogramas por palabra clave</h2>
+        </div>
+
+        <p id="contador-resultados" class="contador" role="status" aria-live="polite">
+          Esperando búsqueda
+        </p>
+      </div>
+
+      <form id="formulario-pictogramas" class="buscador-pictos">
+        <div class="campo-picto">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+          >
+            <path
+              d="m21 21-4.7-4.7m2.2-5.3a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="2"
+            />
+          </svg>
+
+          <input
+            id="buscador-pictogramas"
+            name="buscador-pictogramas"
+            type="search"
+            placeholder="Ejemplo: comer, baño, esperar, escuela"
+            autocomplete="off"
+          >
+        </div>
+
+        <button class="boton-picto" type="submit">
+          Buscar
+        </button>
+      </form>
+
+      <p class="ayuda">
+        Escribe una palabra en español. La página consultará la base de datos de
+        ARASAAC y mostrará los pictogramas relacionados.
+      </p>
+
+      <div class="licencia-visible">
+        <strong>Procedencia de los pictogramas:</strong>
+        Autor pictogramas: Sergio Palao. Origen: ARASAAC. Licencia: CC BY-NC-SA.
+        Propiedad: Gobierno de Aragón, España. Esta página no es una plataforma
+        oficial de ARASAAC; funciona como buscador educativo de apoyo.
+      </div>
+    </section>
+
+    <section class="catalogo" aria-labelledby="titulo-resultados">
+      <h2 id="titulo-resultados" style="position:absolute;left:-9999px;">
+        Resultados de pictogramas
+      </h2>
+
+      <div id="lista-pictogramas" class="lista-pictogramas"></div>
+
+      <div id="estado-vacio" class="estado-vacio">
+        <h3>Realiza una búsqueda</h3>
+        <p>
+          Puedes iniciar con palabras como "comer", "baño", "ayuda",
+          "escuela" o "esperar".
+        </p>
+      </div>
+
+      <div id="mensaje-error" class="mensaje-error" hidden>
+        <h3>No se pudo completar la búsqueda</h3>
+        <p>
+          Revisa tu conexión o intenta con otra palabra. Si el problema continúa,
+          puede deberse a una interrupción temporal del servicio externo.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="presentacion"
+      class="seccion-presentacion"
+      aria-labelledby="titulo-presentacion"
+    >
+      <div class="panel-presentacion">
+        <div>
+          <p class="sobretitulo">Uso educativo</p>
+          <h2 id="titulo-presentacion">
+            Apoyo visual para comunicación y comprensión
+          </h2>
+        </div>
+        <p>
+          Los pictogramas pueden utilizarse para anticipar actividades, organizar
+          rutinas, apoyar instrucciones, elaborar tableros visuales y favorecer
+          la accesibilidad cognitiva en contextos educativos y familiares.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="aviso-pedagogico"
+      class="seccion-aviso"
+      aria-labelledby="titulo-aviso"
+    >
+      <aside class="aviso-pedagogico">
+        <div class="aviso-icono" aria-hidden="true">i</div>
+        <div>
+          <h2 id="titulo-aviso">Advertencia pedagógica</h2>
+          <p>
+            Este recurso es un apoyo visual. La selección de pictogramas debe
+            considerar la edad, el contexto, el nivel de comprensión y las
+            necesidades comunicativas de cada estudiante.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-contenido">
+      <div class="footer-bloque">
+        <h2>Buscador de pictogramas</h2>
+        <p>
+          Recurso educativo para consultar pictogramas de apoyo procedentes de
+          ARASAAC.
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Enlaces</h2>
+        <p>
+          <a href="index.html">Materiales educativos accesibles</a><br>
+          <a href="#titulo-busqueda">Buscar pictogramas</a><br>
+          <a href="#presentacion">Uso educativo</a><br>
+          <a href="#aviso-pedagogico">Advertencia pedagógica</a>
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Institución</h2>
+        <p>
+          CREBE "Señor de los Milagros" - Ucayali<br>
+          Centro de Recursos de Educación Básica Especial
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Atribución</h2>
+        <p>
+          Autor pictogramas: Sergio Palao. Origen: ARASAAC. Licencia: CC BY-NC-SA.
+          Propiedad: Gobierno de Aragón, España.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-final">
+      <p>
+        © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
+        Bermúdez con apoyo institucional del CREBE "Señor de los Milagros" -
+        Ucayali. Plataforma educativa sin fines de lucro.
+      </p>
+    </div>
+  </footer>
+
+  <script src="pictogramas.js?v=1" defer></script>
+</body>
+</html>
