@@ -25,7 +25,7 @@
     }
 
     .texto-panel-rutinas{
-      max-width:820px;
+      max-width:860px;
       margin:14px 0 0;
       color:#486581;
       line-height:1.65;
@@ -34,7 +34,7 @@
 
     .configuracion-rutina{
       display:grid;
-      grid-template-columns:1fr auto;
+      grid-template-columns:1fr 230px auto;
       gap:14px;
       align-items:end;
       margin-top:24px;
@@ -44,7 +44,8 @@
       background:#fbfdff;
     }
 
-    .campo-configuracion label{
+    .campo-configuracion label,
+    .buscador-arasaac label{
       display:block;
       margin:0 0 8px;
       color:#072f57;
@@ -52,7 +53,8 @@
     }
 
     .campo-configuracion select,
-    .campo-configuracion input{
+    .campo-configuracion input,
+    .buscador-arasaac input{
       width:100%;
       min-height:54px;
       border:1px solid #d9e2ec;
@@ -80,89 +82,192 @@
       background:#0b4f4a;
     }
 
-    .pasos-rutina{
+    .zona-construccion{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:18px;
+      grid-template-columns:1fr .95fr;
+      gap:22px;
       margin-top:24px;
+      align-items:start;
     }
 
-    .paso-rutina{
+    .bloque-editor,
+    .bloque-buscador{
       border:1px solid #d9e2ec;
-      border-radius:22px;
-      padding:18px;
+      border-radius:24px;
       background:#ffffff;
+      padding:22px;
       box-shadow:0 10px 22px rgba(16,42,67,.06);
     }
 
-    .paso-rutina h3{
-      margin:0 0 14px;
+    .bloque-editor h3,
+    .bloque-buscador h3{
+      margin:0 0 10px;
       color:#072f57;
-      font-size:1.08rem;
+      font-size:1.2rem;
     }
 
-    .busqueda-paso{
+    .ayuda-editor{
+      margin:0 0 18px;
+      color:#486581;
+      line-height:1.55;
+      font-size:.95rem;
+    }
+
+    .pasos-libres{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .paso-libre{
+      border:2px solid #d9e2ec;
+      border-radius:20px;
+      background:#fbfdff;
+      padding:14px;
+      cursor:pointer;
+      min-height:230px;
+      display:flex;
+      flex-direction:column;
+      transition:.18s ease;
+    }
+
+    .paso-libre.activo{
+      border-color:#0f766e;
+      box-shadow:0 0 0 4px rgba(15,118,110,.14);
+      background:#f0fdfa;
+    }
+
+    .paso-libre:hover{
+      border-color:#0f766e;
+    }
+
+    .paso-superior{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .numero-paso{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:34px;
+      height:34px;
+      border-radius:999px;
+      background:#e6f4f1;
+      color:#0f766e;
+      font-weight:900;
+      font-size:.9rem;
+    }
+
+    .quitar-paso{
+      border:0;
+      cursor:pointer;
+      background:#fff4d6;
+      color:#8a5a00;
+      border-radius:999px;
+      padding:7px 10px;
+      font-weight:900;
+      font-family:inherit;
+      font-size:.78rem;
+    }
+
+    .marco-paso{
+      min-height:118px;
+      border:1px dashed #bcccdc;
+      border-radius:16px;
+      background:#ffffff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px;
+      margin-bottom:12px;
+    }
+
+    .marco-paso img{
+      width:100%;
+      max-height:108px;
+      object-fit:contain;
+    }
+
+    .placeholder-paso{
+      margin:0;
+      color:#627d98;
+      font-weight:900;
+      text-align:center;
+      line-height:1.4;
+      font-size:.9rem;
+    }
+
+    .texto-paso{
+      width:100%;
+      min-height:42px;
+      border:1px solid #d9e2ec;
+      border-radius:14px;
+      padding:0 10px;
+      font:inherit;
+      color:#102a43;
+      background:#ffffff;
+      margin-top:auto;
+    }
+
+    .buscador-arasaac{
       display:grid;
       grid-template-columns:1fr auto;
       gap:10px;
+      margin-top:16px;
+      align-items:end;
     }
 
-    .busqueda-paso input{
-      min-height:48px;
-      border:1px solid #d9e2ec;
-      border-radius:14px;
-      padding:0 12px;
-      font:inherit;
-    }
-
-    .busqueda-paso button{
-      border:0;
-      cursor:pointer;
-      min-height:48px;
-      padding:10px 16px;
-      border-radius:999px;
-      background:#0f766e;
-      color:#ffffff;
-      font-weight:900;
-      font-family:inherit;
-    }
-
-    .resultados-paso{
+    .resultados-arasaac{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:10px;
-      margin-top:14px;
+      margin-top:18px;
+      max-height:520px;
+      overflow:auto;
+      padding-right:4px;
     }
 
     .opcion-picto{
       border:1px solid #d9e2ec;
       border-radius:16px;
-      padding:8px;
       background:#fbfdff;
+      padding:10px;
       cursor:pointer;
-      text-align:center;
       font-family:inherit;
+      text-align:center;
     }
 
-    .opcion-picto.seleccionado{
+    .opcion-picto:hover{
       border-color:#0f766e;
-      box-shadow:0 0 0 3px rgba(15,118,110,.16);
+      box-shadow:0 0 0 3px rgba(15,118,110,.12);
       background:#f0fdfa;
     }
 
     .opcion-picto img{
       width:100%;
-      height:82px;
+      height:88px;
       object-fit:contain;
       display:block;
-      margin-bottom:6px;
+      margin-bottom:8px;
     }
 
     .opcion-picto span{
       display:block;
       color:#486581;
       font-size:.78rem;
-      font-weight:800;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    .estado-busqueda{
+      margin:14px 0 0;
+      color:#486581;
+      line-height:1.5;
+      font-size:.94rem;
     }
 
     .rutina-preview{
@@ -190,7 +295,7 @@
 
     .rutina-titulo{
       text-align:center;
-      margin:0 0 20px;
+      margin:0 0 22px;
       color:#072f57;
       font-size:2rem;
       font-weight:900;
@@ -225,6 +330,17 @@
       color:#072f57;
       font-weight:900;
       font-size:1rem;
+      line-height:1.3;
+    }
+
+    .rutina-atribucion{
+      margin:22px 0 0;
+      padding-top:14px;
+      border-top:1px solid #d9e2ec;
+      color:#486581;
+      font-size:.82rem;
+      line-height:1.45;
+      text-align:center;
     }
 
     .acciones-descarga{
@@ -254,8 +370,12 @@
       display:none !important;
     }
 
-    @media (max-width:900px){
-      .pasos-rutina{
+    @media (max-width:1000px){
+      .configuracion-rutina{
+        grid-template-columns:1fr;
+      }
+
+      .zona-construccion{
         grid-template-columns:1fr;
       }
 
@@ -269,15 +389,15 @@
         padding:26px 20px 30px;
       }
 
-      .configuracion-rutina{
+      .pasos-libres{
         grid-template-columns:1fr;
       }
 
-      .busqueda-paso{
+      .buscador-arasaac{
         grid-template-columns:1fr;
       }
 
-      .resultados-paso{
+      .resultados-arasaac{
         grid-template-columns:repeat(2,1fr);
       }
 
@@ -333,8 +453,8 @@
       <p class="etiqueta">Plataforma educativa accesible</p>
       <h1>Generador de rutinas visuales</h1>
       <p class="subtitulo">
-        Organiza secuencias de actividades con pictogramas procedentes de
-        ARASAAC y descarga la rutina como PDF o JPG
+        Selecciona pictogramas procedentes de ARASAAC, ordénalos en una
+        secuencia y descarga la rutina en JPG o PDF
       </p>
     </div>
   </header>
@@ -343,11 +463,11 @@
     <section class="panel-rutinas" aria-labelledby="titulo-rutinas">
       <div class="panel-encabezado">
         <p class="sobretitulo">Rutinas y secuencias visuales</p>
-        <h2 id="titulo-rutinas">Crea una rutina paso a paso</h2>
+        <h2 id="titulo-rutinas">Construye una rutina libremente</h2>
         <p class="texto-panel-rutinas">
-          Elige la cantidad de pasos, busca un pictograma para cada actividad y
-          arma una secuencia visual. Luego podrás descargarla en JPG o PDF para
-          imprimirla o compartirla como material de apoyo.
+          Primero elige la cantidad de pasos. Luego selecciona un espacio de la
+          secuencia, busca un pictograma y asígnalo al paso que corresponda.
+          Puedes cambiar el texto visible antes de descargar el material.
         </p>
       </div>
 
@@ -363,7 +483,7 @@
         </div>
 
         <div class="campo-configuracion">
-          <label for="cantidad-pasos">Cantidad de secuencias</label>
+          <label for="cantidad-pasos">Cantidad de pasos</label>
           <select id="cantidad-pasos">
             <option value="2">2 pasos</option>
             <option value="3">3 pasos</option>
@@ -372,15 +492,57 @@
             <option value="6">6 pasos</option>
             <option value="7">7 pasos</option>
             <option value="8">8 pasos</option>
+            <option value="9">9 pasos</option>
+            <option value="10">10 pasos</option>
           </select>
         </div>
 
         <button id="crear-pasos" class="boton-rutina" type="button">
-          Crear secuencia
+          Crear espacios
         </button>
       </div>
 
-      <div id="pasos-rutina" class="pasos-rutina"></div>
+      <div class="zona-construccion">
+        <div class="bloque-editor">
+          <h3>Secuencia de la rutina</h3>
+          <p id="estado-paso-activo" class="ayuda-editor">
+            Paso 1 seleccionado. Busca un pictograma y haz clic sobre el resultado
+            que deseas colocar.
+          </p>
+
+          <div id="pasos-libres" class="pasos-libres"></div>
+        </div>
+
+        <div class="bloque-buscador">
+          <h3>Buscar pictogramas</h3>
+          <p class="ayuda-editor">
+            Busca una palabra y selecciona el pictograma que quieres colocar en
+            el paso activo.
+          </p>
+
+          <form id="formulario-arasaac" class="buscador-arasaac">
+            <div>
+              <label for="buscador-arasaac">Palabra clave</label>
+              <input
+                id="buscador-arasaac"
+                type="search"
+                placeholder="Ejemplo: comer, baño, esperar"
+                autocomplete="off"
+              >
+            </div>
+
+            <button class="boton-rutina" type="submit">
+              Buscar
+            </button>
+          </form>
+
+          <p id="estado-busqueda" class="estado-busqueda">
+            Esperando búsqueda.
+          </p>
+
+          <div id="resultados-arasaac" class="resultados-arasaac"></div>
+        </div>
+      </div>
 
       <div class="licencia-rutina">
         <strong>Procedencia de los pictogramas:</strong>
@@ -400,6 +562,12 @@
         </h3>
 
         <div id="rutina-secuencia" class="rutina-secuencia"></div>
+
+        <p class="rutina-atribucion">
+          Pictogramas procedentes de ARASAAC. Autor: Sergio Palao.
+          Propiedad: Gobierno de Aragón, España. Licencia: Creative Commons
+          BY-NC-SA. Material educativo sin fines de lucro.
+        </p>
       </div>
 
       <div class="acciones-descarga">
@@ -472,7 +640,7 @@
     <div class="footer-final">
       <p>
         © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
-        Berrospi con apoyo institucional del CREBE "Señor de los Milagros" -
+        Bermúdez con apoyo institucional del CREBE "Señor de los Milagros" -
         Ucayali. Plataforma educativa sin fines de lucro.
       </p>
     </div>
@@ -486,6 +654,6 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
     defer
   ></script>
-  <script src="rutinas.js?v=1" defer></script>
+  <script src="rutinas.js?v=2" defer></script>
 </body>
 </html>
