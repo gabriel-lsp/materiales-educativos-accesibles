@@ -5,305 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta
     name="description"
-    content="Materiales Educativos Accesibles: repositorio digital de recursos pedagógicos para la inclusión educativa."
+    content="Materiales Educativos Accesibles: repositorio digital de recursos pedagógicos para la inclusión, la accesibilidad y la atención a la diversidad."
   >
   <title>Materiales Educativos Accesibles</title>
+  <link rel="stylesheet" href="estilos.css?v=6">
 
   <style>
-    :root{
-      --azul-900:#102a43;
-      --azul-800:#183b56;
-      --azul-700:#243b53;
-      --azul-600:#334e68;
-      --azul-500:#486581;
-      --azul-100:#d9eaf7;
-      --verde-700:#0f766e;
-      --verde-800:#0b4f4a;
-      --verde-100:#e6f4f1;
-      --arena-100:#f7f4ee;
-      --blanco:#ffffff;
-      --gris:#627d98;
-      --borde:#d9e2ec;
-      --sombra:0 18px 40px rgba(16,42,67,.14);
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:linear-gradient(180deg,#f3f7fb 0%,#ffffff 48%,#f7f4ee 100%);
-      color:var(--azul-900);
-    }
-
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    .salto-contenido{
-      position:absolute;
-      left:-999px;
-      top:12px;
-      background:var(--azul-900);
-      color:var(--blanco);
-      padding:10px 14px;
-      border-radius:10px;
-      z-index:20;
-    }
-
-    .salto-contenido:focus{
-      left:12px;
-    }
-
-    .cabecera{
-      background:
-        radial-gradient(circle at top left,rgba(255,255,255,.18),transparent 32%),
-        linear-gradient(135deg,var(--azul-900),var(--azul-700));
-      color:var(--blanco);
-      padding:22px 18px 86px;
-    }
-
-    .navegacion{
-      max-width:1120px;
-      margin:0 auto;
+    .acciones-panel{
       display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-    }
-
-    .marca{
-      display:inline-flex;
-      align-items:center;
+      flex-direction:column;
+      align-items:flex-end;
       gap:10px;
-      font-weight:800;
-      letter-spacing:.01em;
     }
 
-    .marca-icono{
-      width:46px;
-      height:46px;
-      border-radius:16px;
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
-      background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.24);
-      font-size:.9rem;
-      font-weight:900;
-    }
-
-    .enlace-cabecera{
-      padding:10px 16px;
-      border-radius:999px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.22);
-      color:var(--blanco);
-      font-weight:800;
-      font-size:.92rem;
-    }
-
-    .enlace-cabecera:hover{
-      background:rgba(255,255,255,.18);
-    }
-
-    .portada{
-      max-width:1120px;
-      margin:44px auto 0;
-      text-align:center;
-    }
-
-    .bloque-institucional{
-      width:min(680px,100%);
-      margin:0 auto 28px;
-      padding:14px 18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.25);
+    .botones-panel{
       display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      backdrop-filter:blur(6px);
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:10px;
     }
 
-    .logo-crebe{
-      width:76px;
-      height:76px;
-      object-fit:contain;
-      border-radius:18px;
-      background:var(--blanco);
-      padding:7px;
-      box-shadow:0 10px 24px rgba(0,0,0,.18);
-    }
-
-    .texto-institucional{
-      text-align:left;
-    }
-
-    .nombre-institucional{
-      margin:0 0 4px;
-      font-weight:900;
-      line-height:1.25;
-    }
-
-    .detalle-institucional{
-      margin:0;
-      color:#d9eaf7;
-      line-height:1.35;
-      font-size:.95rem;
-    }
-
-    .etiqueta{
+    .boton-material{
       display:inline-block;
-      margin:0 0 12px;
-      padding:8px 14px;
+      text-decoration:none;
+      background:#0f766e;
+      color:#ffffff;
+      padding:11px 22px;
       border-radius:999px;
-      background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.22);
-      color:#d9eaf7;
-      font-size:.78rem;
-      font-weight:900;
-      letter-spacing:.07em;
-      text-transform:uppercase;
-    }
-
-    .portada h1{
-      max-width:850px;
-      margin:0 auto 14px;
-      font-size:clamp(2.2rem,5vw,4rem);
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-
-    .subtitulo{
-      max-width:760px;
-      margin:0 auto;
-      color:#d9eaf7;
-      font-size:1.12rem;
-      line-height:1.65;
-    }
-
-    main{
-      max-width:1120px;
-      margin:-52px auto 0;
-      padding:0 18px 42px;
-    }
-
-    .panel-principal{
-      background:var(--blanco);
-      border-radius:28px;
-      padding:28px;
-      box-shadow:var(--sombra);
-      border:1px solid rgba(217,226,236,.85);
-    }
-
-    .panel-encabezado{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:20px;
-      margin-bottom:24px;
-    }
-
-    .sobretitulo{
-      margin:0 0 8px;
-      color:var(--verde-700);
-      font-size:.78rem;
-      font-weight:900;
-      letter-spacing:.07em;
-      text-transform:uppercase;
-    }
-
-    .panel-encabezado h2,
-    .panel-presentacion h2,
-    .aviso-pedagogico h2{
-      margin:0;
-      color:var(--azul-900);
-      line-height:1.2;
-    }
-
-    .panel-encabezado p:last-child{
-      margin:8px 0 0;
-      color:var(--azul-500);
-      line-height:1.6;
-      max-width:680px;
-    }
-
-    .estado-version{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 14px;
-      border-radius:999px;
-      background:var(--verde-100);
-      color:var(--verde-700);
-      font-weight:900;
-      font-size:.85rem;
+      font-weight:800;
       white-space:nowrap;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
     }
 
-    .grid-recursos{
+    .boton-material:hover{
+      background:#0b4f4a;
+      color:#ffffff;
+    }
+
+    .grid-materiales{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:18px;
+      margin-top:28px;
     }
 
-    .tarjeta-recurso{
-      background:#fbfdff;
-      border:1px solid var(--borde);
+    .tarjeta-material{
+      background:#ffffff;
+      border:1px solid #d9e2ec;
       border-radius:24px;
       padding:22px;
-      min-height:270px;
+      min-height:245px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      transition:.2s ease;
+      box-shadow:0 10px 22px rgba(16,42,67,.06);
     }
 
-    .tarjeta-recurso.disponible{
-      background:linear-gradient(180deg,#ffffff 0%,#f2fbf8 100%);
+    .tarjeta-material.disponible{
+      background:linear-gradient(180deg,#ffffff 0%,#eef9f6 100%);
       border-color:rgba(15,118,110,.35);
     }
 
-    .tarjeta-recurso.disponible:hover{
-      transform:translateY(-3px);
-      box-shadow:0 16px 32px rgba(16,42,67,.12);
-    }
-
-    .recurso-icono{
-      width:58px;
-      height:58px;
-      border-radius:20px;
+    .material-icono{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      background:#e6f4f1;
+      color:#0f766e;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:var(--azul-100);
-      color:var(--azul-800);
       font-weight:900;
-      margin-bottom:16px;
       font-size:1rem;
+      margin-bottom:16px;
     }
 
-    .tarjeta-recurso.disponible .recurso-icono{
-      background:var(--verde-100);
-      color:var(--verde-700);
-      font-size:1.45rem;
-    }
-
-    .tarjeta-recurso h3{
+    .tarjeta-material h3{
       margin:0 0 10px;
-      color:var(--azul-900);
-      font-size:1.16rem;
+      color:#0b2f4a;
+      font-size:1.15rem;
       line-height:1.25;
     }
 
-    .tarjeta-recurso p{
+    .tarjeta-material p{
       margin:0;
-      color:var(--azul-500);
+      color:#486581;
       line-height:1.58;
       font-size:.96rem;
     }
@@ -311,214 +97,80 @@
     .tarjeta-pie{
       margin-top:22px;
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:12px;
+      align-items:center;
+      gap:10px;
       flex-wrap:wrap;
     }
 
-    .estado{
-      display:inline-flex;
-      align-items:center;
+    .estado-material{
+      display:inline-block;
       padding:8px 12px;
       border-radius:999px;
-      font-size:.8rem;
-      font-weight:900;
+      font-size:.82rem;
+      font-weight:800;
     }
 
-    .estado.disponible{
-      background:var(--verde-100);
-      color:var(--verde-700);
+    .estado-material.disponible{
+      background:#d9f2ec;
+      color:#0f766e;
     }
 
-    .estado.construccion{
+    .estado-material.construccion{
       background:#fff4d6;
       color:#8a5a00;
     }
 
-    .boton-recurso{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 16px;
+    .enlace-material{
+      display:inline-block;
+      text-decoration:none;
+      background:#0f766e;
+      color:#ffffff;
+      padding:9px 16px;
       border-radius:999px;
-      background:var(--verde-700);
-      color:var(--blanco);
-      font-weight:900;
-      font-size:.88rem;
-      box-shadow:0 8px 18px rgba(15,118,110,.20);
-    }
-
-    .boton-recurso:hover{
-      background:var(--verde-800);
-    }
-
-    .seccion-presentacion,
-    .seccion-aviso{
-      margin-top:26px;
-    }
-
-    .panel-presentacion{
-      background:var(--blanco);
-      border:1px solid var(--borde);
-      border-radius:24px;
-      padding:24px;
-      box-shadow:0 12px 28px rgba(16,42,67,.08);
-      display:grid;
-      grid-template-columns:.9fr 1.1fr;
-      gap:20px;
-      align-items:center;
-    }
-
-    .panel-presentacion p:last-child{
-      margin:0;
-      color:var(--azul-500);
-      line-height:1.65;
-    }
-
-    .aviso-pedagogico{
-      background:var(--verde-100);
-      border:1px solid rgba(15,118,110,.18);
-      border-radius:24px;
-      padding:22px;
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-    }
-
-    .aviso-icono{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      background:var(--verde-700);
-      color:var(--blanco);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-      flex:0 0 auto;
-    }
-
-    .aviso-pedagogico p{
-      margin:8px 0 0;
-      color:var(--azul-500);
-      line-height:1.6;
-    }
-
-    footer{
-      background:var(--azul-900);
-      color:#d9eaf7;
-      padding:34px 18px 22px;
-      margin-top:46px;
-    }
-
-    .footer-contenido{
-      max-width:1120px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:22px;
-    }
-
-    .footer-bloque h2{
-      margin:0 0 10px;
-      color:var(--blanco);
-      font-size:1rem;
-    }
-
-    .footer-bloque p{
-      margin:0;
-      line-height:1.6;
-      color:#bcccdc;
-      font-size:.94rem;
-    }
-
-    .footer-bloque a{
-      color:#d9eaf7;
-      text-decoration:underline;
-      text-underline-offset:3px;
-    }
-
-    .footer-final{
-      max-width:1120px;
-      margin:24px auto 0;
-      padding-top:18px;
-      border-top:1px solid rgba(255,255,255,.12);
-      text-align:center;
-      color:#bcccdc;
+      font-weight:800;
       font-size:.9rem;
-      line-height:1.55;
     }
 
-    .footer-final p{
-      margin:0;
+    .enlace-material:hover{
+      background:#0b4f4a;
+      color:#ffffff;
     }
 
     @media (max-width:900px){
-      .grid-recursos{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .panel-presentacion{
-        grid-template-columns:1fr;
-      }
-
-      .footer-contenido{
+      .grid-materiales{
         grid-template-columns:repeat(2,1fr);
       }
     }
 
-    @media (max-width:680px){
-      .cabecera{
-        padding:18px 14px 78px;
+    @media (max-width:700px){
+      .acciones-panel{
+        align-items:flex-start;
+        width:100%;
       }
 
-      .navegacion{
-        align-items:flex-start;
+      .botones-panel{
+        width:100%;
         flex-direction:column;
       }
 
-      .enlace-cabecera{
+      .boton-material{
         width:100%;
         text-align:center;
       }
 
-      .bloque-institucional{
-        flex-direction:column;
-        text-align:center;
-      }
-
-      .texto-institucional{
-        text-align:center;
-      }
-
-      main{
-        padding:0 14px 34px;
-      }
-
-      .panel-principal{
-        padding:22px;
-      }
-
-      .panel-encabezado{
-        flex-direction:column;
-      }
-
-      .grid-recursos{
-        grid-template-columns:1fr;
-      }
-
-      .footer-contenido{
+      .grid-materiales{
         grid-template-columns:1fr;
       }
 
       .tarjeta-pie{
-        align-items:stretch;
         flex-direction:column;
+        align-items:flex-start;
       }
 
-      .boton-recurso{
+      .enlace-material{
         width:100%;
+        text-align:center;
       }
     }
   </style>
@@ -535,10 +187,7 @@
         <span class="marca-icono" aria-hidden="true">MEA</span>
         <span>Banco Digital</span>
       </a>
-
-      <a class="enlace-cabecera" href="#recursos">
-        Ver materiales
-      </a>
+      <a class="enlace-cabecera" href="#presentacion">Acerca del recurso</a>
     </nav>
 
     <div class="portada">
@@ -562,31 +211,38 @@
       <h1>Materiales Educativos Accesibles</h1>
       <p class="subtitulo">
         Repositorio digital de recursos pedagógicos para apoyar la inclusión,
-        la accesibilidad y la atención a la diversidad.
+        la accesibilidad y la atención a la diversidad
       </p>
     </div>
   </header>
 
   <main id="contenido-principal">
-    <section class="panel-principal" id="recursos" aria-labelledby="titulo-recursos">
+
+    <section class="panel-busqueda" aria-labelledby="titulo-catalogo">
       <div class="panel-encabezado">
         <div>
-          <p class="sobretitulo">Acceso a recursos</p>
-          <h2 id="titulo-recursos">Materiales disponibles y próximos recursos</h2>
-          <p>
-            Esta página organiza los recursos accesibles en un solo espacio.
-            En esta primera versión, el generador Braille queda disponible y
-            las demás tarjetas permanecen como secciones provisionales.
-          </p>
+          <p class="sobretitulo">Banco de recursos</p>
+          <h2 id="titulo-catalogo">Explora materiales educativos accesibles</h2>
         </div>
 
-        <span class="estado-version">Versión inicial</span>
+        <div class="acciones-panel">
+          <div class="botones-panel">
+            <a href="generador.html" class="boton-material">
+              Generador Braille
+            </a>
+          </div>
+
+          <p class="contador" role="status" aria-live="polite">
+            1 recurso disponible
+          </p>
+        </div>
       </div>
 
-      <div class="grid-recursos">
-        <article class="tarjeta-recurso disponible">
+      <div class="grid-materiales">
+
+        <article class="tarjeta-material disponible">
           <div>
-            <div class="recurso-icono" aria-hidden="true">⠿</div>
+            <div class="material-icono" aria-hidden="true">⠿</div>
             <h3>Generador Braille</h3>
             <p>
               Herramienta para escribir letras, números, palabras o frases y
@@ -595,76 +251,74 @@
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado disponible">Disponible</span>
-            <a class="boton-recurso" href="generador-braille.html">
-              Ingresar
-            </a>
+            <span class="estado-material disponible">Disponible</span>
+            <a class="enlace-material" href="generador.html">Ingresar</a>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">PDF</div>
+            <div class="material-icono" aria-hidden="true">PDF</div>
             <h3>Fichas educativas accesibles</h3>
             <p>
               Espacio previsto para fichas imprimibles con lectura clara,
-              buena organización visual y criterios básicos de accesibilidad.
+              contraste adecuado y organización visual accesible.
             </p>
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">LSP</div>
+            <div class="material-icono" aria-hidden="true">LSP</div>
             <h3>Apoyos en Lengua de Señas Peruana</h3>
             <p>
-              Sección destinada a recursos visuales complementarios para la
-              comunicación accesible y el apoyo pedagógico.
+              Sección proyectada para recursos visuales de apoyo a la
+              comunicación accesible y al trabajo pedagógico.
             </p>
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">Aa</div>
+            <div class="material-icono" aria-hidden="true">Aa</div>
             <h3>Lectura fácil</h3>
             <p>
-              Apartado proyectado para textos adaptados con lenguaje claro,
+              Apartado destinado a textos adaptados con lenguaje claro,
               estructura sencilla y apoyos visuales.
             </p>
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">◐</div>
+            <div class="material-icono" aria-hidden="true">◐</div>
             <h3>Alto contraste</h3>
             <p>
-              Recursos pensados para mejorar la visibilidad mediante contraste,
+              Recursos orientados a mejorar la visibilidad mediante contraste,
               tamaño de letra y distribución limpia del contenido.
             </p>
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">PIC</div>
+            <div class="material-icono" aria-hidden="true">PIC</div>
             <h3>Pictogramas y apoyos visuales</h3>
             <p>
               Espacio reservado para rutinas, secuencias, tableros y apoyos
@@ -673,13 +327,13 @@
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">DOC</div>
+            <div class="material-icono" aria-hidden="true">DOC</div>
             <h3>Guías para docentes</h3>
             <p>
               Sección futura para orientaciones sobre adaptación de materiales,
@@ -688,13 +342,13 @@
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">FAM</div>
+            <div class="material-icono" aria-hidden="true">FAM</div>
             <h3>Guías para familias</h3>
             <p>
               Apartado proyectado para orientaciones breves, actividades de
@@ -703,13 +357,13 @@
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
 
-        <article class="tarjeta-recurso">
+        <article class="tarjeta-material">
           <div>
-            <div class="recurso-icono" aria-hidden="true">PL</div>
+            <div class="material-icono" aria-hidden="true">PL</div>
             <h3>Plantillas adaptadas</h3>
             <p>
               Espacio previsto para modelos editables de actividades, registros,
@@ -718,9 +372,10 @@
           </div>
 
           <div class="tarjeta-pie">
-            <span class="estado construccion">En construcción</span>
+            <span class="estado-material construccion">En construcción</span>
           </div>
         </article>
+
       </div>
     </section>
 
@@ -737,10 +392,9 @@
           </h2>
         </div>
         <p>
-          Esta página permite reunir recursos que antes podían quedar separados
-          en distintos repositorios. La intención es que docentes, familias y
-          estudiantes encuentren una ruta clara para acceder a materiales de
-          apoyo pedagógico.
+          Esta página permite reunir recursos educativos accesibles en un solo
+          espacio. Su finalidad es facilitar el acceso a materiales de apoyo para
+          docentes, familias y estudiantes.
         </p>
       </div>
     </section>
@@ -753,7 +407,7 @@
       <aside class="aviso-pedagogico">
         <div class="aviso-icono" aria-hidden="true">i</div>
         <div>
-          <h2 id="titulo-aviso">Aviso pedagógico</h2>
+          <h2 id="titulo-aviso">Advertencia pedagógica</h2>
           <p>
             Los recursos digitales funcionan como apoyo educativo. En el caso
             del Braille, la representación visual no reemplaza el aprendizaje
@@ -778,9 +432,9 @@
         <h2>Enlaces</h2>
         <p>
           <a href="index.html">Inicio</a><br>
-          <a href="#recursos">Materiales</a><br>
-          <a href="generador-braille.html">Generador Braille</a><br>
-          <a href="#aviso-pedagogico">Aviso pedagógico</a>
+          <a href="generador.html">Generador Braille</a><br>
+          <a href="#presentacion">Conoce el recurso</a><br>
+          <a href="#aviso-pedagogico">Advertencia pedagógica</a>
         </p>
       </div>
 
@@ -795,8 +449,8 @@
       <div class="footer-bloque">
         <h2>Accesibilidad</h2>
         <p>
-          Contenido organizado con estructura clara, tarjetas de acceso y
-          navegación compatible con teclado.
+          Contenido organizado para una consulta visual clara y compatible con
+          navegación por teclado.
         </p>
       </div>
     </div>
