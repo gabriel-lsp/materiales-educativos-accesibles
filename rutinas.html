@@ -569,6 +569,59 @@
   border-color:#0f766e;
   box-shadow:0 8px 18px rgba(15,118,110,.18);
 }
+      .acciones-paso{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:0 0 12px;
+}
+
+.acciones-paso button{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  outline:0;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:8px 14px;
+  border-radius:999px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:.82rem;
+  font-weight:900;
+  line-height:1;
+}
+
+.acciones-paso .cambiar-paso{
+  background:#e6f4f1;
+  color:#0f766e;
+  border:1px solid rgba(15,118,110,.18);
+}
+
+.acciones-paso .cambiar-paso:hover{
+  background:#d9f2ec;
+  color:#0b4f4a;
+}
+
+.acciones-paso .quitar-paso{
+  background:#fff4d6;
+  color:#8a5a00;
+  border:1px solid rgba(138,90,0,.14);
+}
+
+.acciones-paso .quitar-paso:hover{
+  background:#ffe8a3;
+}
+
+.paso-libre.activo .acciones-paso .cambiar-paso{
+  background:#0f766e;
+  color:#ffffff;
+  border-color:#0f766e;
+  box-shadow:0 8px 18px rgba(15,118,110,.18);
+}
   </style>
 </head>
 
