@@ -1,1 +1,660 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Materiales Educativos Accesibles</title>
+  <meta
+    name="description"
+    content="Repositorio digital de materiales educativos accesibles para el apoyo pedagógico, la inclusión y la atención a la diversidad."
+  >
 
+  <style>
+    :root{
+      --azul:#0f5f8f;
+      --azul-oscuro:#0b3f61;
+      --celeste:#e8f4fb;
+      --verde:#1f8f72;
+      --gris:#52616b;
+      --gris-claro:#f5f7fa;
+      --borde:#d9e3ec;
+      --texto:#1f2933;
+      --blanco:#ffffff;
+      --sombra:0 14px 34px rgba(31,41,51,.10);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f4f9fc 0%,#ffffff 45%,#f7fafc 100%);
+      color:var(--texto);
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .pagina{
+      max-width:1160px;
+      margin:0 auto;
+      padding:28px 18px 42px;
+    }
+
+    .barra-superior{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      margin-bottom:28px;
+      flex-wrap:wrap;
+    }
+
+    .marca{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo{
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--azul),#35a6d9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--blanco);
+      font-weight:800;
+      font-size:1.05rem;
+      box-shadow:0 10px 24px rgba(15,95,143,.22);
+    }
+
+    .marca-texto h1{
+      margin:0;
+      font-size:1.15rem;
+      color:var(--azul-oscuro);
+      line-height:1.2;
+    }
+
+    .marca-texto p{
+      margin:3px 0 0;
+      color:var(--gris);
+      font-size:.9rem;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      padding:10px 15px;
+      border:1px solid var(--borde);
+      border-radius:999px;
+      background:var(--blanco);
+      color:var(--azul-oscuro);
+      font-weight:700;
+      font-size:.92rem;
+      transition:.2s ease;
+    }
+
+    .nav a:hover{
+      border-color:var(--azul);
+      transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(15,95,143,.12);
+    }
+
+    .hero{
+      background:var(--blanco);
+      border-radius:28px;
+      padding:46px 30px;
+      box-shadow:var(--sombra);
+      border:1px solid rgba(217,227,236,.85);
+      text-align:center;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      background:rgba(53,166,217,.11);
+      top:-130px;
+      right:-90px;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:rgba(31,143,114,.10);
+      bottom:-120px;
+      left:-80px;
+    }
+
+    .hero-contenido{
+      position:relative;
+      z-index:1;
+    }
+
+    .etiqueta{
+      display:inline-block;
+      margin-bottom:12px;
+      padding:8px 14px;
+      background:var(--celeste);
+      color:var(--azul);
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .hero h2{
+      margin:0 auto 16px;
+      max-width:820px;
+      color:var(--azul-oscuro);
+      font-size:clamp(2rem,4vw,3.1rem);
+      line-height:1.08;
+    }
+
+    .hero p{
+      max-width:820px;
+      margin:0 auto;
+      color:var(--gris);
+      font-size:1.06rem;
+      line-height:1.65;
+    }
+
+    .acciones{
+      margin-top:28px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .boton{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:.2s ease;
+    }
+
+    .boton-principal{
+      background:var(--azul);
+      color:var(--blanco);
+      box-shadow:0 12px 24px rgba(15,95,143,.22);
+    }
+
+    .boton-principal:hover{
+      background:var(--azul-oscuro);
+      transform:translateY(-1px);
+    }
+
+    .boton-secundario{
+      background:var(--blanco);
+      color:var(--azul-oscuro);
+      border-color:var(--borde);
+    }
+
+    .boton-secundario:hover{
+      border-color:var(--azul);
+      transform:translateY(-1px);
+    }
+
+    .seccion{
+      margin-top:38px;
+    }
+
+    .encabezado-seccion{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:18px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+
+    .encabezado-seccion h2{
+      margin:0;
+      color:var(--azul-oscuro);
+      font-size:1.55rem;
+    }
+
+    .encabezado-seccion p{
+      margin:6px 0 0;
+      color:var(--gris);
+      line-height:1.55;
+      max-width:760px;
+    }
+
+    .estado-general{
+      padding:9px 14px;
+      border-radius:999px;
+      background:#eef8f4;
+      color:#176b56;
+      font-weight:800;
+      font-size:.88rem;
+      border:1px solid #c8eadf;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .tarjeta{
+      background:var(--blanco);
+      border:1px solid var(--borde);
+      border-radius:22px;
+      padding:22px;
+      min-height:245px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 10px 26px rgba(31,41,51,.06);
+      transition:.2s ease;
+    }
+
+    .tarjeta.disponible:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--sombra);
+      border-color:rgba(15,95,143,.45);
+    }
+
+    .icono{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      background:var(--celeste);
+      color:var(--azul);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+      font-weight:900;
+      margin-bottom:16px;
+    }
+
+    .tarjeta.disponible .icono{
+      background:#e8f7f1;
+      color:var(--verde);
+    }
+
+    .tarjeta h3{
+      margin:0 0 10px;
+      color:var(--azul-oscuro);
+      font-size:1.18rem;
+    }
+
+    .tarjeta p{
+      margin:0;
+      color:var(--gris);
+      line-height:1.58;
+      font-size:.96rem;
+    }
+
+    .tarjeta-pie{
+      margin-top:22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .estado{
+      display:inline-flex;
+      align-items:center;
+      min-height:34px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+    }
+
+    .estado.disponible{
+      background:#e8f7f1;
+      color:#176b56;
+    }
+
+    .estado.construccion{
+      background:#fff7e6;
+      color:#8a5a00;
+    }
+
+    .acceso{
+      padding:9px 13px;
+      border-radius:999px;
+      background:var(--azul);
+      color:var(--blanco);
+      font-weight:800;
+      font-size:.86rem;
+    }
+
+    .acceso:hover{
+      background:var(--azul-oscuro);
+    }
+
+    .bloque-info{
+      margin-top:36px;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+    }
+
+    .panel{
+      background:var(--blanco);
+      border:1px solid var(--borde);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 10px 26px rgba(31,41,51,.06);
+    }
+
+    .panel h2{
+      margin:0 0 10px;
+      color:var(--azul-oscuro);
+      font-size:1.35rem;
+    }
+
+    .panel p{
+      margin:0;
+      color:var(--gris);
+      line-height:1.62;
+    }
+
+    .panel ul{
+      margin:12px 0 0;
+      padding-left:20px;
+      color:var(--gris);
+      line-height:1.65;
+    }
+
+    .pie{
+      margin-top:38px;
+      padding-top:22px;
+      border-top:1px solid var(--borde);
+      color:var(--gris);
+      font-size:.92rem;
+      text-align:center;
+      line-height:1.55;
+    }
+
+    @media (max-width:900px){
+      .grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .bloque-info{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:620px){
+      .pagina{
+        padding:20px 14px 34px;
+      }
+
+      .hero{
+        padding:36px 20px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .barra-superior{
+        align-items:flex-start;
+      }
+
+      .nav{
+        width:100%;
+      }
+
+      .nav a{
+        width:100%;
+        text-align:center;
+      }
+
+      .acciones{
+        flex-direction:column;
+      }
+
+      .boton{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="pagina">
+
+    <header class="barra-superior">
+      <div class="marca">
+        <div class="logo">MEA</div>
+        <div class="marca-texto">
+          <h1>Materiales educativos accesibles</h1>
+          <p>CREBE "Señor de los Milagros" - Ucayali</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#">Inicio</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#proposito">Propósito</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-contenido">
+        <span class="etiqueta">Repositorio educativo accesible</span>
+        <h2>Materiales digitales para apoyar la inclusión y la atención a la diversidad</h2>
+        <p>
+          Este espacio reunirá recursos pedagógicos accesibles para docentes, familias y estudiantes.
+          Por ahora, se encuentra disponible el generador Braille. Las demás secciones se irán habilitando
+          progresivamente según su revisión y organización.
+        </p>
+
+        <div class="acciones">
+          <a class="boton boton-principal" href="generador-braille.html">
+            Usar generador Braille
+          </a>
+          <a class="boton boton-secundario" href="#recursos">
+            Ver recursos disponibles
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion" id="recursos">
+      <div class="encabezado-seccion">
+        <div>
+          <h2>Recursos educativos</h2>
+          <p>
+            Las tarjetas muestran los materiales previstos para esta plataforma. Solo el generador Braille
+            se encuentra activo en esta primera versión.
+          </p>
+        </div>
+        <span class="estado-general">Versión inicial</span>
+      </div>
+
+      <div class="grid">
+
+        <article class="tarjeta disponible">
+          <div>
+            <div class="icono">⠿</div>
+            <h3>Generador Braille</h3>
+            <p>
+              Recurso interactivo para escribir letras, palabras o frases y obtener su representación
+              en sistema Braille. Puede utilizarse como apoyo visual y material de práctica.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado disponible">Disponible</span>
+            <a class="acceso" href="generador-braille.html">Ingresar</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">PDF</div>
+            <h3>Fichas educativas accesibles</h3>
+            <p>
+              Espacio previsto para fichas imprimibles con criterios de accesibilidad, lectura clara,
+              contraste adecuado y organización visual amigable.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">LSP</div>
+            <h3>Apoyos en Lengua de Señas Peruana</h3>
+            <p>
+              Sección proyectada para materiales de orientación, vocabulario básico y apoyos visuales
+              vinculados a la comunicación accesible.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">Aa</div>
+            <h3>Lectura fácil</h3>
+            <p>
+              Apartado destinado a textos adaptados con lenguaje claro, estructura sencilla y apoyos
+              visuales para facilitar la comprensión.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">◐</div>
+            <h3>Alto contraste</h3>
+            <p>
+              Recursos pensados para mejorar la visibilidad mediante combinaciones de color, tamaño de letra
+              y organización del contenido.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">PIC</div>
+            <h3>Pictogramas y apoyos visuales</h3>
+            <p>
+              Espacio reservado para tableros, secuencias, rutinas y recursos visuales de apoyo a la
+              comunicación y la autonomía.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">DOC</div>
+            <h3>Guías para docentes</h3>
+            <p>
+              Sección futura para orientaciones breves sobre adaptación de materiales, accesibilidad
+              pedagógica y uso de recursos inclusivos.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">FAM</div>
+            <h3>Guías para familias</h3>
+            <p>
+              Apartado proyectado para materiales de acompañamiento familiar, actividades sencillas
+              y orientaciones de apoyo en casa.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <div>
+            <div class="icono">PL</div>
+            <h3>Plantillas adaptadas</h3>
+            <p>
+              Espacio previsto para modelos editables de actividades, registros, tarjetas y recursos
+              de uso pedagógico.
+            </p>
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estado construccion">En construcción</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="bloque-info" id="proposito">
+      <div class="panel">
+        <h2>Propósito de la página</h2>
+        <p>
+          Esta página funcionará como un punto de acceso a materiales educativos accesibles. Su finalidad
+          es organizar recursos útiles para la atención a la diversidad, evitando que cada herramienta quede
+          aislada en repositorios diferentes sin una ruta clara de consulta.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Estado actual</h2>
+        <ul>
+          <li>Generador Braille: disponible.</li>
+          <li>Fichas educativas accesibles: en construcción.</li>
+          <li>Lectura fácil, alto contraste y pictogramas: en construcción.</li>
+          <li>Guías para docentes y familias: en construcción.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="pie">
+      © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel Bermúdez
+      con apoyo institucional del CREBE "Señor de los Milagros" - Ucayali.
+    </footer>
+
+  </main>
+</body>
+</html>
