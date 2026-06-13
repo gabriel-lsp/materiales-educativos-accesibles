@@ -79,7 +79,7 @@ function renderizarPasos(){
           data-accion="cambiar"
           data-index="${index}"
         >
-          Usar este paso
+          Usar paso
         </button>
 
         <button
