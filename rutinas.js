@@ -34,15 +34,16 @@ function crearEspacios(){
   const total = Number(cantidadPasos.value);
 
   pasos = Array.from({ length: total }, (_, index) => {
-    const anterior = pasos[index];
-
-    return anterior || {
+    return pasos[index] || {
       texto: "",
       pictograma: null
     };
   });
 
-  pasoActivo = 0;
+  if(pasoActivo >= pasos.length){
+    pasoActivo = pasos.length - 1;
+  }
+
   renderizarPasos();
   renderizarPreview();
   actualizarEstadoPasoActivo();
@@ -57,14 +58,37 @@ function renderizarPasos(){
     tarjeta.dataset.index = index;
 
     const imagenHtml = paso.pictograma
-      ? `<img src="${paso.pictograma.imagen}" alt="Pictograma de ${escaparTexto(paso.pictograma.palabra)}" crossorigin="anonymous">`
-      : `<p class="placeholder-paso">Haz clic aquí y selecciona un pictograma</p>`;
+      ? `
+        <img
+          src="${paso.pictograma.imagen}"
+          alt="Pictograma de ${escaparTexto(paso.pictograma.palabra)}"
+          crossorigin="anonymous"
+        >
+      `
+      : `<p class="placeholder-paso">Selecciona este paso y busca un pictograma</p>`;
 
     tarjeta.innerHTML = `
       <div class="paso-superior">
         <span class="numero-paso">Paso ${index + 1}</span>
-        <button class="quitar-paso" type="button" data-accion="quitar" data-index="${index}">
-          Quitar
+      </div>
+
+      <div class="acciones-paso">
+        <button
+          class="cambiar-paso"
+          type="button"
+          data-accion="cambiar"
+          data-index="${index}"
+        >
+          Seleccionar este paso
+        </button>
+
+        <button
+          class="quitar-paso"
+          type="button"
+          data-accion="quitar"
+          data-index="${index}"
+        >
+          Quitar pictograma
         </button>
       </div>
 
@@ -83,21 +107,21 @@ function renderizarPasos(){
     `;
 
     tarjeta.addEventListener("click", (evento) => {
-      if(evento.target.dataset.accion === "quitar"){
+      const accion = evento.target.dataset.accion;
+
+      if(accion === "quitar"){
         quitarPictograma(index);
         return;
       }
 
-      if(evento.target.dataset.accion === "texto"){
+      if(accion === "texto"){
         pasoActivo = index;
-        renderizarPasos();
-        actualizarEstadoPasoActivo();
+        marcarPasoActivo();
         return;
       }
 
       pasoActivo = index;
-      renderizarPasos();
-      actualizarEstadoPasoActivo();
+      marcarPasoActivo();
     });
 
     const inputTexto = tarjeta.querySelector(".texto-paso");
@@ -108,6 +132,13 @@ function renderizarPasos(){
 
     pasosLibres.appendChild(tarjeta);
   });
+}
+
+function marcarPasoActivo(){
+  renderizarPasos();
+  actualizarEstadoPasoActivo();
+
+  estadoBusqueda.textContent = `Paso ${pasoActivo + 1} seleccionado. Puedes buscar un pictograma nuevo o reemplazar el actual.`;
 }
 
 async function buscarPictogramas(evento){
@@ -193,15 +224,36 @@ function asignarPictograma(pictograma){
     pasos[pasoActivo].texto = pictograma.palabra;
   }
 
-  if(pasoActivo < pasos.length - 1){
-    pasoActivo++;
-  }
-
   renderizarPasos();
   renderizarPreview();
-  actualizarEstadoPasoActivo();
 
-  estadoBusqueda.textContent = `Pictograma agregado. Ahora está seleccionado el paso ${pasoActivo + 1}.`;
+  const siguienteVacio = buscarSiguientePasoVacio(pasoActivo);
+
+  if(siguienteVacio !== -1){
+    pasoActivo = siguienteVacio;
+    renderizarPasos();
+    actualizarEstadoPasoActivo();
+    estadoBusqueda.textContent = `Pictograma agregado. Ahora está seleccionado el paso ${pasoActivo + 1}.`;
+  }else{
+    actualizarEstadoPasoActivo();
+    estadoBusqueda.textContent = "Pictograma agregado. Ya completaste todos los pasos disponibles. Puedes seleccionar cualquier paso para cambiarlo.";
+  }
+}
+
+function buscarSiguientePasoVacio(desde){
+  for(let i = desde + 1; i < pasos.length; i++){
+    if(!pasos[i].pictograma){
+      return i;
+    }
+  }
+
+  for(let i = 0; i < pasos.length; i++){
+    if(!pasos[i].pictograma){
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 function quitarPictograma(index){
@@ -212,10 +264,12 @@ function quitarPictograma(index){
   renderizarPasos();
   renderizarPreview();
   actualizarEstadoPasoActivo();
+
+  estadoBusqueda.textContent = `Se quitó el pictograma del paso ${index + 1}. Busca otro pictograma para reemplazarlo.`;
 }
 
 function actualizarEstadoPasoActivo(){
-  estadoPasoActivo.textContent = `Paso ${pasoActivo + 1} seleccionado. Busca un pictograma y haz clic sobre el resultado que deseas colocar.`;
+  estadoPasoActivo.textContent = `Paso ${pasoActivo + 1} seleccionado. Puedes buscar un pictograma, reemplazar el actual o quitar la selección.`;
 }
 
 function renderizarPreview(){
@@ -228,19 +282,25 @@ function renderizarPreview(){
 
     if(paso.pictograma){
       item.innerHTML = `
+        <div class="rutina-numero">${index + 1}</div>
+
         <img
           src="${paso.pictograma.imagen}"
           alt="Pictograma de ${escaparTexto(paso.pictograma.palabra)}"
           crossorigin="anonymous"
         >
-        <p>${index + 1}. ${escaparTexto(paso.texto || paso.pictograma.palabra)}</p>
+
+        <p>${escaparTexto(paso.texto || paso.pictograma.palabra)}</p>
       `;
     }else{
       item.innerHTML = `
-        <div style="height:120px;display:flex;align-items:center;justify-content:center;color:#627d98;font-weight:900;">
-          Paso ${index + 1}
+        <div class="rutina-numero">${index + 1}</div>
+
+        <div class="rutina-pendiente">
+          Pendiente
         </div>
-        <p>${index + 1}. Pendiente</p>
+
+        <p>Seleccionar pictograma</p>
       `;
     }
 
@@ -256,7 +316,11 @@ async function descargarJpg(){
       backgroundColor:"#ffffff",
       scale:2,
       useCORS:true,
-      allowTaint:false
+      allowTaint:false,
+      scrollX:0,
+      scrollY:0,
+      windowWidth:document.documentElement.scrollWidth,
+      windowHeight:document.documentElement.scrollHeight
     });
 
     const enlace = document.createElement("a");
@@ -277,14 +341,18 @@ async function descargarPdf(){
       backgroundColor:"#ffffff",
       scale:2,
       useCORS:true,
-      allowTaint:false
+      allowTaint:false,
+      scrollX:0,
+      scrollY:0,
+      windowWidth:document.documentElement.scrollWidth,
+      windowHeight:document.documentElement.scrollHeight
     });
 
     const imagen = canvas.toDataURL("image/jpeg", 0.95);
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
-      orientation:"landscape",
+      orientation:"portrait",
       unit:"mm",
       format:"a4"
     });
@@ -296,21 +364,39 @@ async function descargarPdf(){
     const anchoDisponible = anchoPagina - margen * 2;
     const altoDisponible = altoPagina - margen * 2;
 
-    const ratioCanvas = canvas.width / canvas.height;
-    const ratioDisponible = anchoDisponible / altoDisponible;
+    const altoImagenTotal = (canvas.height * anchoDisponible) / canvas.width;
 
-    let anchoImagen = anchoDisponible;
-    let altoImagen = anchoDisponible / ratioCanvas;
+    let posicionY = margen;
+    let altoRestante = altoImagenTotal;
 
-    if(ratioCanvas < ratioDisponible){
-      altoImagen = altoDisponible;
-      anchoImagen = altoDisponible * ratioCanvas;
+    pdf.addImage(
+      imagen,
+      "JPEG",
+      margen,
+      posicionY,
+      anchoDisponible,
+      altoImagenTotal
+    );
+
+    altoRestante -= altoDisponible;
+
+    while(altoRestante > 0){
+      pdf.addPage();
+
+      posicionY = margen - (altoImagenTotal - altoRestante);
+
+      pdf.addImage(
+        imagen,
+        "JPEG",
+        margen,
+        posicionY,
+        anchoDisponible,
+        altoImagenTotal
+      );
+
+      altoRestante -= altoDisponible;
     }
 
-    const x = (anchoPagina - anchoImagen) / 2;
-    const y = (altoPagina - altoImagen) / 2;
-
-    pdf.addImage(imagen, "JPEG", x, y, anchoImagen, altoImagen);
     pdf.save(crearNombreArchivo("rutina-visual", "pdf"));
   }catch(error){
     console.error(error);
