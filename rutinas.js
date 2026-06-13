@@ -74,7 +74,7 @@ function renderizarPasos(){
 
       <div class="acciones-paso">
         <button
-          class="cambiar-paso"
+          class="boton-paso cambiar-paso"
           type="button"
           data-accion="cambiar"
           data-index="${index}"
