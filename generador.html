@@ -7,179 +7,65 @@
     name="description"
     content="Generador de palabras en Braille para crear recursos educativos descargables en PDF."
   >
-  <title>Generador Braille</title>
+  <title>Generador de palabras en Braille</title>
+  <link rel="stylesheet" href="estilos.css?v=12">
 
   <style>
-    :root{
-      --verde:#0f766e;
-      --verde-oscuro:#0b4f4a;
-      --azul-oscuro:#102a43;
-      --texto:#1f2933;
-      --texto-suave:#486581;
-      --fondo:#f4f7fb;
-      --blanco:#ffffff;
-      --borde:#d9e4ec;
-      --celeste:#eef8ff;
-      --menta:#f5fbfa;
-      --sombra:0 12px 30px rgba(31,41,51,.10);
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:var(--fondo);
-      color:var(--texto);
-      line-height:1.6;
-    }
-
-    .cabecera{
-      background:linear-gradient(135deg,#0b3f4a,#0f766e);
-      color:#ffffff;
-      padding:26px 18px 42px;
-    }
-
-    .cabecera-contenido{
-      max-width:1100px;
-      margin:0 auto;
-    }
-
-    .navegacion{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:30px;
-    }
-
-    .marca{
-      color:#ffffff;
-      text-decoration:none;
-      font-weight:800;
-      font-size:1.05rem;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .marca-icono{
-      width:38px;
-      height:38px;
-      border-radius:12px;
-      background:rgba(255,255,255,.15);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:.75rem;
-      letter-spacing:.04em;
-    }
-
-    .menu-superior{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .menu-superior a{
-      color:#ffffff;
-      text-decoration:none;
-      border:1px solid rgba(255,255,255,.45);
-      padding:9px 14px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:.92rem;
-    }
-
-    .menu-superior a:hover{
+    .panel-braille{
       background:#ffffff;
-      color:var(--verde-oscuro);
-    }
-
-    .etiqueta{
-      margin:0 0 8px;
-      font-size:.82rem;
-      font-weight:800;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      color:#d6fff8;
-    }
-
-    h1{
-      margin:0 0 10px;
-      font-size:clamp(2rem,4vw,3.2rem);
-      line-height:1.1;
-    }
-
-    .subtitulo{
-      margin:0;
-      max-width:760px;
-      color:#e6fffb;
-      font-size:1.05rem;
-    }
-
-    main{
-      max-width:1100px;
-      margin:-26px auto 40px;
-      padding:0 18px;
-    }
-
-    .panel-generador{
-      background:var(--blanco);
+      border:1px solid #d9e2ec;
       border-radius:26px;
-      box-shadow:var(--sombra);
-      border:1px solid var(--borde);
-      padding:28px;
+      box-shadow:0 18px 42px rgba(16,42,67,.16);
+      padding:34px 46px 40px;
+    }
+
+    .panel-braille .panel-encabezado{
+      display:block;
+      margin-bottom:28px;
+    }
+
+    .texto-panel-braille{
+      max-width:860px;
+      margin:14px 0 0;
+      color:#486581;
+      line-height:1.65;
+      font-size:1rem;
+    }
+
+    .contenedor-generador{
       display:grid;
       grid-template-columns:1fr 320px;
       gap:28px;
+      align-items:start;
+      margin-top:26px;
     }
 
-    .sobretitulo{
-      margin:0 0 6px;
-      color:var(--verde);
-      font-size:.78rem;
-      font-weight:800;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-
-    h2{
-      margin:0 0 10px;
-      color:var(--azul-oscuro);
-      font-size:2rem;
-      line-height:1.2;
-    }
-
-    .descripcion{
-      margin:0 0 20px;
-      color:var(--texto-suave);
-      max-width:720px;
+    .bloque-generador{
+      min-width:0;
     }
 
     .etiqueta-campo{
       display:block;
-      font-weight:800;
-      color:var(--azul-oscuro);
-      margin-bottom:8px;
+      margin:0 0 8px;
+      color:#072f57;
+      font-weight:900;
     }
 
     .entrada{
       width:100%;
-      border:1px solid #bcccdc;
+      min-height:54px;
+      border:1px solid #d9e2ec;
       border-radius:16px;
-      padding:14px 16px;
-      font-size:1rem;
-      color:var(--azul-oscuro);
+      padding:0 16px;
+      font:inherit;
+      color:#102a43;
+      background:#ffffff;
       outline:none;
     }
 
     .entrada:focus{
-      border-color:var(--verde);
-      box-shadow:0 0 0 3px rgba(15,118,110,.16);
+      border-color:#0f766e;
+      box-shadow:0 0 0 4px rgba(15,118,110,.14);
     }
 
     .acciones{
@@ -192,45 +78,47 @@
     .boton,
     .boton-secundario,
     .boton-descarga{
-      border:none;
+      border:0;
       cursor:pointer;
+      min-height:52px;
       border-radius:999px;
-      font-weight:800;
+      font-weight:900;
+      font-family:inherit;
       font-size:.96rem;
-      padding:12px 20px;
+      padding:12px 22px;
     }
 
     .boton{
-      background:var(--verde);
+      background:#0f766e;
       color:#ffffff;
       box-shadow:0 8px 18px rgba(0,0,0,.12);
     }
 
     .boton:hover{
-      background:var(--verde-oscuro);
+      background:#0b4f4a;
     }
 
     .boton-secundario{
       background:#ffffff;
-      color:var(--verde);
-      border:1px solid var(--verde);
+      color:#0f766e;
+      border:1px solid #0f766e;
     }
 
     .boton-secundario:hover{
-      background:#e8f5f4;
+      background:#e6f4f1;
     }
 
     .vista-previa{
       border:1px solid #c6e4df;
-      background:var(--menta);
-      border-radius:20px;
-      padding:20px;
+      background:#f0fdfa;
+      border-radius:22px;
+      padding:22px;
     }
 
     .vista-previa h3{
       margin:0 0 18px;
       text-align:center;
-      color:var(--azul-oscuro);
+      color:#072f57;
       font-size:1.5rem;
       letter-spacing:.08em;
       word-break:break-word;
@@ -252,7 +140,7 @@
       width:56px;
       height:82px;
       background:#ffffff;
-      border:1px solid var(--borde);
+      border:1px solid #d9e2ec;
       border-radius:12px;
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -272,7 +160,7 @@
     }
 
     .punto-braille.activo{
-      background:var(--verde-oscuro);
+      background:#0b4f4a;
     }
 
     .p1{grid-column:1;grid-row:1;}
@@ -285,19 +173,19 @@
     .letra-base{
       display:block;
       margin-top:8px;
-      font-weight:800;
-      color:var(--azul-oscuro);
+      font-weight:900;
+      color:#072f57;
     }
 
     .mensaje-inicial{
       margin:auto;
-      color:var(--texto-suave);
+      color:#486581;
       text-align:center;
     }
 
     .sugerencia{
       margin:16px 0 0;
-      background:var(--celeste);
+      background:#eef8ff;
       border:1px solid #b6dcff;
       color:#174a7c;
       padding:12px 14px;
@@ -305,7 +193,7 @@
     }
 
     .panel-descarga{
-      background:var(--menta);
+      background:#f0fdfa;
       border:1px solid #c6e4df;
       border-radius:22px;
       padding:22px;
@@ -313,25 +201,28 @@
     }
 
     .panel-descarga h2{
+      margin:0 0 10px;
+      color:#072f57;
       font-size:1.35rem;
-      margin-bottom:10px;
+      line-height:1.2;
     }
 
     .panel-descarga p{
-      color:var(--texto-suave);
+      color:#486581;
       margin-top:0;
+      line-height:1.55;
     }
 
     .boton-descarga{
       width:100%;
       margin:12px 0;
       background:#ffffff;
-      color:var(--verde);
-      border:2px solid var(--verde);
+      color:#0f766e;
+      border:2px solid #0f766e;
     }
 
     .boton-descarga:hover{
-      background:var(--verde);
+      background:#0f766e;
       color:#ffffff;
     }
 
@@ -341,18 +232,17 @@
     }
 
     .bloque-uso{
-      max-width:1100px;
-      margin:20px auto 0;
+      margin-top:22px;
       padding:18px 22px;
       background:#ffffff;
       border-radius:20px;
-      border:1px solid var(--borde);
-      color:var(--texto-suave);
+      border:1px solid #d9e2ec;
+      color:#486581;
       box-shadow:0 8px 20px rgba(31,41,51,.06);
     }
 
     .bloque-uso strong{
-      color:var(--azul-oscuro);
+      color:#072f57;
     }
 
     .volver{
@@ -363,26 +253,19 @@
     .volver a{
       display:inline-block;
       text-decoration:none;
-      background:var(--verde);
+      background:#0f766e;
       color:#ffffff;
       padding:11px 22px;
       border-radius:999px;
-      font-weight:800;
+      font-weight:900;
     }
 
     .volver a:hover{
-      background:var(--verde-oscuro);
-    }
-
-    footer{
-      text-align:center;
-      color:var(--texto-suave);
-      font-size:.92rem;
-      padding:10px 18px 32px;
+      background:#0b4f4a;
     }
 
     @media (max-width:850px){
-      .panel-generador{
+      .contenedor-generador{
         grid-template-columns:1fr;
       }
 
@@ -391,13 +274,9 @@
       }
     }
 
-    @media (max-width:600px){
-      .panel-generador{
-        padding:22px 16px;
-      }
-
-      h2{
-        font-size:1.6rem;
+    @media (max-width:700px){
+      .panel-braille{
+        padding:26px 18px 32px;
       }
 
       .acciones{
@@ -408,34 +287,45 @@
       .boton-secundario{
         width:100%;
       }
-
-      .menu-superior{
-        width:100%;
-      }
-
-      .menu-superior a{
-        width:100%;
-        text-align:center;
-      }
     }
   </style>
 </head>
 
 <body>
+  <a class="salto-contenido" href="#contenido-principal">
+    Ir al contenido
+  </a>
+
   <header class="cabecera">
-    <div class="cabecera-contenido">
-      <nav class="navegacion" aria-label="Navegación principal">
-        <a class="marca" href="index.html" aria-label="Volver a materiales">
-          <span class="marca-icono" aria-hidden="true">MEA</span>
-          <span>Materiales educativos accesibles</span>
-        </a>
+    <nav class="navegacion" aria-label="Navegación principal">
+      <a class="marca" href="index.html" aria-label="Inicio">
+        <span class="marca-icono" aria-hidden="true">MEA</span>
+        <span>Materiales Educativos Accesibles</span>
+      </a>
 
-        <div class="menu-superior">
-          <a href="index.html">Volver a materiales</a>
+      <a class="enlace-cabecera" href="index.html">
+        Volver a materiales
+      </a>
+    </nav>
+
+    <div class="portada">
+      <div class="bloque-institucional" aria-label="Identidad institucional">
+        <img
+          class="logo-crebe"
+          src="logo-crebe.png"
+          alt="Logo del CREBE Señor de los Milagros - Ucayali"
+        >
+        <div class="texto-institucional">
+          <p class="nombre-institucional">
+            CREBE "Señor de los Milagros" - Ucayali
+          </p>
+          <p class="detalle-institucional">
+            Centro de Recursos de Educación Básica Especial
+          </p>
         </div>
-      </nav>
+      </div>
 
-      <p class="etiqueta">Recurso interactivo</p>
+      <p class="etiqueta">Plataforma educativa accesible</p>
       <h1>Generador de palabras en Braille</h1>
       <p class="subtitulo">
         Escribe una palabra, tu nombre o una frase corta para visualizar su
@@ -444,76 +334,80 @@
     </div>
   </header>
 
-  <main>
-    <section class="panel-generador" aria-labelledby="titulo-generador">
-      <div>
+  <main id="contenido-principal">
+    <section class="panel-braille" aria-labelledby="titulo-generador">
+      <div class="panel-encabezado">
         <p class="sobretitulo">Escribe y descarga en Braille</p>
         <h2 id="titulo-generador">Genera tu recurso personalizado</h2>
-        <p class="descripcion">
+        <p class="texto-panel-braille">
           Este espacio permite convertir letras, números y algunas palabras
           cortas en una representación visual del sistema Braille. El resultado
           puede descargarse como PDF para actividades educativas.
         </p>
-
-        <label class="etiqueta-campo" for="entrada-braille">
-          Escribe una palabra o frase
-        </label>
-
-        <input
-          id="entrada-braille"
-          class="entrada"
-          type="text"
-          maxlength="40"
-          placeholder="Ejemplo: Gabriel, Ana, casa"
-          autocomplete="off"
-        >
-
-        <div class="acciones">
-          <button id="generar-braille" class="boton" type="button">
-            Generar en Braille
-          </button>
-
-          <button id="limpiar-braille" class="boton-secundario" type="button">
-            Limpiar
-          </button>
-        </div>
-
-        <div id="recurso-braille" class="vista-previa" aria-live="polite">
-          <p class="sobretitulo">Vista previa</p>
-
-          <h3 id="texto-generado-braille">
-            Tu palabra aparecerá aquí
-          </h3>
-
-          <div id="resultado-braille" class="resultado">
-            <p class="mensaje-inicial">
-              Ingresa una palabra para generar su representación en Braille.
-            </p>
-          </div>
-        </div>
-
-        <p class="sugerencia">
-          Sugerencia: este recurso puede utilizarse para practicar nombres,
-          palabras cotidianas y actividades personalizadas.
-        </p>
       </div>
 
-      <aside class="panel-descarga" aria-labelledby="titulo-descarga">
-        <h2 id="titulo-descarga">Descargar recurso</h2>
-        <p>
-          Genera una ficha sencilla con la palabra escrita y su representación
-          visual en Braille.
-        </p>
+      <div class="contenedor-generador">
+        <div class="bloque-generador">
+          <label class="etiqueta-campo" for="entrada-braille">
+            Escribe una palabra o frase
+          </label>
 
-        <button id="descargar-pdf-braille" class="boton-descarga" type="button">
-          Descargar en PDF
-        </button>
+          <input
+            id="entrada-braille"
+            class="entrada"
+            type="text"
+            maxlength="40"
+            placeholder="Ejemplo: Gabriel, Ana, casa"
+            autocomplete="off"
+          >
 
-        <p class="nota">
-          El archivo se descarga como material de apoyo para imprimir, compartir
-          o usar en sesiones educativas.
-        </p>
-      </aside>
+          <div class="acciones">
+            <button id="generar-braille" class="boton" type="button">
+              Generar en Braille
+            </button>
+
+            <button id="limpiar-braille" class="boton-secundario" type="button">
+              Limpiar
+            </button>
+          </div>
+
+          <div id="recurso-braille" class="vista-previa" aria-live="polite">
+            <p class="sobretitulo">Vista previa</p>
+
+            <h3 id="texto-generado-braille">
+              Tu palabra aparecerá aquí
+            </h3>
+
+            <div id="resultado-braille" class="resultado">
+              <p class="mensaje-inicial">
+                Ingresa una palabra para generar su representación en Braille.
+              </p>
+            </div>
+          </div>
+
+          <p class="sugerencia">
+            Sugerencia: este recurso puede utilizarse para practicar nombres,
+            palabras cotidianas y actividades personalizadas.
+          </p>
+        </div>
+
+        <aside class="panel-descarga" aria-labelledby="titulo-descarga">
+          <h2 id="titulo-descarga">Descargar recurso</h2>
+          <p>
+            Genera una ficha sencilla con la palabra escrita y su representación
+            visual en Braille.
+          </p>
+
+          <button id="descargar-pdf-braille" class="boton-descarga" type="button">
+            Descargar en PDF
+          </button>
+
+          <p class="nota">
+            El archivo se descarga como material de apoyo para imprimir, compartir
+            o usar en sesiones educativas.
+          </p>
+        </aside>
+      </div>
     </section>
 
     <section class="bloque-uso">
@@ -530,10 +424,47 @@
   </main>
 
   <footer>
-    <p>
-      © 2026 Banco Digital del Sistema Braille. Plataforma educativa sin fines
-      de lucro.
-    </p>
+    <div class="footer-contenido">
+      <div class="footer-bloque">
+        <h2>Generador de palabras en Braille</h2>
+        <p>
+          Recurso educativo para crear palabras, nombres o frases cortas con
+          representación visual del sistema Braille.
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Enlaces</h2>
+        <p>
+          <a href="index.html">Materiales educativos accesibles</a><br>
+          <a href="#titulo-generador">Crear recurso Braille</a>
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Institución</h2>
+        <p>
+          CREBE "Señor de los Milagros" - Ucayali<br>
+          Centro de Recursos de Educación Básica Especial
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Uso pedagógico</h2>
+        <p>
+          Material de apoyo visual para la práctica inicial del sistema Braille
+          en actividades educativas accesibles.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-final">
+      <p>
+        © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
+        Berrospi con apoyo institucional del CREBE "Señor de los Milagros" -
+        Ucayali. Plataforma educativa sin fines de lucro.
+      </p>
+    </div>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -706,7 +637,7 @@
 
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(11);
-        pdf.text("Banco Digital del Sistema Braille", 20, 30);
+        pdf.text("Materiales Educativos Accesibles", 20, 30);
 
         const anchoPagina = 170;
         const altoImagen = canvas.height * anchoPagina / canvas.width;
