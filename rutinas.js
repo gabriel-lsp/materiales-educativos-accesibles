@@ -336,20 +336,6 @@ async function descargarJpg(){
 
 async function descargarPdf(){
   try{
-    await esperarImagenes(rutinaLienzo);
-
-    const canvas = await html2canvas(rutinaLienzo, {
-      backgroundColor:"#ffffff",
-      scale:2,
-      useCORS:true,
-      allowTaint:false,
-      scrollX:0,
-      scrollY:0,
-      windowWidth:document.documentElement.scrollWidth,
-      windowHeight:document.documentElement.scrollHeight
-    });
-
-    const imagen = canvas.toDataURL("image/jpeg", 0.95);
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
@@ -358,38 +344,51 @@ async function descargarPdf(){
       format:"a4"
     });
 
-    const anchoPagina = pdf.internal.pageSize.getWidth();
-    const altoPagina = pdf.internal.pageSize.getHeight();
+    const pasosPorPagina = 4;
+    const grupos = [];
 
-    const margen = 10;
-    const anchoDisponible = anchoPagina - margen * 2;
-    const altoDisponible = altoPagina - margen * 2;
-
-    const proporcionCanvas = canvas.width / canvas.height;
-    const proporcionPagina = anchoDisponible / altoDisponible;
-
-    let anchoImagen;
-    let altoImagen;
-
-    if(proporcionCanvas > proporcionPagina){
-      anchoImagen = anchoDisponible;
-      altoImagen = anchoImagen / proporcionCanvas;
-    }else{
-      altoImagen = altoDisponible;
-      anchoImagen = altoImagen * proporcionCanvas;
+    for(let i = 0; i < pasos.length; i += pasosPorPagina){
+      grupos.push(pasos.slice(i, i + pasosPorPagina));
     }
 
-    const posicionX = (anchoPagina - anchoImagen) / 2;
-    const posicionY = (altoPagina - altoImagen) / 2;
+    for(let indiceGrupo = 0; indiceGrupo < grupos.length; indiceGrupo++){
+      const paginaTemporal = crearPaginaRutinaPdf(grupos[indiceGrupo], indiceGrupo, grupos.length);
 
-    pdf.addImage(
-      imagen,
-      "JPEG",
-      posicionX,
-      posicionY,
-      anchoImagen,
-      altoImagen
-    );
+      document.body.appendChild(paginaTemporal);
+
+      await esperarImagenes(paginaTemporal);
+
+      const canvas = await html2canvas(paginaTemporal, {
+        backgroundColor:"#ffffff",
+        scale:2,
+        useCORS:true,
+        allowTaint:false,
+        scrollX:0,
+        scrollY:0,
+        windowWidth:document.documentElement.scrollWidth,
+        windowHeight:document.documentElement.scrollHeight
+      });
+
+      document.body.removeChild(paginaTemporal);
+
+      const imagen = canvas.toDataURL("image/jpeg", 0.95);
+
+      if(indiceGrupo > 0){
+        pdf.addPage();
+      }
+
+      const anchoPagina = pdf.internal.pageSize.getWidth();
+      const altoPagina = pdf.internal.pageSize.getHeight();
+
+      pdf.addImage(
+        imagen,
+        "JPEG",
+        0,
+        0,
+        anchoPagina,
+        altoPagina
+      );
+    }
 
     pdf.save(crearNombreArchivo("rutina-visual", "pdf"));
   }catch(error){
@@ -398,6 +397,134 @@ async function descargarPdf(){
   }
 }
 
+function crearPaginaRutinaPdf(grupoPasos, numeroPagina, totalPaginas){
+  const titulo = tituloRutina.value.trim() || "Mi rutina visual";
+
+  const pagina = document.createElement("div");
+  pagina.style.position = "fixed";
+  pagina.style.left = "-9999px";
+  pagina.style.top = "0";
+  pagina.style.width = "794px";
+  pagina.style.height = "1123px";
+  pagina.style.background = "#ffffff";
+  pagina.style.padding = "46px";
+  pagina.style.boxSizing = "border-box";
+  pagina.style.fontFamily = "Arial, Helvetica, sans-serif";
+  pagina.style.color = "#072f57";
+
+  const tituloElemento = document.createElement("h2");
+  tituloElemento.textContent = totalPaginas > 1
+    ? `${titulo} - página ${numeroPagina + 1}`
+    : titulo;
+
+  tituloElemento.style.margin = "0 0 28px";
+  tituloElemento.style.textAlign = "center";
+  tituloElemento.style.fontSize = "34px";
+  tituloElemento.style.lineHeight = "1.15";
+  tituloElemento.style.fontWeight = "900";
+  tituloElemento.style.color = "#072f57";
+
+  const grilla = document.createElement("div");
+  grilla.style.display = "grid";
+  grilla.style.gridTemplateColumns = "repeat(2, 1fr)";
+  grilla.style.gap = "22px";
+  grilla.style.marginTop = "20px";
+
+  grupoPasos.forEach((paso, index) => {
+    const numeroReal = numeroPagina * 4 + index + 1;
+
+    const item = document.createElement("div");
+    item.style.border = "2px solid #d9e2ec";
+    item.style.borderRadius = "22px";
+    item.style.padding = "18px";
+    item.style.minHeight = "360px";
+    item.style.background = "#fbfdff";
+    item.style.display = "flex";
+    item.style.flexDirection = "column";
+    item.style.alignItems = "center";
+    item.style.justifyContent = "space-between";
+    item.style.textAlign = "center";
+    item.style.boxSizing = "border-box";
+
+    const numero = document.createElement("div");
+    numero.textContent = String(numeroReal);
+    numero.style.width = "38px";
+    numero.style.height = "38px";
+    numero.style.borderRadius = "999px";
+    numero.style.background = "#e6f4f1";
+    numero.style.color = "#0f766e";
+    numero.style.display = "flex";
+    numero.style.alignItems = "center";
+    numero.style.justifyContent = "center";
+    numero.style.fontWeight = "900";
+    numero.style.marginBottom = "12px";
+
+    const zonaImagen = document.createElement("div");
+    zonaImagen.style.width = "100%";
+    zonaImagen.style.height = "220px";
+    zonaImagen.style.display = "flex";
+    zonaImagen.style.alignItems = "center";
+    zonaImagen.style.justifyContent = "center";
+
+    if(paso.pictograma){
+      const imagen = document.createElement("img");
+      imagen.src = paso.pictograma.imagen;
+      imagen.alt = `Pictograma de ${paso.pictograma.palabra}`;
+      imagen.crossOrigin = "anonymous";
+      imagen.style.maxWidth = "100%";
+      imagen.style.maxHeight = "210px";
+      imagen.style.objectFit = "contain";
+
+      zonaImagen.appendChild(imagen);
+    }else{
+      const pendiente = document.createElement("p");
+      pendiente.textContent = "Pendiente";
+      pendiente.style.margin = "0";
+      pendiente.style.color = "#486581";
+      pendiente.style.fontWeight = "800";
+
+      zonaImagen.appendChild(pendiente);
+    }
+
+    const texto = document.createElement("p");
+    texto.textContent = paso.texto || paso.pictograma?.palabra || "Seleccionar pictograma";
+    texto.style.margin = "14px 0 0";
+    texto.style.color = "#072f57";
+    texto.style.fontSize = "20px";
+    texto.style.fontWeight = "900";
+    texto.style.lineHeight = "1.25";
+
+    item.append(numero, zonaImagen, texto);
+    grilla.appendChild(item);
+  });
+
+  while(grilla.children.length < 4){
+    const espacio = document.createElement("div");
+    espacio.style.border = "2px dashed #e5edf3";
+    espacio.style.borderRadius = "22px";
+    espacio.style.minHeight = "360px";
+    espacio.style.background = "#ffffff";
+    grilla.appendChild(espacio);
+  }
+
+  const atribucion = document.createElement("p");
+  atribucion.textContent = "Pictogramas procedentes de ARASAAC. Autor: Sergio Palao. Propiedad: Gobierno de Aragón, España. Licencia: Creative Commons BY-NC-SA. Material educativo sin fines de lucro.";
+  atribucion.style.position = "absolute";
+  atribucion.style.left = "46px";
+  atribucion.style.right = "46px";
+  atribucion.style.bottom = "34px";
+  atribucion.style.margin = "0";
+  atribucion.style.paddingTop = "14px";
+  atribucion.style.borderTop = "1px solid #d9e2ec";
+  atribucion.style.color = "#486581";
+  atribucion.style.fontSize = "13px";
+  atribucion.style.lineHeight = "1.4";
+  atribucion.style.textAlign = "center";
+
+  pagina.append(tituloElemento, grilla, atribucion);
+
+  return pagina;
+}
 function esperarImagenes(contenedor){
   const imagenes = Array.from(contenedor.querySelectorAll("img"));
 
