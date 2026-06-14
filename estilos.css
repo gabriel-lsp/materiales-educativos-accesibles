@@ -578,4 +578,21 @@ footer{
   .footer-contenido{
     grid-template-columns:1fr;
   }
+  /* Corrección para campos de escritura en la sección rutinas */
+.seccion-rutinas input,
+.seccion-rutinas textarea,
+.rutinas input,
+.rutinas textarea {
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+  position: relative;
+  z-index: 10;
+}
+
+.seccion-rutinas,
+.rutinas {
+  pointer-events: auto;
+}
 }
