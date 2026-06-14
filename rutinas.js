@@ -365,38 +365,31 @@ async function descargarPdf(){
     const anchoDisponible = anchoPagina - margen * 2;
     const altoDisponible = altoPagina - margen * 2;
 
-    const altoImagenTotal = (canvas.height * anchoDisponible) / canvas.width;
+    const proporcionCanvas = canvas.width / canvas.height;
+    const proporcionPagina = anchoDisponible / altoDisponible;
 
-    let posicionY = margen;
-    let altoRestante = altoImagenTotal;
+    let anchoImagen;
+    let altoImagen;
+
+    if(proporcionCanvas > proporcionPagina){
+      anchoImagen = anchoDisponible;
+      altoImagen = anchoImagen / proporcionCanvas;
+    }else{
+      altoImagen = altoDisponible;
+      anchoImagen = altoImagen * proporcionCanvas;
+    }
+
+    const posicionX = (anchoPagina - anchoImagen) / 2;
+    const posicionY = (altoPagina - altoImagen) / 2;
 
     pdf.addImage(
       imagen,
       "JPEG",
-      margen,
+      posicionX,
       posicionY,
-      anchoDisponible,
-      altoImagenTotal
+      anchoImagen,
+      altoImagen
     );
-
-    altoRestante -= altoDisponible;
-
-    while(altoRestante > 0){
-      pdf.addPage();
-
-      posicionY = margen - (altoImagenTotal - altoRestante);
-
-      pdf.addImage(
-        imagen,
-        "JPEG",
-        margen,
-        posicionY,
-        anchoDisponible,
-        altoImagenTotal
-      );
-
-      altoRestante -= altoDisponible;
-    }
 
     pdf.save(crearNombreArchivo("rutina-visual", "pdf"));
   }catch(error){
