@@ -705,26 +705,34 @@
   <script src="rutinas.js?v=10" defer></script>
   <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const camposRutinas = document.querySelectorAll(
-    ".seccion-rutinas input, .seccion-rutinas textarea, .rutinas input, .rutinas textarea"
-  );
+  const selectorCampos = "textarea, input[type='text'], input:not([type]), [contenteditable='true']";
 
-  camposRutinas.forEach(function (campo) {
-    campo.addEventListener("mousedown", function (e) {
-      e.stopPropagation();
-    });
+  function protegerCampo(e) {
+    const campo = e.target.closest(selectorCampos);
 
-    campo.addEventListener("mouseup", function (e) {
-      e.stopPropagation();
-    });
+    if (!campo) return;
 
-    campo.addEventListener("click", function (e) {
-      e.stopPropagation();
-      campo.focus();
-    });
+    e.stopPropagation();
 
-    campo.addEventListener("touchstart", function (e) {
-      e.stopPropagation();
+    setTimeout(function () {
+      campo.focus({ preventScroll: true });
+    }, 0);
+  }
+
+  ["pointerdown", "mousedown", "mouseup", "click", "touchstart", "touchend"].forEach(function (evento) {
+    window.addEventListener(evento, protegerCampo, true);
+    document.addEventListener(evento, protegerCampo, true);
+  });
+
+  document.querySelectorAll(selectorCampos).forEach(function (campo) {
+    campo.addEventListener("blur", function () {
+      const mismoCampo = campo;
+
+      setTimeout(function () {
+        if (document.activeElement === document.body) {
+          mismoCampo.focus({ preventScroll: true });
+        }
+      }, 0);
     });
   });
 });
