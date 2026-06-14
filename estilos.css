@@ -596,3 +596,13 @@ footer{
   pointer-events: auto;
 }
 }
+textarea,
+input[type="text"],
+input:not([type]) {
+  position: relative;
+  z-index: 50;
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
+}
