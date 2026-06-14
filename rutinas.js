@@ -23,6 +23,7 @@ let pasos = [];
 let pasoActivo = 0;
 
 botonCrearPasos.addEventListener("click", crearEspacios);
+cantidadPasos.addEventListener("change", crearEspacios);
 tituloRutina.addEventListener("input", renderizarPreview);
 formularioArasaac.addEventListener("submit", buscarPictogramas);
 botonDescargarJpg.addEventListener("click", descargarJpg);
