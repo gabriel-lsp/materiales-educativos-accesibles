@@ -30,6 +30,7 @@ botonDescargarJpg.addEventListener("click", descargarJpg);
 botonDescargarPdf.addEventListener("click", descargarPdf);
 
 crearEspacios();
+actualizarEnlacesExternos();
 
 function crearEspacios(){
   const total = Number(cantidadPasos.value);
@@ -590,4 +591,29 @@ function escaparTexto(texto){
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function actualizarEnlacesExternos(){
+  const bloques = document.querySelectorAll(".footer-bloque");
+  const bloqueEnlaces = Array.from(bloques).find((bloque) => {
+    const titulo = bloque.querySelector("h2");
+    return titulo && titulo.textContent.trim().toLowerCase() === "enlaces";
+  });
+
+  if(!bloqueEnlaces){
+    return;
+  }
+
+  const parrafo = bloqueEnlaces.querySelector("p");
+
+  if(!parrafo){
+    return;
+  }
+
+  parrafo.innerHTML = `
+    <a href="https://gabriel-lsp.github.io/capacitaciones-crebe-ucayali/">Capacitaciones CREBE</a><br>
+    <a href="https://gabriel-lsp.github.io/banco-digital-accesible/">Banco Digital Accesible</a><br>
+    <a href="https://gabriel-lsp.github.io/juegos-interactivos-accesibles/">Juegos Educativos Accesibles</a><br>
+    <a href="https://gabriel-lsp.github.io/banco-digital-accesible/noti-inclusivos/">Noti Inclusivos</a>
+  `;
 }
