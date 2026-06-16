@@ -3,715 +3,771 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Conciencia fonológica con apoyo visual</title>
-  <meta name="description" content="Generador educativo para trabajar grafemas, fonemas, sílabas y palabras con apoyo visual.">
+  <meta
+    name="description"
+    content="Generador de fichas de silabeo con apoyo visual para trabajar conciencia fonológica inicial."
+  >
+  <title>Generador de sílabas con apoyo visual</title>
+  <link rel="stylesheet" href="estilos.css?v=7">
+
   <style>
-    :root {
-      --fondo: #f6f8fb;
-      --panel: #ffffff;
-      --texto: #243044;
-      --suave: #637087;
-      --borde: #d9e1ec;
-      --primario: #4f7cff;
-      --primario-oscuro: #315ce0;
-      --acento: #11a88a;
-      --alerta: #fff3cd;
-      --sombra: 0 16px 35px rgba(32, 46, 68, .10);
-      --radio: 18px;
+    main.generador-main{
+      max-width:1180px;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--texto);
-      background: linear-gradient(180deg, #eef4ff 0%, var(--fondo) 220px);
-      line-height: 1.5;
-    }
-
-    a { color: inherit; }
-
-    .envoltura {
-      width: min(1120px, calc(100% - 28px));
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 28px 0 18px;
-    }
-
-    .barra-superior {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .marca {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 700;
-    }
-
-    .logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: #ffffff;
-      border: 1px solid var(--borde);
-      box-shadow: 0 8px 20px rgba(32, 46, 68, .08);
-      font-size: 24px;
-    }
-
-    .boton-inicio {
-      border: 1px solid var(--borde);
-      background: #ffffff;
-      padding: 10px 14px;
-      border-radius: 999px;
-      text-decoration: none;
-      color: var(--texto);
-      font-size: 14px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: clamp(30px, 5vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -.03em;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--suave);
-      font-size: 17px;
-      max-width: 680px;
-    }
-
-    .tarjeta-idea {
-      background: rgba(255, 255, 255, .78);
-      border: 1px solid var(--borde);
-      border-radius: var(--radio);
-      padding: 20px;
-      box-shadow: var(--sombra);
-    }
-
-    .tarjeta-idea h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    .tarjeta-idea p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--suave);
-    }
-
-    main {
-      padding: 18px 0 40px;
-    }
-
-    .grid-app {
-      display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--borde);
-      border-radius: var(--radio);
-      box-shadow: var(--sombra);
-    }
-
-    .panel-configuracion {
-      position: sticky;
-      top: 16px;
-      padding: 20px;
-    }
-
-    .panel h2 {
-      margin: 0 0 14px;
-      font-size: 21px;
-    }
-
-    .campo {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #33415c;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid var(--borde);
-      border-radius: 13px;
-      padding: 11px 12px;
-      font: inherit;
-      background: #ffffff;
-      color: var(--texto);
-      outline: none;
-    }
-
-    textarea { min-height: 72px; resize: vertical; }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primario);
-      box-shadow: 0 0 0 4px rgba(79, 124, 255, .12);
-    }
-
-    .ayuda {
-      display: block;
-      margin-top: 6px;
-      color: var(--suave);
-      font-size: 12.5px;
-    }
-
-    .fila-doble {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .botones {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 999px;
-      padding: 11px 15px;
-      font-weight: 700;
-      cursor: pointer;
-      color: #ffffff;
-      background: var(--primario);
-      transition: transform .15s ease, background .15s ease;
-    }
-
-    button:hover { transform: translateY(-1px); background: var(--primario-oscuro); }
-    button.secundario { background: #eef2f8; color: var(--texto); }
-    button.secundario:hover { background: #e1e8f3; }
-    button.exito { background: var(--acento); }
-    button.exito:hover { background: #0e9076; }
-
-    .miniatura {
-      margin-top: 10px;
-      border: 1px dashed var(--borde);
-      border-radius: 14px;
-      padding: 10px;
-      min-height: 110px;
-      display: grid;
-      place-items: center;
-      background: #fbfcff;
-      color: var(--suave);
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .miniatura img {
-      max-width: 100%;
-      max-height: 150px;
-      object-fit: contain;
-    }
-
-    .mensaje {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 13px;
-      background: #eef7ff;
-      color: #355274;
-      font-size: 13px;
-      display: none;
-    }
-
-    .mensaje.visible { display: block; }
-
-    .opciones {
-      display: grid;
-      gap: 9px;
-      margin-top: 6px;
-    }
-
-    .opcion {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 14px;
-      color: var(--texto);
-    }
-
-    .opcion input {
-      width: auto;
-      transform: scale(1.1);
-    }
-
-    .visor {
-      padding: 20px;
-      min-height: 780px;
-    }
-
-    .acciones-visor {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .acciones-visor h2 {
-      margin: 0;
-    }
-
-    .nota-discreta {
-      color: var(--suave);
-      font-size: 13px;
-      margin: 0;
+    .panel-generador{
+      background:var(--blanco);
+      border:1px solid var(--gris-300);
+      border-radius:26px;
+      box-shadow:var(--sombra);
+      padding:34px 46px 40px;
     }
 
-    .hoja {
-      width: min(794px, 100%);
-      margin: 0 auto;
-      background: #ffffff;
-      border: 1px solid #cfd8e6;
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(32, 46, 68, .08);
+    .texto-panel-silabas{
+      max-width:820px;
+      margin:14px 0 0;
+      color:var(--gris-600);
+      line-height:1.65;
+      font-size:1rem;
     }
 
-    .hoja-cabecera {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      border-bottom: 2px solid #e9eef6;
-      padding-bottom: 16px;
-      margin-bottom: 18px;
+    .app-silabas{
+      display:grid;
+      grid-template-columns:360px 1fr;
+      gap:28px;
+      align-items:start;
+      margin-top:30px;
     }
 
-    .hoja-cabecera h2 {
-      margin: 0 0 6px;
-      font-size: 28px;
-      letter-spacing: -.02em;
+    .configuracion-silabas,
+    .vista-silabas{
+      background:#ffffff;
+      border:1px solid var(--gris-300);
+      border-radius:24px;
+      box-shadow:0 10px 24px rgba(16,42,67,.08);
     }
 
-    .hoja-cabecera p {
-      margin: 0;
-      color: var(--suave);
+    .configuracion-silabas{
+      padding:24px;
+      position:sticky;
+      top:18px;
     }
 
-    .etiqueta {
-      background: #eef7ff;
-      color: #2c5f99;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      white-space: nowrap;
+    .configuracion-silabas h3,
+    .vista-silabas h3{
+      margin:0 0 16px;
+      color:#072f57;
+      font-size:1.25rem;
     }
 
-    .bloque {
-      border: 1px solid #e2e8f2;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
-      break-inside: avoid;
+    .grupo-formulario{
+      margin-bottom:16px;
     }
 
-    .bloque h3 {
-      margin: 0 0 12px;
-      font-size: 18px;
+    .grupo-formulario label,
+    .grupo-opciones p{
+      display:block;
+      margin:0 0 9px;
+      color:#072f57;
+      font-weight:900;
     }
 
-    .presentacion-palabra {
-      display: grid;
-      grid-template-columns: 190px 1fr;
-      gap: 18px;
-      align-items: center;
+    .grupo-formulario input,
+    .grupo-formulario textarea,
+    .grupo-formulario select{
+      width:100%;
+      border:1px solid var(--gris-300);
+      border-radius:16px;
+      padding:12px 14px;
+      background:#fbfdff;
+      color:var(--gris-900);
+      font:inherit;
+      outline:0;
     }
 
-    .imagen-ficha {
-      min-height: 160px;
-      border-radius: 16px;
-      border: 1px solid #e2e8f2;
-      background: #fafcff;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      padding: 12px;
+    .grupo-formulario textarea{
+      min-height:80px;
+      resize:vertical;
+    }
+
+    .grupo-formulario input:focus,
+    .grupo-formulario textarea:focus,
+    .grupo-formulario select:focus{
+      border-color:var(--verde-700);
+      box-shadow:0 0 0 4px rgba(15,118,110,.13);
     }
 
-    .imagen-ficha img {
-      max-width: 100%;
-      max-height: 180px;
-      object-fit: contain;
+    .fila-formulario{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
-    .imagen-ficha .sin-imagen {
-      color: var(--suave);
-      text-align: center;
-      font-size: 14px;
+    .nota-campo{
+      display:block;
+      margin-top:7px;
+      color:var(--gris-500);
+      font-size:.9rem;
+      line-height:1.45;
     }
 
-    .palabra-grande {
-      font-size: clamp(42px, 8vw, 74px);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
+    .opciones-ficha{
+      display:grid;
+      gap:9px;
+      margin-top:8px;
     }
-
-    .silabas-grandes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip-silaba {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 68px;
-      padding: 11px 16px;
-      border: 2px solid #b9c9e3;
-      border-radius: 14px;
-      font-size: 26px;
-      font-weight: 800;
-      background: #f8fbff;
-    }
-
-    .grafema-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .tarjeta-sonido {
-      min-height: 115px;
-      border-radius: 16px;
-      border: 1px solid #e2e8f2;
-      background: #fbfcff;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 14px;
-    }
-
-    .tarjeta-sonido strong {
-      display: block;
-      font-size: 46px;
-      line-height: 1;
-    }
-
-    .tarjeta-sonido span {
-      color: var(--suave);
-      font-size: 14px;
-    }
-
-    .silabario {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
+
+    .opcion-ficha{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      color:var(--gris-700);
+      font-weight:700;
+      line-height:1.35;
+    }
+
+    .opcion-ficha input{
+      width:auto;
+      min-width:18px;
+      min-height:18px;
+      accent-color:var(--verde-700);
     }
+
+    .miniatura-imagen{
+      margin-top:12px;
+      min-height:118px;
+      display:grid;
+      place-items:center;
+      border:1px dashed var(--gris-300);
+      border-radius:18px;
+      background:#f7fafc;
+      color:var(--gris-500);
+      text-align:center;
+      padding:12px;
+      font-size:.9rem;
+    }
+
+    .miniatura-imagen img{
+      max-width:100%;
+      max-height:150px;
+      object-fit:contain;
+    }
+
+    .mensaje-arasaac{
+      display:none;
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:var(--verde-50);
+      color:var(--verde-800);
+      font-size:.9rem;
+      line-height:1.45;
+    }
+
+    .mensaje-arasaac.visible{
+      display:block;
+    }
+
+    .botones-generador{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .boton-secundario{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:10px 18px;
+      border:0;
+      border-radius:999px;
+      background:var(--gris-100);
+      color:var(--gris-700);
+      font-family:inherit;
+      font-weight:900;
+      cursor:pointer;
+      text-decoration:none;
+    }
+
+    .boton-secundario:hover{
+      background:#d9e2ec;
+    }
+
+    .boton-primario{
+      border:0;
+      cursor:pointer;
+      font-family:inherit;
+      text-decoration:none;
+    }
+
+    .vista-silabas{
+      padding:24px;
+      overflow:auto;
+    }
+
+    .vista-cabecera{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .vista-cabecera p{
+      margin:6px 0 0;
+      color:var(--gris-500);
+      line-height:1.5;
+    }
+
+    .hoja-ficha{
+      width:min(794px,100%);
+      margin:0 auto;
+      background:#ffffff;
+      border:1px solid var(--gris-300);
+      border-radius:24px;
+      padding:30px;
+      box-shadow:0 10px 24px rgba(16,42,67,.08);
+    }
+
+    .cabecera-ficha{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+      padding-bottom:18px;
+      margin-bottom:18px;
+      border-bottom:2px solid var(--gris-100);
+    }
+
+    .cabecera-ficha h2{
+      margin:0;
+      color:#072f57;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:2rem;
+      line-height:1.1;
+    }
+
+    .cabecera-ficha p{
+      margin:8px 0 0;
+      color:var(--gris-600);
+      line-height:1.55;
+    }
+
+    .etiqueta-ficha{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:9px 14px;
+      border-radius:999px;
+      background:var(--verde-100);
+      color:var(--verde-700);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .bloque-ficha{
+      border:1px solid var(--gris-300);
+      border-radius:22px;
+      padding:18px;
+      margin-bottom:18px;
+      break-inside:avoid;
+      background:#ffffff;
+    }
+
+    .bloque-ficha h3{
+      margin:0 0 14px;
+      color:#072f57;
+      font-size:1.15rem;
+    }
+
+    .presentacion-palabra{
+      display:grid;
+      grid-template-columns:190px 1fr;
+      gap:20px;
+      align-items:center;
+    }
+
+    .imagen-ficha{
+      min-height:170px;
+      border:1px solid var(--gris-300);
+      border-radius:20px;
+      background:#f7fafc;
+      display:grid;
+      place-items:center;
+      padding:14px;
+      overflow:hidden;
+      color:var(--gris-500);
+      text-align:center;
+    }
+
+    .imagen-ficha img{
+      max-width:100%;
+      max-height:190px;
+      object-fit:contain;
+    }
 
-    .casilla-silaba {
-      border: 2px solid #b9c9e3;
-      border-radius: 15px;
-      padding: 14px 8px;
-      text-align: center;
-      font-size: 30px;
-      font-weight: 800;
-      background: #ffffff;
+    .palabra-principal{
+      margin:0 0 14px;
+      color:#082f49;
+      font-size:clamp(2.7rem,7vw,4.8rem);
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .silabas-principales{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
-    .actividad-linea {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      margin: 12px 0;
-      font-size: 18px;
+    .chip-silaba,
+    .casilla-silaba,
+    .caja-recorte{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #9fb3c8;
+      border-radius:18px;
+      background:#fbfdff;
+      color:#072f57;
+      font-weight:900;
     }
 
-    .linea-respuesta {
-      display: inline-block;
-      min-width: 190px;
-      border-bottom: 2px solid #4c5a70;
-      height: 28px;
+    .chip-silaba{
+      min-width:76px;
+      padding:12px 18px;
+      font-size:1.85rem;
     }
 
-    .tabla-actividad {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 14px;
+    .silabario{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:12px;
     }
-
-    .tabla-actividad th, .tabla-actividad td {
-      border: 1px solid #dce4ef;
-      padding: 12px;
-      text-align: left;
-      vertical-align: middle;
-      font-size: 16px;
-    }
-
-    .tabla-actividad th {
-      background: #f3f7fc;
-      color: #34445e;
-    }
-
-    .cajas-recorte {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .caja-recorte {
-      border: 2px dashed #8da3c5;
-      border-radius: 13px;
-      padding: 12px 18px;
-      font-size: 24px;
-      font-weight: 800;
-      min-width: 76px;
-      text-align: center;
-    }
-
-    .pie-ficha {
-      border-top: 1px solid #e2e8f2;
-      padding-top: 12px;
-      margin-top: 18px;
-      color: var(--suave);
-      font-size: 11px;
-    }
-
-    .credito-pagina {
-      margin: 22px auto 0;
-      color: var(--suave);
-      font-size: 12px;
-      text-align: center;
-      max-width: 780px;
-    }
-
-    .oculto { display: none !important; }
+
+    .casilla-silaba{
+      min-height:72px;
+      font-size:2rem;
+    }
 
-    @media (max-width: 900px) {
-      .hero, .grid-app { grid-template-columns: 1fr; }
-      .panel-configuracion { position: static; }
-      .presentacion-palabra { grid-template-columns: 1fr; }
-      .grafema-grid { grid-template-columns: 1fr; }
-      .silabario { grid-template-columns: repeat(2, 1fr); }
-      .acciones-visor { align-items: flex-start; flex-direction: column; }
+    .tabla-actividad{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:18px;
     }
 
-    @media print {
-      body { background: #ffffff; }
-      header, .panel-configuracion, .acciones-visor, .credito-pagina { display: none !important; }
-      main, .envoltura, .grid-app, .visor { padding: 0; margin: 0; width: 100%; display: block; }
-      .panel, .hoja { box-shadow: none; border: 0; border-radius: 0; }
-      .visor { min-height: 0; }
-      .hoja { width: 100%; padding: 18mm; }
-      button { display: none !important; }
+    .tabla-actividad th,
+    .tabla-actividad td{
+      border:1px solid var(--gris-300);
+      padding:12px;
+      text-align:left;
+      vertical-align:middle;
+      color:var(--gris-700);
+    }
+
+    .tabla-actividad th{
+      background:var(--verde-50);
+      color:#072f57;
+      font-weight:900;
+    }
+
+    .linea-respuesta{
+      display:inline-block;
+      min-width:190px;
+      height:30px;
+      border-bottom:2px solid var(--gris-700);
+    }
+
+    .actividad-linea{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+      margin:12px 0;
+      color:var(--gris-700);
+      font-size:1.08rem;
+    }
+
+    .cajas-recorte{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:12px 0 16px;
+    }
+
+    .caja-recorte{
+      min-width:82px;
+      padding:13px 18px;
+      font-size:1.6rem;
+      border-style:dashed;
+    }
+
+    .pie-ficha{
+      margin-top:20px;
+      padding-top:14px;
+      border-top:1px solid var(--gris-300);
+      color:var(--gris-500);
+      font-size:.78rem;
+      line-height:1.5;
+    }
+
+    .oculto{
+      display:none !important;
+    }
+
+    @media (max-width:980px){
+      .app-silabas{
+        grid-template-columns:1fr;
+      }
+
+      .configuracion-silabas{
+        position:static;
+      }
+    }
+
+    @media (max-width:700px){
+      .panel-generador{
+        padding:26px 20px 30px;
+      }
+
+      .fila-formulario,
+      .presentacion-palabra{
+        grid-template-columns:1fr;
+      }
+
+      .vista-cabecera,
+      .cabecera-ficha{
+        flex-direction:column;
+      }
+
+      .silabario{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .actividad-linea{
+        grid-template-columns:1fr;
+      }
+
+      .linea-respuesta{
+        min-width:100%;
+      }
+    }
+
+    @media print{
+      body{
+        background:#ffffff;
+      }
+
+      .salto-contenido,
+      .cabecera,
+      .configuracion-silabas,
+      .vista-cabecera,
+      footer,
+      .seccion-aviso{
+        display:none !important;
+      }
+
+      main.generador-main{
+        margin:0;
+        padding:0;
+        max-width:none;
+      }
+
+      .panel-generador,
+      .vista-silabas,
+      .hoja-ficha{
+        border:0;
+        box-shadow:none;
+        border-radius:0;
+        padding:0;
+      }
+
+      .app-silabas{
+        display:block;
+        margin:0;
+      }
+
+      .hoja-ficha{
+        width:100%;
+        padding:16mm;
+      }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="envoltura">
-      <div class="barra-superior">
-        <div class="marca">
-          <div class="logo" aria-hidden="true">CF</div>
-          <span>Materiales Educativos Accesibles</span>
+  <a class="salto-contenido" href="#contenido-principal">
+    Ir al contenido
+  </a>
+
+  <header class="cabecera">
+    <nav class="navegacion" aria-label="Navegación principal">
+      <a class="marca" href="https://crebeucayali.weebly.com/" aria-label="Ir a la plataforma principal">
+        <span class="marca-icono" aria-hidden="true">MEA</span>
+        <span>Materiales Educativos Accesibles</span>
+      </a>
+
+      <a class="enlace-cabecera" href="index.html">
+        Volver al inicio
+      </a>
+    </nav>
+
+    <div class="portada">
+      <div class="bloque-institucional" aria-label="Identidad institucional">
+        <img
+          class="logo-crebe"
+          src="logo-crebe.png"
+          alt="Logo del CREBE Señor de los Milagros - Ucayali"
+        >
+        <div class="texto-institucional">
+          <p class="nombre-institucional">
+            CREBE "Señor de los Milagros" - Ucayali
+          </p>
+          <p class="detalle-institucional">
+            Centro de Recursos de Educación Básica Especial
+          </p>
         </div>
-        <a class="boton-inicio" href="./index.html">Volver al inicio</a>
       </div>
 
-      <section class="hero">
-        <div>
-          <h1>Generador de conciencia fonológica</h1>
-          <p>Recurso independiente para trabajar grafema, fonema, sílaba y palabra. Permite generar una ficha imprimible con apoyo visual, especialmente útil para estudiantes que requieren anticipación, estructura y claves visuales.</p>
-        </div>
-        <div class="tarjeta-idea">
-          <h2>Ruta de trabajo</h2>
-          <p>Primero se reconoce el grafema, luego se asocia con el fonema, después se forman sílabas directas y finalmente se aplica en una palabra con imagen de apoyo.</p>
-        </div>
-      </section>
+      <p class="etiqueta">Silabeo y conciencia fonológica</p>
+      <h1>Generador de sílabas con apoyo visual</h1>
+      <p class="subtitulo">
+        Herramienta para crear fichas imprimibles con palabra, separación silábica,
+        familia silábica e imagen de apoyo.
+      </p>
     </div>
   </header>
 
-  <main>
-    <div class="envoltura grid-app">
-      <aside class="panel panel-configuracion" aria-label="Configuración de la ficha">
-        <h2>Configurar ficha</h2>
-
-        <div class="campo">
-          <label for="grafema">Grafema a trabajar</label>
-          <select id="grafema">
-            <option value="m" data-fonema="/m/">M - m</option>
-            <option value="p" data-fonema="/p/">P - p</option>
-            <option value="l" data-fonema="/l/">L - l</option>
-            <option value="s" data-fonema="/s/">S - s</option>
-            <option value="t" data-fonema="/t/">T - t</option>
-            <option value="n" data-fonema="/n/">N - n</option>
-            <option value="d" data-fonema="/d/">D - d</option>
-            <option value="f" data-fonema="/f/">F - f</option>
-            <option value="b" data-fonema="/b/">B - b</option>
-            <option value="r" data-fonema="/r/">R - r</option>
-            <option value="c" data-fonema="/k/">C - c</option>
-            <option value="g" data-fonema="/g/">G - g</option>
-            <option value="j" data-fonema="/j/">J - j</option>
-            <option value="ñ" data-fonema="/ñ/">Ñ - ñ</option>
-            <option value="ch" data-fonema="/ch/">CH - ch</option>
-            <option value="ll" data-fonema="/ll/">LL - ll</option>
-          </select>
-          <span class="ayuda">El fonema se muestra como apoyo para el docente. La pronunciación debe modelarse de forma oral.</span>
+  <main id="contenido-principal" class="generador-main">
+    <section class="panel-generador" aria-labelledby="titulo-generador">
+      <div class="panel-encabezado">
+        <div>
+          <p class="sobretitulo">Generador de fichas</p>
+          <h2 id="titulo-generador">Crea una ficha de silabeo</h2>
+          <p class="texto-panel-silabas">
+            Escribe una palabra, ajusta su separación silábica, agrega una imagen
+            de apoyo y selecciona las actividades que deseas imprimir. La ficha se
+            genera en la vista previa y puede guardarse como PDF desde el navegador.
+          </p>
         </div>
+      </div>
 
-        <div class="fila-doble">
-          <div class="campo">
-            <label for="palabra">Palabra objetivo</label>
-            <input id="palabra" type="text" value="mesa" autocomplete="off">
+      <div class="app-silabas">
+        <aside class="configuracion-silabas" aria-label="Configuración de la ficha">
+          <h3>Configurar ficha</h3>
+
+          <div class="grupo-formulario">
+            <label for="letraBase">Letra base</label>
+            <select id="letraBase">
+              <option value="m">M</option>
+              <option value="p">P</option>
+              <option value="l">L</option>
+              <option value="s">S</option>
+              <option value="t">T</option>
+              <option value="n">N</option>
+              <option value="d">D</option>
+              <option value="f">F</option>
+              <option value="b">B</option>
+              <option value="r">R</option>
+              <option value="c">C</option>
+              <option value="g">G</option>
+              <option value="j">J</option>
+              <option value="ñ">Ñ</option>
+              <option value="ch">CH</option>
+              <option value="ll">LL</option>
+            </select>
+            <span class="nota-campo">Se usa para formar la familia silábica: ma, me, mi, mo, mu.</span>
           </div>
-          <div class="campo">
-            <label for="silabas">Separación silábica</label>
-            <input id="silabas" type="text" value="me-sa" autocomplete="off">
+
+          <div class="fila-formulario">
+            <div class="grupo-formulario">
+              <label for="palabra">Palabra</label>
+              <input id="palabra" type="text" value="mesa" autocomplete="off">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="silabas">Sílabas</label>
+              <input id="silabas" type="text" value="me-sa" autocomplete="off">
+            </div>
           </div>
-        </div>
 
-        <div class="campo">
-          <label for="consigna">Consigna breve</label>
-          <textarea id="consigna">Observa la imagen, escucha el sonido, lee las sílabas y completa la palabra.</textarea>
-        </div>
-
-        <div class="campo">
-          <label for="imagenUrl">Imagen de apoyo</label>
-          <input id="imagenUrl" type="url" placeholder="Pega una URL de imagen o busca en ARASAAC">
-          <span class="ayuda">Puedes buscar el pictograma por palabra o pegar una imagen propia.</span>
-          <div class="botones">
-            <button type="button" class="secundario" id="buscarArasaac">Buscar en ARASAAC</button>
-            <button type="button" class="secundario" id="quitarImagen">Quitar imagen</button>
+          <div class="grupo-formulario">
+            <label for="consigna">Consigna breve</label>
+            <textarea id="consigna">Observa la imagen, lee las sílabas y completa la palabra.</textarea>
           </div>
-          <div class="miniatura" id="miniatura">Aún no se ha cargado una imagen.</div>
-          <div class="mensaje" id="mensajeArasaac"></div>
-        </div>
 
-        <div class="campo">
-          <label for="archivoImagen">Usar imagen desde mi equipo</label>
-          <input id="archivoImagen" type="file" accept="image/*">
-          <span class="ayuda">Esta opción funciona solo en el navegador actual; no sube archivos al repositorio.</span>
-        </div>
+          <div class="grupo-formulario">
+            <label for="imagenUrl">Imagen de apoyo</label>
+            <input id="imagenUrl" type="url" placeholder="Pega una URL de imagen o busca en ARASAAC">
+            <span class="nota-campo">Puedes buscar un pictograma por palabra, pegar una URL o usar una imagen propia.</span>
 
-        <div class="campo">
-          <label>Actividades de la ficha</label>
-          <div class="opciones">
-            <label class="opcion"><input type="checkbox" id="actGrafema" checked> Grafema y fonema</label>
-            <label class="opcion"><input type="checkbox" id="actSilabas" checked> Familia silábica</label>
-            <label class="opcion"><input type="checkbox" id="actInicial" checked> Identificar sílaba inicial</label>
-            <label class="opcion"><input type="checkbox" id="actCompletar" checked> Completar palabra</label>
-            <label class="opcion"><input type="checkbox" id="actOrdenar" checked> Ordenar sílabas</label>
+            <div class="botones-generador">
+              <button type="button" class="boton-secundario" id="buscarArasaac">Buscar en ARASAAC</button>
+              <button type="button" class="boton-secundario" id="quitarImagen">Quitar imagen</button>
+            </div>
+
+            <div class="miniatura-imagen" id="miniatura">Aún no se ha cargado una imagen.</div>
+            <div class="mensaje-arasaac" id="mensajeArasaac"></div>
           </div>
-        </div>
 
-        <div class="botones">
-          <button type="button" id="generar">Generar ficha</button>
-          <button type="button" class="exito" id="imprimir">Descargar PDF</button>
-          <button type="button" class="secundario" id="descargarHtml">Descargar HTML</button>
+          <div class="grupo-formulario">
+            <label for="archivoImagen">Usar imagen desde mi equipo</label>
+            <input id="archivoImagen" type="file" accept="image/*">
+            <span class="nota-campo">La imagen se usa solo en el navegador actual; no se sube al repositorio.</span>
+          </div>
+
+          <div class="grupo-opciones">
+            <p>Actividades de la ficha</p>
+            <div class="opciones-ficha">
+              <label class="opcion-ficha"><input type="checkbox" id="actFamilia" checked> Familia silábica</label>
+              <label class="opcion-ficha"><input type="checkbox" id="actInicial" checked> Identificar sílaba inicial</label>
+              <label class="opcion-ficha"><input type="checkbox" id="actCompletar" checked> Completar palabra</label>
+              <label class="opcion-ficha"><input type="checkbox" id="actOrdenar" checked> Ordenar sílabas</label>
+            </div>
+          </div>
+
+          <div class="botones-generador">
+            <button type="button" class="boton-primario" id="generar">Generar ficha</button>
+            <button type="button" class="boton-secundario" id="imprimir">Descargar PDF</button>
+            <button type="button" class="boton-secundario" id="descargarHtml">Descargar HTML</button>
+          </div>
+        </aside>
+
+        <section class="vista-silabas" aria-label="Vista previa de la ficha">
+          <div class="vista-cabecera">
+            <div>
+              <h3>Vista previa</h3>
+              <p>Revisa la ficha antes de imprimirla o guardarla como PDF.</p>
+            </div>
+            <button type="button" class="boton-secundario" id="pronunciar">Escuchar palabra</button>
+          </div>
+
+          <article class="hoja-ficha" id="hojaFicha">
+            <div class="cabecera-ficha">
+              <div>
+                <h2>Ficha de silabeo</h2>
+                <p id="textoConsigna">Observa la imagen, lee las sílabas y completa la palabra.</p>
+              </div>
+              <div class="etiqueta-ficha" id="etiquetaSilabas">Sílabas: me - sa</div>
+            </div>
+
+            <section class="bloque-ficha presentacion-palabra">
+              <div class="imagen-ficha" id="imagenFicha"><span>Imagen de apoyo</span></div>
+              <div>
+                <p class="palabra-principal" id="palabraGrande">MESA</p>
+                <div class="silabas-principales" id="silabasGrandes">
+                  <span class="chip-silaba">me</span>
+                  <span class="chip-silaba">sa</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="bloque-ficha" id="bloqueFamilia">
+              <h3>1. Leo la familia silábica</h3>
+              <div class="silabario" id="silabario"></div>
+            </section>
+
+            <section class="bloque-ficha" id="bloqueInicial">
+              <h3>2. Marco la sílaba inicial</h3>
+              <table class="tabla-actividad">
+                <thead>
+                  <tr>
+                    <th>Palabra</th>
+                    <th>Sílaba inicial</th>
+                    <th>Respuesta</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaInicial"></tbody>
+              </table>
+            </section>
+
+            <section class="bloque-ficha" id="bloqueCompletar">
+              <h3>3. Completo la palabra</h3>
+              <div id="completarPalabra"></div>
+            </section>
+
+            <section class="bloque-ficha" id="bloqueOrdenar">
+              <h3>4. Ordeno las sílabas</h3>
+              <p>Recorta o señala las sílabas y ordénalas para formar la palabra.</p>
+              <div class="cajas-recorte" id="ordenarSilabas"></div>
+              <div class="actividad-linea"><span>Palabra formada:</span><span class="linea-respuesta"></span></div>
+            </section>
+
+            <footer class="pie-ficha">
+              Material educativo generado para uso pedagógico. Si se emplean pictogramas de ARASAAC, mantener el crédito correspondiente: ARASAAC, Gobierno de Aragón, autor de pictogramas Sergio Palao.
+            </footer>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <section class="seccion-aviso" aria-labelledby="titulo-aviso">
+      <aside class="aviso-pedagogico">
+        <div class="aviso-icono" aria-hidden="true">i</div>
+        <div>
+          <h2 id="titulo-aviso">Orientación pedagógica</h2>
+          <p>
+            La separación silábica automática es una ayuda inicial. Puede editarse
+            manualmente para ajustarla a la sesión, al nivel del estudiante y al
+            propósito específico del trabajo de conciencia fonológica.
+          </p>
         </div>
       </aside>
-
-      <section class="panel visor" aria-label="Vista previa de la ficha">
-        <div class="acciones-visor">
-          <div>
-            <h2>Vista previa</h2>
-            <p class="nota-discreta">La ficha se puede imprimir o guardar como PDF desde el navegador.</p>
-          </div>
-          <button type="button" class="secundario" id="pronunciar">Escuchar palabra</button>
-        </div>
-
-        <article class="hoja" id="hojaFicha">
-          <div class="hoja-cabecera">
-            <div>
-              <h2>Conciencia fonológica</h2>
-              <p id="textoConsigna">Observa la imagen, escucha el sonido, lee las sílabas y completa la palabra.</p>
-            </div>
-            <div class="etiqueta" id="etiquetaGrafema">Grafema M - m</div>
-          </div>
-
-          <section class="bloque presentacion-palabra">
-            <div class="imagen-ficha" id="imagenFicha"><span class="sin-imagen">Imagen de apoyo</span></div>
-            <div>
-              <div class="palabra-grande" id="palabraGrande">MESA</div>
-              <div class="silabas-grandes" id="silabasGrandes">
-                <span class="chip-silaba">me</span>
-                <span class="chip-silaba">sa</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="bloque" id="bloqueGrafema">
-            <h3>1. Reconozco el grafema y el fonema</h3>
-            <div class="grafema-grid">
-              <div class="tarjeta-sonido"><div><strong id="mayuscula">M</strong><span>Mayúscula</span></div></div>
-              <div class="tarjeta-sonido"><div><strong id="minuscula">m</strong><span>Minúscula</span></div></div>
-              <div class="tarjeta-sonido"><div><strong id="fonema">/m/</strong><span>Sonido</span></div></div>
-            </div>
-          </section>
-
-          <section class="bloque" id="bloqueSilabas">
-            <h3>2. Formo sílabas</h3>
-            <div class="silabario" id="silabario"></div>
-          </section>
-
-          <section class="bloque" id="bloqueInicial">
-            <h3>3. Marco la sílaba inicial</h3>
-            <table class="tabla-actividad">
-              <thead>
-                <tr><th>Palabra</th><th>¿Con qué sílaba empieza?</th><th>Respuesta</th></tr>
-              </thead>
-              <tbody id="tablaInicial"></tbody>
-            </table>
-          </section>
-
-          <section class="bloque" id="bloqueCompletar">
-            <h3>4. Completo la palabra</h3>
-            <div id="completarPalabra"></div>
-          </section>
-
-          <section class="bloque" id="bloqueOrdenar">
-            <h3>5. Ordeno las sílabas</h3>
-            <p>Recorta o señala las sílabas y ordénalas para formar la palabra.</p>
-            <div class="cajas-recorte" id="ordenarSilabas"></div>
-            <div class="actividad-linea"><span>Palabra formada:</span><span class="linea-respuesta"></span></div>
-          </section>
-
-          <footer class="pie-ficha">
-            Material educativo generado para uso pedagógico. Si se emplean pictogramas de ARASAAC, mantener el crédito correspondiente: ARASAAC, Gobierno de Aragón, autor de pictogramas Sergio Palao.
-          </footer>
-        </article>
-
-        <p class="credito-pagina">Este generador no reemplaza la mediación docente. La separación silábica automática es solo una ayuda inicial; puede editarse manualmente según el objetivo de trabajo.</p>
-      </section>
-    </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="footer-contenido">
+      <div class="footer-bloque">
+        <h2>Materiales Educativos Accesibles</h2>
+        <p>
+          Repositorio digital de apoyo para la inclusión educativa y la atención
+          a la diversidad.
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Enlaces</h2>
+        <p>
+          <a href="https://gabriel-lsp.github.io/capacitaciones-crebe-ucayali/">Capacitaciones CREBE</a><br>
+          <a href="https://gabriel-lsp.github.io/banco-digital-accesible/">Banco Digital Accesible</a><br>
+          <a href="https://gabriel-lsp.github.io/juegos-interactivos-accesibles/">Juegos Educativos Accesibles</a><br>
+          <a href="https://gabriel-lsp.github.io/banco-digital-accesible/noti-inclusivos/">Noti Inclusivos</a>
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Institución</h2>
+        <p>
+          CREBE "Señor de los Milagros" - Ucayali<br>
+          Centro de Recursos de Educación Básica Especial
+        </p>
+      </div>
+
+      <div class="footer-bloque">
+        <h2>Créditos y licencias</h2>
+        <p>
+          Algunos recursos pueden utilizar materiales de terceros. Los
+          pictogramas proceden de ARASAAC. Autor pictogramas: Sergio Palao.
+          Propiedad: Gobierno de Aragón, España. Licencia: Creative Commons
+          BY-NC-SA.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-final">
+      <p>
+        © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
+        Berrospi con apoyo institucional del CREBE "Señor de los Milagros" -
+        Ucayali. Plataforma educativa sin fines de lucro.
+      </p>
+    </div>
+  </footer>
 
   <script>
     const vocales = ['a', 'e', 'i', 'o', 'u'];
@@ -740,72 +796,71 @@
     let imagenActual = '';
     let fuenteImagen = '';
 
-    function normalizarTexto(texto) {
+    function normalizarTexto(texto){
       return (texto || '').trim().toLowerCase();
     }
 
-    function capitalizar(texto) {
+    function capitalizar(texto){
       const limpio = (texto || '').trim();
       return limpio ? limpio.charAt(0).toUpperCase() + limpio.slice(1) : '';
     }
 
-    function obtenerFonema() {
-      const seleccionado = $('grafema').selectedOptions[0];
-      return seleccionado ? seleccionado.dataset.fonema : '';
+    function obtenerLetraBase(){
+      return $('letraBase').value;
     }
 
-    function obtenerGrafema() {
-      return $('grafema').value;
+    function obtenerFamiliaSilabica(letra){
+      return vocales.map((vocal) => letra + vocal);
     }
 
-    function obtenerSilabasFamilia(grafema) {
-      return vocales.map((vocal) => grafema + vocal);
-    }
-
-    function dividirSilabasEntrada() {
+    function dividirSilabasEntrada(){
       const entrada = $('silabas').value.trim();
-      if (!entrada) return [];
-      return entrada.split(/[-,\s]+/).map(s => s.trim()).filter(Boolean);
+      if(!entrada) return [];
+      return entrada.split(/[-,\s]+/).map((silaba) => silaba.trim()).filter(Boolean);
     }
 
-    function sugerirSilabasSimples(palabra) {
+    function sugerirSilabasSimples(palabra){
       const limpia = normalizarTexto(palabra).replace(/[^a-záéíóúñü]/gi, '');
-      if (!limpia) return '';
+      if(!limpia) return '';
 
       const grupos = [];
       let i = 0;
-      while (i < limpia.length) {
+
+      while(i < limpia.length){
         const actual = limpia[i];
         const siguiente = limpia[i + 1] || '';
         const tercer = limpia[i + 2] || '';
 
-        if ('aeiouáéíóú'.includes(actual)) {
+        if('aeiouáéíóú'.includes(actual)){
           grupos.push(actual);
           i += 1;
-        } else if (actual === 'c' && siguiente === 'h' && tercer) {
+        }else if(actual === 'c' && siguiente === 'h' && tercer){
           grupos.push('ch' + tercer);
           i += 3;
-        } else if (actual === 'l' && siguiente === 'l' && tercer) {
+        }else if(actual === 'l' && siguiente === 'l' && tercer){
           grupos.push('ll' + tercer);
           i += 3;
-        } else if (siguiente) {
+        }else if(siguiente){
           grupos.push(actual + siguiente);
           i += 2;
-        } else {
+        }else{
           grupos.push(actual);
           i += 1;
         }
       }
+
       return grupos.join('-');
     }
 
-    function actualizarMiniatura(url, fuente) {
+    function actualizarMiniatura(url, fuente){
       const contenedor = $('miniatura');
       contenedor.innerHTML = '';
-      if (!url) {
+
+      if(!url){
         contenedor.textContent = 'Aún no se ha cargado una imagen.';
         return;
       }
+
       const img = document.createElement('img');
       img.alt = 'Imagen de apoyo seleccionada';
       img.src = url;
@@ -813,54 +868,52 @@
         contenedor.textContent = 'No se pudo cargar la imagen. Puedes pegar otra URL o usar una imagen desde tu equipo.';
       };
       contenedor.appendChild(img);
-      if (fuente) {
+
+      if(fuente){
         const texto = document.createElement('span');
-        texto.className = 'ayuda';
+        texto.className = 'nota-campo';
         texto.textContent = fuente;
         contenedor.appendChild(texto);
       }
     }
 
-    function colocarImagenEnFicha() {
+    function colocarImagenEnFicha(){
       const contenedor = $('imagenFicha');
       contenedor.innerHTML = '';
-      if (!imagenActual) {
+
+      if(!imagenActual){
         const span = document.createElement('span');
-        span.className = 'sin-imagen';
         span.textContent = 'Imagen de apoyo';
         contenedor.appendChild(span);
         return;
       }
+
       const img = document.createElement('img');
       img.alt = 'Imagen de apoyo de la palabra trabajada';
       img.src = imagenActual;
       img.onerror = () => {
-        contenedor.innerHTML = '<span class="sin-imagen">No se pudo cargar la imagen</span>';
+        contenedor.innerHTML = '<span>No se pudo cargar la imagen</span>';
       };
       contenedor.appendChild(img);
     }
 
-    function crearCasillaSilaba(texto) {
+    function crearCasillaSilaba(texto){
       const div = document.createElement('div');
       div.className = 'casilla-silaba';
       div.textContent = texto;
       return div;
     }
 
-    function actualizarFicha() {
-      const grafema = obtenerGrafema();
-      const fonema = obtenerFonema();
+    function actualizarFicha(){
+      const letra = obtenerLetraBase();
       const palabra = $('palabra').value.trim() || 'palabra';
       const silabasEntrada = dividirSilabasEntrada();
       const silabasPalabra = silabasEntrada.length ? silabasEntrada : [palabra];
-      const silabasFamilia = obtenerSilabasFamilia(grafema);
+      const familia = obtenerFamiliaSilabica(letra);
 
-      $('textoConsigna').textContent = $('consigna').value.trim() || 'Observa, escucha, lee y completa.';
-      $('etiquetaGrafema').textContent = 'Grafema ' + grafema.toUpperCase() + ' - ' + grafema;
+      $('textoConsigna').textContent = $('consigna').value.trim() || 'Observa, lee y completa.';
+      $('etiquetaSilabas').textContent = 'Sílabas: ' + silabasPalabra.join(' - ');
       $('palabraGrande').textContent = palabra.toUpperCase();
-      $('mayuscula').textContent = grafema.toUpperCase();
-      $('minuscula').textContent = grafema;
-      $('fonema').textContent = fonema;
 
       const chips = $('silabasGrandes');
       chips.innerHTML = '';
@@ -875,12 +928,13 @@
 
       const silabario = $('silabario');
       silabario.innerHTML = '';
-      silabasFamilia.forEach((silaba) => silabario.appendChild(crearCasillaSilaba(silaba)));
+      familia.forEach((silaba) => silabario.appendChild(crearCasillaSilaba(silaba)));
 
-      const palabras = bancoPalabras[grafema] || [];
+      const palabras = bancoPalabras[letra] || [];
       const tabla = $('tablaInicial');
       tabla.innerHTML = '';
-      const seleccionadas = [palabra, ...palabras.filter(p => normalizarTexto(p) !== normalizarTexto(palabra))].slice(0, 4);
+      const seleccionadas = [palabra, ...palabras.filter((item) => normalizarTexto(item) !== normalizarTexto(palabra))].slice(0, 4);
+
       seleccionadas.forEach((item) => {
         const sugerida = sugerirSilabasSimples(item).split('-')[0] || '';
         const tr = document.createElement('tr');
@@ -906,48 +960,50 @@
         ordenar.appendChild(div);
       });
 
-      $('bloqueGrafema').classList.toggle('oculto', !$('actGrafema').checked);
-      $('bloqueSilabas').classList.toggle('oculto', !$('actSilabas').checked);
+      $('bloqueFamilia').classList.toggle('oculto', !$('actFamilia').checked);
       $('bloqueInicial').classList.toggle('oculto', !$('actInicial').checked);
       $('bloqueCompletar').classList.toggle('oculto', !$('actCompletar').checked);
       $('bloqueOrdenar').classList.toggle('oculto', !$('actOrdenar').checked);
     }
 
-    async function buscarImagenArasaac() {
+    async function buscarImagenArasaac(){
       const palabra = $('palabra').value.trim();
       const mensaje = $('mensajeArasaac');
-      mensaje.className = 'mensaje visible';
+      mensaje.className = 'mensaje-arasaac visible';
       mensaje.textContent = 'Buscando pictograma en ARASAAC...';
 
-      if (!palabra) {
-        mensaje.textContent = 'Escribe primero una palabra objetivo.';
+      if(!palabra){
+        mensaje.textContent = 'Escribe primero una palabra.';
         return;
       }
 
-      try {
+      try{
         const respuesta = await fetch('https://api.arasaac.org/api/pictograms/es/search/' + encodeURIComponent(palabra));
-        if (!respuesta.ok) throw new Error('No se pudo consultar ARASAAC.');
+        if(!respuesta.ok) throw new Error('No se pudo consultar ARASAAC.');
         const datos = await respuesta.json();
-        if (!Array.isArray(datos) || datos.length === 0) {
+
+        if(!Array.isArray(datos) || datos.length === 0){
           mensaje.textContent = 'No se encontró un pictograma para esa palabra. Puedes pegar una URL o cargar una imagen propia.';
           return;
         }
+
         const pictograma = datos[0];
         const id = pictograma._id || pictograma.id;
-        if (!id) throw new Error('El resultado no tiene identificador de pictograma.');
+        if(!id) throw new Error('El resultado no tiene identificador.');
+
         imagenActual = 'https://api.arasaac.org/api/pictograms/' + id + '?download=false';
         fuenteImagen = 'Pictograma ARASAAC. ID: ' + id;
         $('imagenUrl').value = imagenActual;
         actualizarMiniatura(imagenActual, fuenteImagen);
         actualizarFicha();
-        mensaje.textContent = 'Pictograma cargado. Revisa si corresponde a la palabra; si no, pega otra URL.';
-      } catch (error) {
+        mensaje.textContent = 'Pictograma cargado. Revisa si corresponde a la palabra trabajada.';
+      }catch(error){
         mensaje.textContent = 'No se pudo conectar con ARASAAC desde este navegador. Puedes pegar una URL de imagen o cargar un archivo local.';
       }
     }
 
-    function pronunciarTexto(texto) {
-      if (!('speechSynthesis' in window)) return;
+    function pronunciarTexto(texto){
+      if(!('speechSynthesis' in window)) return;
       const voz = new SpeechSynthesisUtterance(texto);
       voz.lang = 'es-PE';
       voz.rate = .85;
@@ -955,21 +1011,21 @@
       window.speechSynthesis.speak(voz);
     }
 
-    function descargarFichaHtml() {
+    function descargarFichaHtml(){
       actualizarFicha();
       const contenido = $('hojaFicha').outerHTML;
-      const documento = '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ficha de conciencia fonológica</title><style>body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#243044}.hoja{max-width:794px;margin:auto}.hoja-cabecera{display:flex;justify-content:space-between;gap:16px;border-bottom:2px solid #e9eef6;padding-bottom:16px;margin-bottom:18px}.etiqueta{background:#eef7ff;color:#2c5f99;border-radius:999px;padding:8px 12px;font-weight:700}.bloque{border:1px solid #e2e8f2;border-radius:16px;padding:16px;margin-bottom:16px}.presentacion-palabra{display:grid;grid-template-columns:190px 1fr;gap:18px}.imagen-ficha{min-height:160px;border:1px solid #e2e8f2;border-radius:16px;display:grid;place-items:center;padding:12px}.imagen-ficha img{max-width:100%;max-height:180px}.palabra-grande{font-size:64px;font-weight:800;text-transform:uppercase}.chip-silaba,.casilla-silaba,.caja-recorte{display:inline-flex;border:2px solid #b9c9e3;border-radius:14px;padding:10px 16px;margin:5px;font-size:26px;font-weight:800}.grafema-grid,.silabario{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.tarjeta-sonido{border:1px solid #e2e8f2;border-radius:16px;text-align:center;padding:18px}.tarjeta-sonido strong{font-size:46px}.tabla-actividad{width:100%;border-collapse:collapse}.tabla-actividad th,.tabla-actividad td{border:1px solid #dce4ef;padding:12px}.linea-respuesta{display:inline-block;min-width:180px;border-bottom:2px solid #4c5a70;height:28px}.pie-ficha{border-top:1px solid #e2e8f2;padding-top:12px;margin-top:18px;color:#637087;font-size:11px}.oculto{display:none!important}@media print{body{margin:0}.bloque{break-inside:avoid}}</style></head><body>' + contenido + '</body></html>';
-      const blob = new Blob([documento], { type: 'text/html;charset=utf-8' });
+      const documento = '<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ficha de silabeo</title><style>body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#102a43}.hoja-ficha{max-width:794px;margin:auto}.cabecera-ficha{display:flex;justify-content:space-between;gap:18px;border-bottom:2px solid #f0f4f8;padding-bottom:18px;margin-bottom:18px}.cabecera-ficha h2{margin:0;color:#072f57;font-family:Georgia,Times New Roman,serif;font-size:2rem}.etiqueta-ficha{background:#e6f4f1;color:#0f766e;border-radius:999px;padding:9px 14px;font-weight:900}.bloque-ficha{border:1px solid #d9e2ec;border-radius:22px;padding:18px;margin-bottom:18px}.presentacion-palabra{display:grid;grid-template-columns:190px 1fr;gap:20px}.imagen-ficha{min-height:170px;border:1px solid #d9e2ec;border-radius:20px;display:grid;place-items:center;padding:14px}.imagen-ficha img{max-width:100%;max-height:190px}.palabra-principal{font-size:64px;font-weight:900;text-transform:uppercase}.chip-silaba,.casilla-silaba,.caja-recorte{display:inline-flex;align-items:center;justify-content:center;border:2px solid #9fb3c8;border-radius:18px;padding:12px 18px;margin:5px;font-size:28px;font-weight:900}.silabario{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.tabla-actividad{width:100%;border-collapse:collapse}.tabla-actividad th,.tabla-actividad td{border:1px solid #d9e2ec;padding:12px}.tabla-actividad th{background:#f0fdfa;color:#072f57}.linea-respuesta{display:inline-block;min-width:190px;height:30px;border-bottom:2px solid #334e68}.cajas-recorte{display:flex;flex-wrap:wrap;gap:10px}.pie-ficha{border-top:1px solid #d9e2ec;margin-top:20px;padding-top:14px;color:#627d98;font-size:.78rem}.oculto{display:none!important}</style></head><body>' + contenido + '</body></html>';
+      const blob = new Blob([documento], { type:'text/html;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'ficha-conciencia-fonologica.html';
+      a.download = 'ficha-silabeo.html';
       a.click();
       URL.revokeObjectURL(url);
     }
 
     $('palabra').addEventListener('input', () => {
-      if (!$('silabas').dataset.editado) {
+      if(!$('silabas').dataset.editado){
         $('silabas').value = sugerirSilabasSimples($('palabra').value);
       }
     });
@@ -978,8 +1034,9 @@
       $('silabas').dataset.editado = 'true';
     });
 
-    $('grafema').addEventListener('change', actualizarFicha);
+    $('letraBase').addEventListener('change', actualizarFicha);
     $('consigna').addEventListener('input', actualizarFicha);
+
     $('imagenUrl').addEventListener('input', () => {
       imagenActual = $('imagenUrl').value.trim();
       fuenteImagen = imagenActual ? 'Imagen desde URL proporcionada.' : '';
@@ -989,7 +1046,8 @@
 
     $('archivoImagen').addEventListener('change', (evento) => {
       const archivo = evento.target.files[0];
-      if (!archivo) return;
+      if(!archivo) return;
+
       const lector = new FileReader();
       lector.onload = () => {
         imagenActual = lector.result;
@@ -1002,6 +1060,7 @@
     });
 
     $('buscarArasaac').addEventListener('click', buscarImagenArasaac);
+
     $('quitarImagen').addEventListener('click', () => {
       imagenActual = '';
       fuenteImagen = '';
@@ -1011,14 +1070,16 @@
     });
 
     $('generar').addEventListener('click', actualizarFicha);
+
     $('imprimir').addEventListener('click', () => {
       actualizarFicha();
       window.print();
     });
+
     $('descargarHtml').addEventListener('click', descargarFichaHtml);
     $('pronunciar').addEventListener('click', () => pronunciarTexto($('palabra').value.trim() || 'mesa'));
 
-    ['actGrafema', 'actSilabas', 'actInicial', 'actCompletar', 'actOrdenar'].forEach((id) => {
+    ['actFamilia', 'actInicial', 'actCompletar', 'actOrdenar'].forEach((id) => {
       $(id).addEventListener('change', actualizarFicha);
     });
 
