@@ -3,456 +3,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta
-    name="description"
-    content="Materiales Educativos Accesibles: repositorio digital de recursos pedagógicos para la inclusión, la accesibilidad y la atención a la diversidad."
-  >
+  <meta name="description" content="Materiales Educativos Accesibles: repositorio digital de recursos pedagógicos para la inclusión, la accesibilidad y la atención a la diversidad.">
   <title>Materiales Educativos Accesibles</title>
-  <link rel="stylesheet" href="estilos.css?v=7">
-
+  <link rel="stylesheet" href="estilos.css?v=8">
   <style>
-    .panel-busqueda .panel-encabezado{
-      display:block;
-      margin-bottom:30px;
-    }
-
-    .texto-panel-materiales{
-      max-width:760px;
-      margin:14px 0 0;
-      color:#486581;
-      line-height:1.65;
-      font-size:1rem;
-    }
-
-    .grid-materiales{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:28px;
-    }
-
-    .tarjeta-material{
-      background:#ffffff;
-      border:1px solid #d9e2ec;
-      border-radius:24px;
-      padding:22px;
-      min-height:250px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      box-shadow:0 10px 22px rgba(16,42,67,.06);
-    }
-
-    .tarjeta-material.disponible{
-      background:linear-gradient(180deg,#ffffff 0%,#eef9f6 100%);
-      border-color:rgba(15,118,110,.35);
-    }
-
-    .material-icono{
-      width:56px;
-      height:56px;
-      border-radius:18px;
-      background:#e6f4f1;
-      color:#0f766e;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-      font-size:1rem;
-      margin-bottom:16px;
-    }
-
-    .tarjeta-material h3{
-      margin:0 0 10px;
-      color:#0b2f4a;
-      font-size:1.15rem;
-      line-height:1.25;
-    }
-
-    .tarjeta-material p{
-      margin:0;
-      color:#486581;
-      line-height:1.58;
-      font-size:.96rem;
-    }
-
-    .tarjeta-pie{
-      margin-top:22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .estado-material{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:.82rem;
-      font-weight:800;
-    }
-
-    .estado-material.disponible{
-      background:#d9f2ec;
-      color:#0f766e;
-    }
-
-    .estado-material.construccion{
-      background:#fff4d6;
-      color:#8a5a00;
-    }
-
-    .enlace-material{
-      display:inline-block;
-      text-decoration:none;
-      background:#0f766e;
-      color:#ffffff;
-      padding:9px 16px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:.9rem;
-    }
-
-    .enlace-material:hover{
-      background:#0b4f4a;
-      color:#ffffff;
-    }
-
-    @media (max-width:900px){
-      .grid-materiales{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-    @media (max-width:700px){
-      .grid-materiales{
-        grid-template-columns:1fr;
-      }
-
-      .tarjeta-pie{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .enlace-material{
-        width:100%;
-        text-align:center;
-      }
-    }
+    .panel-busqueda .panel-encabezado{display:block;margin-bottom:30px;}
+    .texto-panel-materiales{max-width:760px;margin:14px 0 0;color:#486581;line-height:1.65;font-size:1rem;}
+    .grid-materiales{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;}
+    .tarjeta-material{background:#ffffff;border:1px solid #d9e2ec;border-radius:24px;padding:22px;min-height:250px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 22px rgba(16,42,67,.06);}
+    .tarjeta-material.disponible{background:linear-gradient(180deg,#ffffff 0%,#eef9f6 100%);border-color:rgba(15,118,110,.35);}
+    .material-icono{width:56px;height:56px;border-radius:18px;background:#e6f4f1;color:#0f766e;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;margin-bottom:16px;}
+    .tarjeta-material h3{margin:0 0 10px;color:#0b2f4a;font-size:1.15rem;line-height:1.25;}
+    .tarjeta-material p{margin:0;color:#486581;line-height:1.58;font-size:.96rem;}
+    .tarjeta-pie{margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+    .estado-material{display:inline-block;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:800;}
+    .estado-material.disponible{background:#d9f2ec;color:#0f766e;}
+    .estado-material.construccion{background:#fff4d6;color:#8a5a00;}
+    .enlace-material{display:inline-block;text-decoration:none;background:#0f766e;color:#ffffff;padding:9px 16px;border-radius:999px;font-weight:800;font-size:.9rem;}
+    .enlace-material:hover{background:#0b4f4a;color:#ffffff;}
+    @media (max-width:900px){.grid-materiales{grid-template-columns:repeat(2,1fr);}}
+    @media (max-width:700px){.grid-materiales{grid-template-columns:1fr;}.tarjeta-pie{flex-direction:column;align-items:flex-start;}.enlace-material{width:100%;text-align:center;}}
   </style>
 </head>
-
 <body>
-  <a class="salto-contenido" href="#contenido-principal">
-    Ir al contenido
-  </a>
+  <a class="salto-contenido" href="#contenido-principal">Ir al contenido</a>
 
   <header class="cabecera">
     <nav class="navegacion" aria-label="Navegación principal">
-        <a class="marca" href="https://crebeucayali.weebly.com/" aria-label="Ir a la plataforma principal">
+      <a class="marca" href="https://crebeucayali.weebly.com/" aria-label="Ir a la plataforma principal">
         <span class="marca-icono" aria-hidden="true">MEA</span>
         <span>Materiales Educativos Accesibles</span>
       </a>
-
-      <a class="enlace-cabecera" href="contacto.html">
-        Contacto
-      </a>
+      <a class="enlace-cabecera" href="contacto.html">Contacto</a>
     </nav>
 
     <div class="portada">
       <div class="bloque-institucional" aria-label="Identidad institucional">
-        <img
-          class="logo-crebe"
-          src="logo-crebe.png"
-          alt="Logo del CREBE Señor de los Milagros - Ucayali"
-        >
+        <img class="logo-crebe" src="logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali">
         <div class="texto-institucional">
-          <p class="nombre-institucional">
-            CREBE "Señor de los Milagros" - Ucayali
-          </p>
-          <p class="detalle-institucional">
-            Centro de Recursos de Educación Básica Especial
-          </p>
+          <p class="nombre-institucional">CREBE "Señor de los Milagros" - Ucayali</p>
+          <p class="detalle-institucional">Centro de Recursos de Educación Básica Especial</p>
         </div>
       </div>
-
       <p class="etiqueta">Plataforma educativa accesible</p>
-      <h1>
-        <a href="https://crebeucayali.weebly.com/" style="color:inherit;text-decoration:none;">
-          Materiales Educativos Accesibles
-        </a>
-      </h1>
-      <p class="subtitulo">
-        Repositorio digital de recursos pedagógicos para apoyar la inclusión,
-        la accesibilidad y la atención a la diversidad
-      </p>
+      <h1><a href="https://crebeucayali.weebly.com/" style="color:inherit;text-decoration:none;">Materiales Educativos Accesibles</a></h1>
+      <p class="subtitulo">Repositorio digital de recursos pedagógicos para apoyar la inclusión, la accesibilidad y la atención a la diversidad</p>
     </div>
   </header>
 
   <main id="contenido-principal">
-
     <section class="panel-busqueda" aria-labelledby="titulo-catalogo">
       <div class="panel-encabezado">
         <div>
           <p class="sobretitulo">Banco de recursos</p>
           <h2 id="titulo-catalogo">Explora materiales educativos accesibles</h2>
-          <p class="texto-panel-materiales">
-            Esta página organiza recursos educativos accesibles en un solo
-            espacio. Selecciona una tarjeta para ingresar al material disponible
-            o revisar las secciones que se encuentran en construcción.
-          </p>
+          <p class="texto-panel-materiales">Esta página organiza recursos educativos accesibles en un solo espacio. Selecciona una tarjeta para ingresar al material disponible o revisar las secciones que se encuentran en construcción.</p>
         </div>
       </div>
 
       <div class="grid-materiales">
-
-        <article class="tarjeta-material disponible">
-          <div>
-            <div class="material-icono" aria-hidden="true">⠿</div>
-            <h3>Generador Braille</h3>
-            <p>
-              Herramienta para escribir letras, números, palabras o frases y
-              obtener su representación visual en sistema Braille.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material disponible">Disponible</span>
-            <a class="enlace-material" href="generador.html">Ingresar</a>
-          </div>
-        </article>
-
-        <article class="tarjeta-material disponible">
-          <div>
-            <div class="material-icono" aria-hidden="true">PIC</div>
-            <h3>Pictogramas y apoyos visuales</h3>
-            <p>
-              Buscador educativo conectado a ARASAAC para consultar pictogramas
-              de apoyo a la comunicación, rutinas visuales y accesibilidad
-              cognitiva.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material disponible">Disponible</span>
-            <a class="enlace-material" href="pictogramas.html">Ingresar</a>
-          </div>
-        </article>
-
-        <article class="tarjeta-material disponible">
-          <div>
-            <div class="material-icono" aria-hidden="true">PIC´s</div>
-            <h3>Generador de rutinas visuales</h3>
-            <p>
-              Herramienta conectada a ARASAAC para seleccionar pictogramas, organizar
-              secuencias de actividades y descargar la rutina en PDF o JPG.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material disponible">Disponible</span>
-            <a class="enlace-material" href="rutinas.html">Ingresar</a>
-          </div>
-        </article>
-
-        <article class="tarjeta-material disponible">
-          <div>
-            <div class="material-icono" aria-hidden="true">SÍL</div>
-            <h3>Generador de sílabas</h3>
-            <p>
-              Herramienta para crear fichas de silabeo con apoyo visual,
-              separación silábica y actividades listas para imprimir.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material disponible">Disponible</span>
-            <a class="enlace-material" href="conciencia-fonologica.html">Ingresar</a>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">LSP</div>
-            <h3>Apoyos en Lengua de Señas Peruana</h3>
-            <p>
-              Sección proyectada para recursos visuales de apoyo a la
-              comunicación accesible y al trabajo pedagógico.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">Aa</div>
-            <h3>Lectura fácil</h3>
-            <p>
-              Apartado destinado a textos adaptados con lenguaje claro,
-              estructura sencilla y apoyos visuales.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">◐</div>
-            <h3>Alto contraste</h3>
-            <p>
-              Recursos orientados a mejorar la visibilidad mediante contraste,
-              tamaño de letra y distribución limpia del contenido.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">DOC</div>
-            <h3>Guías para docentes</h3>
-            <p>
-              Sección futura para orientaciones sobre adaptación de materiales,
-              accesibilidad pedagógica y uso de recursos inclusivos.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">FAM</div>
-            <h3>Guías para familias</h3>
-            <p>
-              Apartado proyectado para orientaciones breves, actividades de
-              apoyo en casa y acompañamiento familiar.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
-        <article class="tarjeta-material">
-          <div>
-            <div class="material-icono" aria-hidden="true">PL</div>
-            <h3>Plantillas adaptadas</h3>
-            <p>
-              Espacio previsto para modelos editables de actividades, registros,
-              tarjetas y materiales de uso pedagógico.
-            </p>
-          </div>
-
-          <div class="tarjeta-pie">
-            <span class="estado-material construccion">En construcción</span>
-          </div>
-        </article>
-
+        <article class="tarjeta-material disponible"><div><div class="material-icono" aria-hidden="true">⠿</div><h3>Generador Braille</h3><p>Herramienta para escribir letras, números, palabras o frases y obtener su representación visual en sistema Braille.</p></div><div class="tarjeta-pie"><span class="estado-material disponible">Disponible</span><a class="enlace-material" href="generador.html">Ingresar</a></div></article>
+        <article class="tarjeta-material disponible"><div><div class="material-icono" aria-hidden="true">PIC</div><h3>Pictogramas y apoyos visuales</h3><p>Buscador educativo conectado a ARASAAC para consultar pictogramas de apoyo a la comunicación, rutinas visuales y accesibilidad cognitiva.</p></div><div class="tarjeta-pie"><span class="estado-material disponible">Disponible</span><a class="enlace-material" href="pictogramas.html">Ingresar</a></div></article>
+        <article class="tarjeta-material disponible"><div><div class="material-icono" aria-hidden="true">PIC´s</div><h3>Generador de rutinas visuales</h3><p>Herramienta conectada a ARASAAC para seleccionar pictogramas, organizar secuencias de actividades y descargar la rutina en PDF o JPG.</p></div><div class="tarjeta-pie"><span class="estado-material disponible">Disponible</span><a class="enlace-material" href="rutinas.html">Ingresar</a></div></article>
+        <article class="tarjeta-material disponible"><div><div class="material-icono" aria-hidden="true">SÍL</div><h3>Generador de sílabas</h3><p>Herramienta para crear fichas de silabeo con apoyo visual, separación silábica y actividades listas para imprimir.</p></div><div class="tarjeta-pie"><span class="estado-material disponible">Disponible</span><a class="enlace-material" href="conciencia-fonologica.html">Ingresar</a></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">LSP</div><h3>Apoyos en Lengua de Señas Peruana</h3><p>Sección proyectada para recursos visuales de apoyo a la comunicación accesible y al trabajo pedagógico.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">Aa</div><h3>Lectura fácil</h3><p>Apartado destinado a textos adaptados con lenguaje claro, estructura sencilla y apoyos visuales.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">◐</div><h3>Alto contraste</h3><p>Recursos orientados a mejorar la visibilidad mediante contraste, tamaño de letra y distribución limpia del contenido.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">DOC</div><h3>Guías para docentes</h3><p>Sección futura para orientaciones sobre adaptación de materiales, accesibilidad pedagógica y uso de recursos inclusivos.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">FAM</div><h3>Guías para familias</h3><p>Apartado proyectado para orientaciones breves, actividades de apoyo en casa y acompañamiento familiar.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
+        <article class="tarjeta-material"><div><div class="material-icono" aria-hidden="true">PL</div><h3>Plantillas adaptadas</h3><p>Espacio previsto para modelos editables de actividades, registros, tarjetas y materiales de uso pedagógico.</p></div><div class="tarjeta-pie"><span class="estado-material construccion">En construcción</span></div></article>
       </div>
     </section>
 
-    <section
-      id="presentacion"
-      class="seccion-presentacion"
-      aria-labelledby="titulo-presentacion"
-    >
+    <section id="presentacion" class="seccion-presentacion" aria-labelledby="titulo-presentacion">
       <div class="panel-presentacion">
-        <div>
-          <p class="sobretitulo">Conoce el recurso</p>
-          <h2 id="titulo-presentacion">
-            Un espacio central para materiales accesibles
-          </h2>
-        </div>
-        <p>
-          Esta página permite reunir recursos educativos accesibles en una sola
-          ruta de consulta. Su finalidad es facilitar el acceso a materiales de
-          apoyo para docentes, familias y estudiantes, manteniendo una
-          organización clara y progresiva.
-        </p>
+        <div><p class="sobretitulo">Conoce el recurso</p><h2 id="titulo-presentacion">Un espacio central para materiales accesibles</h2></div>
+        <p>Esta página permite reunir recursos educativos accesibles en una sola ruta de consulta. Su finalidad es facilitar el acceso a materiales de apoyo para docentes, familias y estudiantes, manteniendo una organización clara y progresiva.</p>
       </div>
     </section>
 
-    <section
-      id="aviso-pedagogico"
-      class="seccion-aviso"
-      aria-labelledby="titulo-aviso"
-    >
+    <section id="aviso-pedagogico" class="seccion-aviso" aria-labelledby="titulo-aviso">
       <aside class="aviso-pedagogico">
         <div class="aviso-icono" aria-hidden="true">i</div>
-        <div>
-          <h2 id="titulo-aviso">Advertencia pedagógica</h2>
-          <p>
-            Los recursos digitales funcionan como apoyo educativo. En el caso
-            del Braille, la representación visual no reemplaza el aprendizaje
-            táctil ni el uso de materiales impresos en relieve. En el caso de
-            pictogramas, su selección debe considerar las necesidades
-            comunicativas de cada estudiante.
-          </p>
-        </div>
+        <div><h2 id="titulo-aviso">Advertencia pedagógica</h2><p>Los recursos digitales funcionan como apoyo educativo. En el caso del Braille, la representación visual no reemplaza el aprendizaje táctil ni el uso de materiales impresos en relieve. En el caso de pictogramas, su selección debe considerar las necesidades comunicativas de cada estudiante.</p></div>
       </aside>
     </section>
   </main>
 
   <footer>
     <div class="footer-contenido">
-      <div class="footer-bloque">
-        <h2>Materiales Educativos Accesibles</h2>
-        <p>
-          Repositorio digital de apoyo para la inclusión educativa y la atención
-          a la diversidad.
-        </p>
+      <div class="footer-bloque footer-marca">
+        <img class="footer-logo" src="logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali">
+        <div>
+          <h2>Materiales Educativos Accesibles</h2>
+          <p>Repositorio digital de apoyo para la inclusión educativa, la accesibilidad y la atención a la diversidad.</p>
+        </div>
       </div>
-
       <div class="footer-bloque">
         <h2>Enlaces</h2>
         <p>
-          <a href="https://gabriel-lsp.github.io/capacitaciones-crebe-ucayali/">Capacitaciones CREBE</a><br>
+          <a href="https://crebeucayali.weebly.com/">Inicio principal</a><br>
+          <a href="contacto.html">Contacto</a><br>
           <a href="https://gabriel-lsp.github.io/banco-digital-accesible/">Banco Digital Accesible</a><br>
+          <a href="https://gabriel-lsp.github.io/materiales-educativos-accesibles/">Material Educativo Accesible</a><br>
           <a href="https://gabriel-lsp.github.io/juegos-interactivos-accesibles/">Juegos Educativos Accesibles</a><br>
-          <a href="https://gabriel-lsp.github.io/banco-digital-accesible/noti-inclusivos/">Noti Inclusivos</a>
+          <a href="https://gabriel-lsp.github.io/capacitaciones-crebe-ucayali/">Capacitaciones CREBE</a><br>
+          <a href="https://gabriel-lsp.github.io/noti-inclusivos/">Noti Inclusivos</a>
         </p>
       </div>
-
       <div class="footer-bloque">
-        <h2>Institución</h2>
+        <h2>Contacto CREBE</h2>
         <p>
           CREBE "Señor de los Milagros" - Ucayali<br>
-          Centro de Recursos de Educación Básica Especial
-        </p>
-      </div>
-
-      <div class="footer-bloque">
-        <h2>Créditos y licencias</h2>
-        <p>
-          Algunos recursos pueden utilizar materiales de terceros. Los
-          pictogramas proceden de ARASAAC. Autor pictogramas: Sergio Palao.
-          Propiedad: Gobierno de Aragón, España. Licencia: Creative Commons
-          BY-NC-SA.
+          Teléfono: pendiente<br>
+          Correo: senordelosmilagroscrebe@gmail.com<br>
+          Horario: lunes a viernes, 8:00 a.m. - 12:00 p.m.<br>
+          Dirección: pendiente<br>
+          <a href="https://www.facebook.com/CREBESM" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+          TikTok: pendiente
         </p>
       </div>
     </div>
-
-    <div class="footer-final">
-      <p>
-        © 2026 Materiales Educativos Accesibles. Desarrollado por Gabriel
-        Berrospi con apoyo institucional del CREBE "Señor de los Milagros" -
-        Ucayali. Plataforma educativa sin fines de lucro.
-      </p>
-    </div>
+    <div class="footer-final"><p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p></div>
   </footer>
 </body>
 </html>
