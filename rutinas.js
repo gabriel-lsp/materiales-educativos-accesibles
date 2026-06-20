@@ -29,8 +29,42 @@ formularioArasaac.addEventListener("submit", buscarPictogramas);
 botonDescargarJpg.addEventListener("click", descargarJpg);
 botonDescargarPdf.addEventListener("click", descargarPdf);
 
+agregarContactoCabecera();
 crearEspacios();
 actualizarEnlacesExternos();
+
+function agregarContactoCabecera(){
+  const navegacion = document.querySelector(".navegacion");
+  const enlaceExistente = document.querySelector('.navegacion a[href="contacto.html"]');
+
+  if(!navegacion || enlaceExistente){
+    return;
+  }
+
+  const enlaceVolver = navegacion.querySelector(".enlace-cabecera");
+
+  if(!enlaceVolver){
+    return;
+  }
+
+  let contenedor = enlaceVolver.parentElement;
+
+  if(!contenedor || contenedor === navegacion){
+    contenedor = document.createElement("div");
+    contenedor.style.display = "flex";
+    contenedor.style.gap = "10px";
+    contenedor.style.flexWrap = "wrap";
+    contenedor.style.justifyContent = "flex-end";
+    enlaceVolver.replaceWith(contenedor);
+    contenedor.appendChild(enlaceVolver);
+  }
+
+  const enlaceContacto = document.createElement("a");
+  enlaceContacto.className = "enlace-cabecera";
+  enlaceContacto.href = "contacto.html";
+  enlaceContacto.textContent = "Contacto";
+  contenedor.appendChild(enlaceContacto);
+}
 
 function crearEspacios(){
   const total = Number(cantidadPasos.value);
