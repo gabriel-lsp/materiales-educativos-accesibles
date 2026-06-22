@@ -25,27 +25,35 @@ body{margin:0;font-family:Arial, Helvetica, sans-serif;background:linear-gradien
 a{color:inherit;}
 .salto-contenido{position:absolute;left:-999px;top:12px;background:var(--gris-900);color:var(--blanco);padding:10px 14px;border-radius:10px;z-index:50;}
 .salto-contenido:focus{left:12px;}
+
 .cabecera{position:relative;overflow:hidden;background:radial-gradient(circle at 84% 70%,rgba(255,255,255,.11) 0 22%,transparent 23%),radial-gradient(circle at 86% 74%,rgba(255,255,255,.08) 0 36%,transparent 37%),linear-gradient(135deg,#0b3550 0%,#0f4f57 48%,#0f766e 100%);color:var(--blanco);padding:30px 18px 145px;}
-.navegacion{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-.marca{display:inline-flex;align-items:center;gap:14px;color:var(--blanco);text-decoration:none;font-weight:900;font-size:1.05rem;}
+.cabecera::after{display:none;content:none;}
+.navegacion{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.marca{display:inline-flex;align-items:center;gap:14px;color:var(--blanco);text-decoration:none;font-weight:900;font-size:1.05rem;letter-spacing:0;}
 .marca-icono{width:54px;height:54px;border-radius:18px;display:inline-flex;align-items:center;justify-content:center;background:var(--blanco);color:#0b3550;font-weight:900;font-size:.9rem;box-shadow:0 10px 24px rgba(0,0,0,.14);}
-.enlace-cabecera{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;border:1px solid rgba(255,255,255,.45);border-radius:999px;color:var(--blanco);text-decoration:none;font-weight:800;background:rgba(255,255,255,.08);}
-.enlace-cabecera:hover{background:rgba(255,255,255,.16);}
+.enlaces-cabecera{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:12px;}
+.enlace-cabecera{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;border:1px solid rgba(255,255,255,.45);border-radius:999px;color:var(--blanco);text-decoration:none;font-size:1rem;font-weight:800;background:rgba(255,255,255,.08);}
+.enlace-cabecera:hover{color:var(--blanco);background:rgba(255,255,255,.16);}
+
 .portada{max-width:1120px;margin:70px auto 0;}
-.bloque-institucional{display:flex;align-items:center;gap:22px;margin-bottom:34px;}
-.logo-crebe{width:92px;height:92px;object-fit:contain;}
+.bloque-institucional{display:flex;align-items:center;gap:22px;margin-bottom:34px;max-width:none;}
+.logo-crebe{width:92px;max-width:92px;height:92px;max-height:92px;object-fit:contain;}
 .texto-institucional{border-left:2px solid rgba(255,255,255,.35);padding-left:22px;}
 .nombre-institucional{margin:0 0 8px;color:var(--blanco);font-size:1.2rem;font-weight:900;line-height:1.25;}
 .detalle-institucional{margin:0;color:rgba(255,255,255,.94);font-size:1rem;font-weight:700;line-height:1.4;}
-.etiqueta{margin:0 0 14px;color:#c9f7ee;font-size:.86rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
-.portada h1{max-width:860px;margin:0 0 22px;color:var(--blanco);font-family:Georgia, "Times New Roman", serif;font-size:clamp(2.5rem,5.8vw,4.15rem);line-height:1.04;letter-spacing:-.04em;}
+.etiqueta,.etiqueta-superior,.sobretitulo,.seccion-etiqueta{margin:0 0 14px;font-size:.86rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
+.etiqueta,.etiqueta-superior{color:#c9f7ee;}
+.sobretitulo,.seccion-etiqueta{color:var(--verde-700);}
+.portada h1{max-width:900px;margin:0 0 22px;color:var(--blanco);font-family:Georgia, "Times New Roman", serif;font-size:clamp(2.5rem,5.8vw,4.15rem);line-height:1.04;letter-spacing:-.04em;}
 .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1.22rem;line-height:1.65;}
+
 main{max-width:1120px;margin:-78px auto 0;padding:0 18px 44px;position:relative;z-index:2;}
 .panel-busqueda,.panel-presentacion,.aviso-pedagogico{background:var(--blanco);border:1px solid var(--gris-300);border-radius:26px;box-shadow:var(--sombra);}
 .panel-busqueda{padding:34px 46px 40px;}
 .panel-encabezado{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:30px;}
 .sobretitulo{margin:0 0 12px;color:var(--verde-700);font-size:.86rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
 .panel-encabezado h2,.panel-presentacion h2,.aviso-pedagogico h2{margin:0;color:#072f57;font-family:Georgia, "Times New Roman", serif;font-size:clamp(1.9rem,3.6vw,2.65rem);line-height:1.1;}
+.texto-panel{max-width:860px;margin:14px 0 0;color:var(--gris-600);line-height:1.65;font-size:1rem;}
 .contador{display:inline-flex;align-items:center;justify-content:center;margin:4px 0 0;padding:10px 18px;border-radius:999px;background:var(--verde-100);color:var(--verde-700);font-weight:900;}
 .herramientas{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;margin-top:10px;}
 .grupo-busqueda label,.grupo-filtros p{display:block;margin:0 0 10px;color:#072f57;font-weight:900;}
@@ -66,6 +74,7 @@ main{max-width:1120px;margin:-78px auto 0;padding:0 18px 44px;position:relative;
 .boton-mas:hover,.boton-primario:hover{background:var(--verde-800);}
 .estado-vacio,.mensaje-error{margin-top:28px;padding:28px;border-radius:24px;text-align:center;background:var(--blanco);border:1px solid var(--gris-300);}
 .estado-vacio-simbolo{margin:0 0 8px;font-size:3rem;color:var(--verde-700);}
+
 .seccion-presentacion,.seccion-aviso{margin-top:30px;}
 .panel-presentacion{padding:30px 38px;display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:center;}
 .panel-presentacion p:last-child{margin:0;color:var(--gris-600);font-size:1rem;line-height:1.7;}
@@ -74,6 +83,8 @@ main{max-width:1120px;margin:-78px auto 0;padding:0 18px 44px;position:relative;
 .aviso-pedagogico h2{font-size:1.45rem;font-family:Arial, Helvetica, sans-serif;}
 .aviso-pedagogico p{margin:8px 0 0;color:var(--gris-600);line-height:1.65;}
 .solo-lectores{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+textarea,input[type="text"],input:not([type]){position:relative;z-index:50;pointer-events:auto;user-select:text;-webkit-user-select:text;cursor:text;}
+
 footer{background:#082f49;color:var(--blanco);padding:42px 18px 26px;}
 .footer-contenido{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1.25fr;gap:32px;}
 .footer-bloque h2{margin:0 0 12px;font-size:1rem;color:var(--blanco);}
@@ -84,29 +95,29 @@ footer{background:#082f49;color:var(--blanco);padding:42px 18px 26px;}
 .footer-logo{width:72px;max-width:72px;height:auto;object-fit:contain;display:block;flex-shrink:0;}
 .footer-final{max-width:1120px;margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.18);}
 .footer-final p{margin:0;color:#bcccdc;text-align:left;line-height:1.6;font-size:.9rem;}
-@media (max-width:900px){.herramientas{grid-template-columns:1fr;}.lista-tarjetas{grid-template-columns:repeat(2,1fr);}.panel-presentacion{grid-template-columns:1fr;}.footer-contenido{grid-template-columns:1fr;}.footer-marca{align-items:center;}}
-@media (max-width:700px){.cabecera{padding:22px 14px 110px;}.navegacion{flex-direction:column;align-items:flex-start;}.marca{width:100%;}.enlace-cabecera{width:100%;}.portada{margin-top:44px;}.bloque-institucional{align-items:flex-start;}.logo-crebe{width:76px;height:76px;}.footer-logo{width:60px;max-width:60px;}.texto-institucional{padding-left:16px;}main{margin-top:-60px;padding:0 14px 34px;}.panel-busqueda{padding:26px 20px 30px;}.panel-encabezado{flex-direction:column;}.lista-tarjetas{grid-template-columns:1fr;}.panel-presentacion{padding:24px 20px;}.aviso-pedagogico{padding:22px 20px;}.footer-contenido{grid-template-columns:1fr;}.seccion-rutinas input,.seccion-rutinas textarea,.rutinas input,.rutinas textarea{pointer-events:auto;user-select:text;-webkit-user-select:text;cursor:text;position:relative;z-index:10;}.seccion-rutinas,.rutinas{pointer-events:auto;}}
-textarea,input[type="text"],input:not([type]){position:relative;z-index:50;pointer-events:auto;user-select:text;-webkit-user-select:text;cursor:text;}
 
-/* Ajuste final de alineación visual con AC */
-.cabecera{padding:30px 18px 145px;background:radial-gradient(circle at 84% 70%,rgba(255,255,255,.11) 0 22%,transparent 23%),radial-gradient(circle at 86% 74%,rgba(255,255,255,.08) 0 36%,transparent 37%),linear-gradient(135deg,#0b3550 0%,#0f4f57 48%,#0f766e 100%);}
-.cabecera::after{display:none;content:none;}
-.navegacion{max-width:1120px;gap:20px;flex-wrap:wrap;}
-.marca{gap:14px;font-size:1.05rem;font-weight:900;letter-spacing:0;}
-.marca-icono{width:54px;height:54px;border-radius:18px;color:#0b3550;background:var(--blanco);font-size:.9rem;font-weight:900;box-shadow:0 10px 24px rgba(0,0,0,.14);}
-.enlaces-cabecera{gap:12px;}
-.enlace-cabecera{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;font-size:1rem;font-weight:800;background:rgba(255,255,255,.08);}
-.enlace-cabecera:hover{color:var(--blanco);background:rgba(255,255,255,.16);}
-.portada{max-width:1120px;margin:70px auto 0;}
-.bloque-institucional{gap:22px;margin-bottom:34px;max-width:none;}
-.logo-crebe{width:92px;max-width:92px;height:92px;max-height:92px;object-fit:contain;}
-.texto-institucional{padding-left:22px;}
-.nombre-institucional{margin:0 0 8px;font-size:1.2rem;font-weight:900;line-height:1.25;}
-.detalle-institucional{margin:0;color:rgba(255,255,255,.94);font-size:1rem;font-weight:700;line-height:1.4;}
-.etiqueta,.etiqueta-superior,.sobretitulo,.seccion-etiqueta{margin:0 0 14px;font-size:.86rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;}
-.etiqueta,.etiqueta-superior{color:#c9f7ee;}.sobretitulo,.seccion-etiqueta{color:var(--verde-700);}
-.portada h1{max-width:900px;margin:0 0 22px;font-size:clamp(2.5rem,5.8vw,4.15rem);line-height:1.04;letter-spacing:-.04em;}
-.subtitulo{max-width:880px;margin:0;font-size:1.22rem;line-height:1.65;}
-main{max-width:1120px;margin:-78px auto 0;padding:0 18px 44px;}
-.footer-contenido,.footer-final{max-width:1120px;}
-@media (max-width:700px){.cabecera{padding:26px 18px 116px;}.navegacion{align-items:flex-start;flex-direction:column;}.enlaces-cabecera{justify-content:flex-start;gap:12px;}.enlace-cabecera{width:auto;min-height:46px;padding:10px 22px;font-size:1rem;}.portada{margin-top:54px;}.bloque-institucional{gap:16px;margin-bottom:28px;align-items:center;}.logo-crebe{width:80px;max-width:80px;height:80px;max-height:80px;}.texto-institucional{padding-left:16px;}.nombre-institucional{font-size:1rem;}.detalle-institucional{font-size:.9rem;}main{max-width:1120px;margin-top:-78px;padding:0 14px 34px;}}
+@media (max-width:900px){
+  .herramientas,.panel-presentacion,.footer-contenido{grid-template-columns:1fr;}
+  .lista-tarjetas{grid-template-columns:repeat(2,1fr);}
+  .footer-marca{align-items:center;}
+}
+@media (max-width:700px){
+  .cabecera{padding:26px 18px 116px;}
+  .navegacion{align-items:flex-start;flex-direction:column;}
+  .enlaces-cabecera{justify-content:flex-start;gap:12px;}
+  .enlace-cabecera{width:auto;min-height:46px;padding:10px 22px;font-size:1rem;}
+  .portada{margin-top:54px;}
+  .bloque-institucional{align-items:center;gap:16px;margin-bottom:28px;}
+  .logo-crebe{width:80px;max-width:80px;height:80px;max-height:80px;}
+  .texto-institucional{padding-left:16px;}
+  .nombre-institucional{font-size:1rem;}
+  .detalle-institucional{font-size:.9rem;}
+  main{max-width:1120px;margin-top:-78px;padding:0 14px 34px;}
+  .panel-busqueda,.panel-presentacion,.aviso-pedagogico{padding:26px 20px 30px;}
+  .panel-encabezado{flex-direction:column;}
+  .lista-tarjetas{grid-template-columns:1fr;}
+  .tarjeta-pie{flex-direction:column;align-items:flex-start;}
+  .enlace-material{width:100%;text-align:center;}
+  .seccion-rutinas input,.seccion-rutinas textarea,.rutinas input,.rutinas textarea{pointer-events:auto;user-select:text;-webkit-user-select:text;cursor:text;position:relative;z-index:10;}
+  .seccion-rutinas,.rutinas{pointer-events:auto;}
+}
