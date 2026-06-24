@@ -1,5 +1,8 @@
 const API_BUSQUEDA = "https://api.arasaac.org/api/pictograms/es/search/";
 const URL_IMAGEN = "https://static.arasaac.org/pictograms/";
+const URL_HTML2CANVAS = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+const URL_JSPDF = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+const scriptsExternos = new Map();
 
 const tituloRutina = document.getElementById("titulo-rutina");
 const cantidadPasos = document.getElementById("cantidad-pasos");
@@ -363,6 +366,7 @@ function renderizarPreview(){
 
 async function descargarJpg(){
   try{
+    await asegurarDependenciasDescarga();
     await esperarImagenes(rutinaLienzo);
 
     const canvas = await html2canvas(rutinaLienzo, {
@@ -388,6 +392,7 @@ async function descargarJpg(){
 
 async function descargarPdf(){
   try{
+    await asegurarDependenciasDescarga();
     const { jsPDF } = window.jspdf;
 
     const pdf = new jsPDF({
@@ -581,6 +586,43 @@ function esperarImagenes(contenedor){
       });
     })
   );
+}
+
+function cargarScriptExterno(url){
+  if(scriptsExternos.has(url)){
+    return scriptsExternos.get(url);
+  }
+
+  const promesa = new Promise((resolve, reject) => {
+    const existente = document.querySelector(`script[src="${url}"]`);
+
+    if(existente){
+      existente.addEventListener("load", resolve, { once:true });
+      existente.addEventListener("error", reject, { once:true });
+      resolve();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = url;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  scriptsExternos.set(url, promesa);
+  return promesa;
+}
+
+async function asegurarDependenciasDescarga(){
+  if(!window.html2canvas){
+    await cargarScriptExterno(URL_HTML2CANVAS);
+  }
+
+  if(!window.jspdf){
+    await cargarScriptExterno(URL_JSPDF);
+  }
 }
 
 function obtenerPalabra(picto){
