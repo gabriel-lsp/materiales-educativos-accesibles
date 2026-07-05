@@ -422,6 +422,91 @@
   display:none !important;
 }
 
+/* Corrección puntual de legibilidad en alto contraste */
+html.eva-alto-contraste .panel-rutinas,
+html.eva-alto-contraste .configuracion-rutina,
+html.eva-alto-contraste .campo-configuracion,
+html.eva-alto-contraste .zona-construccion,
+html.eva-alto-contraste .bloque-editor,
+html.eva-alto-contraste .bloque-buscador,
+html.eva-alto-contraste .paso-libre,
+html.eva-alto-contraste .paso-libre.activo,
+html.eva-alto-contraste .marco-paso,
+html.eva-alto-contraste .opcion-picto,
+html.eva-alto-contraste .rutina-preview,
+html.eva-alto-contraste .rutina-lienzo,
+html.eva-alto-contraste .rutina-item,
+html.eva-alto-contraste .licencia-rutina{
+  color:#ffffff !important;
+  background:#000000 !important;
+  border-color:#ffffff !important;
+  box-shadow:none !important;
+  opacity:1 !important;
+}
+
+html.eva-alto-contraste .texto-panel-rutinas,
+html.eva-alto-contraste .campo-configuracion label,
+html.eva-alto-contraste .buscador-arasaac label,
+html.eva-alto-contraste .bloque-editor h3,
+html.eva-alto-contraste .bloque-buscador h3,
+html.eva-alto-contraste .ayuda-editor,
+html.eva-alto-contraste .placeholder-paso,
+html.eva-alto-contraste .opcion-picto span,
+html.eva-alto-contraste .estado-busqueda,
+html.eva-alto-contraste .rutina-preview h2,
+html.eva-alto-contraste .rutina-titulo,
+html.eva-alto-contraste .rutina-item p,
+html.eva-alto-contraste .rutina-atribucion,
+html.eva-alto-contraste .licencia-rutina,
+html.eva-alto-contraste .licencia-rutina strong{
+  color:#ffffff !important;
+  background:transparent !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+
+html.eva-alto-contraste .campo-configuracion select,
+html.eva-alto-contraste .campo-configuracion input,
+html.eva-alto-contraste .buscador-arasaac input,
+html.eva-alto-contraste .texto-paso{
+  color:#ffffff !important;
+  background:#000000 !important;
+  border-color:#ffffff !important;
+}
+
+html.eva-alto-contraste .campo-configuracion input::placeholder,
+html.eva-alto-contraste .buscador-arasaac input::placeholder,
+html.eva-alto-contraste .texto-paso::placeholder{
+  color:#d1d5db !important;
+}
+
+html.eva-alto-contraste .boton-rutina,
+html.eva-alto-contraste .numero-paso,
+html.eva-alto-contraste .cambiar-paso,
+html.eva-alto-contraste .quitar-paso,
+html.eva-alto-contraste .acciones-paso button[data-accion="cambiar"],
+html.eva-alto-contraste .acciones-paso button[data-accion="quitar"]{
+  color:#ffff00 !important;
+  background:#07324a !important;
+  border:1px solid #ffff00 !important;
+  box-shadow:none !important;
+}
+
+html.eva-alto-contraste .paso-libre.activo,
+html.eva-alto-contraste .paso-libre:focus-within,
+html.eva-alto-contraste .opcion-picto:hover,
+html.eva-alto-contraste .opcion-picto:focus{
+  background:#07324a !important;
+  border-color:#ffff00 !important;
+}
+
+html.eva-alto-contraste .marco-paso img,
+html.eva-alto-contraste .opcion-picto img,
+html.eva-alto-contraste .rutina-item img{
+  background:#ffffff !important;
+  border-radius:12px;
+}
+
 @media (max-width:1000px){
   .configuracion-rutina{
     grid-template-columns:1fr;
