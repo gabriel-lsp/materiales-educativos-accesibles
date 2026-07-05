@@ -7,28 +7,103 @@
   <title>Materiales Educativos Accesibles</title>
   <link rel="stylesheet" href="estilos.css?v=15">
   <style>
-  .patron-portada {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
+    .patron-portada{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+      background-image:url("patron-shipibo.webp");
+      background-repeat:repeat;
+      background-size:cover;
+      background-position:center;
+      opacity:.30;
+      filter:saturate(1.15) contrast(1.08);
+    }
 
-    background-image: url("patron-shipibo.webp");
-    background-repeat: repeat;
-    background-size: cover;
-    background-position: center;
-
-    opacity: .30;
-    filter: saturate(1.15) contrast(1.08);
-}    
     .cabecera .navegacion,
-.cabecera .portada {
-  position: relative;
-  z-index: 1;
-}
-  </style>
+    .cabecera .portada{
+      position:relative;
+      z-index:1;
+    }
 
+    .marca-institucional{
+      align-items:center;
+      gap:14px;
+      max-width:min(560px,100%);
+    }
+
+    .marca-logo-superior{
+      display:block;
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      flex-shrink:0;
+      padding:4px;
+      background:rgba(255,255,255,.96);
+      border-radius:18px;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .marca-texto-superior{
+      display:block;
+      padding-left:14px;
+      border-left:2px solid rgba(255,255,255,.35);
+      text-shadow:0 2px 4px rgba(0,0,0,.28);
+    }
+
+    .marca-modulo{
+      display:block;
+      margin:0 0 3px;
+      color:#c9f7ee;
+      font-size:.76rem;
+      font-weight:900;
+      line-height:1.15;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .marca-nombre-institucional{
+      display:block;
+      color:#ffffff;
+      font-size:1.02rem;
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .marca-detalle-institucional{
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.94);
+      font-size:.88rem;
+      font-weight:750;
+      line-height:1.25;
+    }
+
+    @media (max-width:700px){
+      .marca-institucional{
+        align-items:flex-start;
+      }
+
+      .marca-logo-superior{
+        width:52px;
+        height:52px;
+        border-radius:16px;
+      }
+
+      .marca-texto-superior{
+        padding-left:12px;
+      }
+
+      .marca-nombre-institucional{
+        font-size:.94rem;
+      }
+
+      .marca-detalle-institucional{
+        font-size:.82rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="salto-contenido" href="#contenido-principal">Ir al contenido</a>
@@ -37,9 +112,13 @@
     <div class="patron-portada" aria-hidden="true"></div>
 
     <nav class="navegacion" aria-label="Navegación principal">
-      <a class="marca" href="index.html" aria-label="Volver al inicio de Materiales Educativos Accesibles">
-        <span class="marca-icono" aria-hidden="true">MEA</span>
-        <span>Materiales Educativos Accesibles</span>
+      <a class="marca marca-institucional" href="index.html" aria-label="Volver al inicio de Materiales Educativos Accesibles">
+        <img class="marca-logo-superior" src="https://gabriel-lsp.github.io/banco-digital-accesible/logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali">
+        <span class="marca-texto-superior">
+          <span class="marca-modulo">Materiales Educativos Accesibles</span>
+          <span class="marca-nombre-institucional">CREBE "Señor de los Milagros" - Ucayali</span>
+          <span class="marca-detalle-institucional">Centro de Recursos de Educación Básica Especial</span>
+        </span>
       </a>
       <div class="enlaces-cabecera">
         <a class="enlace-cabecera" href="https://crebeucayali.weebly.com/">Inicio principal</a>
@@ -48,13 +127,6 @@
     </nav>
 
     <div class="portada">
-      <div class="bloque-institucional" aria-label="Identidad institucional">
-        <img class="logo-crebe" src="https://gabriel-lsp.github.io/banco-digital-accesible/logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali">
-        <div class="texto-institucional">
-          <p class="nombre-institucional">CREBE "Señor de los Milagros" - Ucayali</p>
-          <p class="detalle-institucional">Centro de Recursos de Educación Básica Especial</p>
-        </div>
-      </div>
       <p class="etiqueta">Plataforma educativa accesible</p>
       <h1><a class="titulo-portada-enlace" href="index.html">Materiales Educativos Accesibles</a></h1>
       <p class="subtitulo">Repositorio digital de recursos pedagógicos para apoyar la inclusión, la accesibilidad y la atención a la diversidad</p>
