@@ -258,31 +258,65 @@
   font-weight:900;
 }
 
-.volver a:hover{
-  background:#0b4f4a;
+/* Corrección puntual de legibilidad en alto contraste */
+html.eva-alto-contraste .panel-braille,
+html.eva-alto-contraste .bloque-generador,
+html.eva-alto-contraste .vista-previa,
+html.eva-alto-contraste .resultado,
+html.eva-alto-contraste .panel-descarga,
+html.eva-alto-contraste .bloque-uso,
+html.eva-alto-contraste .sugerencia,
+html.eva-alto-contraste .celda-braille,
+html.eva-alto-contraste .braille-letra{
+  color:#ffffff !important;
+  background:#000000 !important;
+  border-color:#ffffff !important;
+  box-shadow:none !important;
+  opacity:1 !important;
 }
 
-@media (max-width:850px){
-  .contenedor-generador{
-    grid-template-columns:1fr;
-  }
-
-  .panel-descarga{
-    width:100%;
-  }
+html.eva-alto-contraste .texto-panel-braille,
+html.eva-alto-contraste .etiqueta-campo,
+html.eva-alto-contraste .vista-previa h3,
+html.eva-alto-contraste #texto-generado-braille,
+html.eva-alto-contraste .mensaje-inicial,
+html.eva-alto-contraste .letra-base,
+html.eva-alto-contraste .sugerencia,
+html.eva-alto-contraste .bloque-uso,
+html.eva-alto-contraste .panel-descarga h2,
+html.eva-alto-contraste .panel-descarga p,
+html.eva-alto-contraste .nota{
+  color:#ffffff !important;
+  background:transparent !important;
+  text-shadow:none !important;
+  opacity:1 !important;
 }
 
-@media (max-width:700px){
-  .panel-braille{
-    padding:26px 18px 32px;
-  }
+html.eva-alto-contraste .entrada{
+  color:#ffffff !important;
+  background:#000000 !important;
+  border-color:#ffffff !important;
+}
 
-  .acciones{
-    flex-direction:column;
-  }
+html.eva-alto-contraste .entrada::placeholder{
+  color:#d1d5db !important;
+}
 
-  .boton,
-  .boton-secundario{
-    width:100%;
-  }
+html.eva-alto-contraste .boton,
+html.eva-alto-contraste .boton-secundario,
+html.eva-alto-contraste .boton-descarga,
+html.eva-alto-contraste .volver a{
+  color:#ffff00 !important;
+  background:#07324a !important;
+  border:1px solid #ffff00 !important;
+}
+
+html.eva-alto-contraste .punto-braille{
+  background:#6b7280 !important;
+  border:1px solid #ffffff !important;
+}
+
+html.eva-alto-contraste .punto-braille.activo{
+  background:#ffff00 !important;
+  border-color:#ffff00 !important;
 }
