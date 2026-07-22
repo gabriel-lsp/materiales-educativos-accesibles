@@ -93,23 +93,15 @@ while(lista.length<configuracion.total) lista.push(...mezclar(universoActual));
 ejercicios=lista.slice(0,configuracion.total);
 }
 function aplicarConfiguracionEjercicio(){
-if(configuracion.modoFijo){
-modo=configuracion.modoFijo;
-}else if(nivelClave==='avanzado'){
-modo=indice%2===1?'escritura':'lectura';
-}
-if(configuracion.tipoFijo){
-tipo=configuracion.tipoFijo;
-}else if(nivelClave==='avanzado' || nivelClave==='intermedio'){
-tipo=indice%2===0?'signo-letra':'letra-signo';
-}
+if(configuracion.modoFijo) modo=configuracion.modoFijo;
+if(configuracion.tipoFijo) tipo=configuracion.tipoFijo;
 radiosModo.forEach(r=>{
 r.checked=r.value===modo;
-r.disabled=Boolean(configuracion.modoFijo)||nivelClave==='avanzado';
+r.disabled=Boolean(configuracion.modoFijo);
 });
 radiosTipo.forEach(r=>{
 r.checked=r.value===tipo;
-r.disabled=Boolean(configuracion.tipoFijo)||nivelClave==='avanzado'||nivelClave==='intermedio';
+r.disabled=Boolean(configuracion.tipoFijo)||nivelClave==='intermedio';
 });
 }
 function actualizarApoyos(){
