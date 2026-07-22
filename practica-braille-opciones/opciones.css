@@ -19,13 +19,16 @@ body .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1
 .encabezado-opciones{max-width:820px;margin-bottom:26px}
 .encabezado-opciones h2{margin:.2rem 0 1rem;font-size:clamp(1.8rem,4vw,2.6rem)}
 .grid-opciones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.tarjeta-opcion{display:flex;flex-direction:column;gap:14px;padding:28px;border:1px solid #cfd8dc;border-radius:22px;background:#f9fbfb}
-.tarjeta-opcion.destacada{border:2px solid #0f766e;background:#f0fdfa}
+.tarjeta-opcion{display:flex;flex-direction:column;gap:14px;padding:28px;border:1px solid #cfd8dc;border-radius:22px;background:#f9fbfb;transition:background-color .22s ease,border-color .22s ease,box-shadow .22s ease,transform .22s ease}
+.tarjeta-opcion:hover,.tarjeta-opcion:focus-within{border:2px solid #0f766e;background:#f0fdfa;box-shadow:0 14px 30px rgba(15,118,110,.14);transform:translateY(-3px)}
 .opcion-icono{display:grid;place-items:center;width:62px;height:62px;border-radius:18px;background:#0f766e;color:#fff;font-size:2rem;font-weight:900}
 .opcion-etiqueta{margin:0;color:#0f766e;font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
 .tarjeta-opcion h3{margin:0;font-size:1.55rem}
 .tarjeta-opcion p,.tarjeta-opcion li{line-height:1.6}
 .tarjeta-opcion ul{margin:0 0 8px;padding-left:1.2rem}
-.boton-opcion{margin-top:auto;display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:12px 18px;border-radius:999px;background:#0f766e;color:#fff;text-decoration:none;font-weight:900;text-align:center}
+.boton-opcion{margin-top:auto;display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:12px 18px;border-radius:999px;background:#0f766e;color:#fff;text-decoration:none;font-weight:900;text-align:center;transition:background-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.boton-opcion:hover,.boton-opcion:focus-visible{background:#0b5f59;box-shadow:0 8px 18px rgba(15,118,110,.24);transform:translateY(-1px);outline:3px solid rgba(15,118,110,.22);outline-offset:3px}
 .aviso-pedagogico{margin-top:28px}
 @media(max-width:760px){body .cabecera{padding:26px 18px 116px}body .navegacion{align-items:flex-start;flex-direction:column}body .portada{margin-top:54px}.contenido-opciones{margin-top:-58px}.panel-opciones{padding:22px}.grid-opciones{grid-template-columns:1fr}.tarjeta-opcion{padding:22px}.marca-institucional{align-items:flex-start}.marca-logo-superior{width:52px;height:52px}.marca-texto-superior{padding-left:12px}}
+@media(hover:none){.tarjeta-opcion:hover{border:1px solid #cfd8dc;background:#f9fbfb;box-shadow:none;transform:none}.tarjeta-opcion:focus-within{border:2px solid #0f766e;background:#f0fdfa;box-shadow:0 14px 30px rgba(15,118,110,.14);transform:none}}
+@media(prefers-reduced-motion:reduce){.tarjeta-opcion,.boton-opcion{transition:none}.tarjeta-opcion:hover,.tarjeta-opcion:focus-within,.boton-opcion:hover,.boton-opcion:focus-visible{transform:none}}
