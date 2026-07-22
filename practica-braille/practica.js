@@ -24,10 +24,14 @@
   const botonComprobar = document.getElementById('boton-comprobar');
   const botonSiguiente = document.getElementById('boton-siguiente');
   const botonPista = document.getElementById('boton-pista');
+  const interruptorAyuda = document.getElementById('interruptor-ayuda');
+  const estadoAyuda = document.getElementById('estado-ayuda');
+  const contenedorPista = document.getElementById('contenedor-pista');
 
   let indice = 0;
   let aciertos = 0;
   let respuestaCorrecta = false;
+  let ayudaActiva = true;
 
   totalEjercicios.textContent = String(ejercicios.length);
 
@@ -45,6 +49,22 @@
     });
   }
 
+  function actualizarAyuda() {
+    interruptorAyuda.setAttribute('aria-checked', String(ayudaActiva));
+    interruptorAyuda.setAttribute('aria-label', ayudaActiva ? 'Ayuda activada' : 'Ayuda desactivada');
+    estadoAyuda.textContent = ayudaActiva ? 'Ayuda activada' : 'Ayuda desactivada';
+    contenedorPista.hidden = !ayudaActiva;
+
+    if (!ayudaActiva && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+
+    resultado.className = 'resultado';
+    resultado.textContent = ayudaActiva
+      ? 'La ayuda está activada. Puedes solicitar una pista cuando la necesites.'
+      : 'La ayuda está desactivada. Resuelve el ejercicio sin pistas.';
+  }
+
   function mostrarEjercicio() {
     const ejercicio = ejercicios[indice];
     letraObjetivo.textContent = ejercicio.letra;
@@ -54,7 +74,9 @@
     botonSiguiente.disabled = true;
     botonComprobar.disabled = false;
     resultado.className = 'resultado';
-    resultado.textContent = 'Selecciona los puntos y comprueba tu respuesta.';
+    resultado.textContent = ayudaActiva
+      ? 'Selecciona los puntos y comprueba tu respuesta. Puedes usar una pista.'
+      : 'Selecciona los puntos y comprueba tu respuesta sin ayuda.';
   }
 
   function sonIguales(a, b) {
@@ -67,6 +89,11 @@
       punto.setAttribute('aria-pressed', String(!activo));
       punto.setAttribute('aria-label', `Punto ${punto.dataset.punto} ${activo ? 'desactivado' : 'seleccionado'}`);
     });
+  });
+
+  interruptorAyuda.addEventListener('click', () => {
+    ayudaActiva = !ayudaActiva;
+    actualizarAyuda();
   });
 
   botonLimpiar.addEventListener('click', () => {
@@ -90,7 +117,9 @@
       botonComprobar.disabled = true;
     } else {
       resultado.className = 'resultado incorrecto';
-      resultado.textContent = 'La combinación todavía no es correcta. Revisa la posición de los puntos e inténtalo nuevamente.';
+      resultado.textContent = ayudaActiva
+        ? 'La combinación todavía no es correcta. Revisa la posición de los puntos o solicita una pista.'
+        : 'La combinación todavía no es correcta. Revisa la posición de los puntos e inténtalo nuevamente.';
     }
   });
 
@@ -117,6 +146,8 @@
   });
 
   botonPista.addEventListener('click', () => {
+    if (!ayudaActiva) return;
+
     const ejercicio = ejercicios[indice];
     const mensaje = `La letra ${ejercicio.letra} utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`;
     resultado.className = 'resultado';
@@ -130,5 +161,6 @@
     }
   });
 
+  actualizarAyuda();
   mostrarEjercicio();
 })();
