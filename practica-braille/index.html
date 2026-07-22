@@ -27,6 +27,10 @@
 
   <main id="contenido-principal" class="practica-contenido">
     <section class="panel-practica" aria-labelledby="titulo-practica">
+      <div class="acciones-practica" style="justify-content:flex-start;margin-top:0;margin-bottom:18px">
+        <a class="boton-secundario" href="../index.html#practicas-braille" aria-label="Volver a elegir el nivel de dificultad de la práctica Braille">← Volver a elegir nivel de dificultad</a>
+      </div>
+
       <div class="encabezado-practica">
         <div><p class="sobretitulo">Nivel inicial</p><h2 id="titulo-practica">Lectura: signo a letra</h2><p id="instruccion">Observa el signo Braille y selecciona la letra que representa.</p></div>
         <div class="progreso" aria-label="Progreso"><span>Ejercicio <strong id="numero-ejercicio">1</strong> de <strong id="total-ejercicios">10</strong></span><span>Aciertos: <strong id="aciertos">0</strong></span></div>
@@ -63,7 +67,7 @@
         <p id="mensaje-sin-ayuda" class="mensaje-sin-ayuda" hidden>Modo sin ayuda activado. Resuelve el ejercicio sin pistas.</p>
       </div>
 
-      <div class="acciones-practica"><button id="boton-comprobar" class="boton-principal" type="button">Comprobar respuesta</button><button id="boton-siguiente" class="boton-principal" type="button" disabled>Siguiente ejercicio</button></div>
+      <div class="acciones-practica"><button id="boton-comprobar" class="boton-principal" type="button">Comprobar respuesta</button><button id="boton-siguiente" class="boton-principal" type="button" disabled>Siguiente ejercicio</button><a class="boton-secundario" href="../index.html#practicas-braille" aria-label="Volver a elegir el nivel de dificultad de la práctica Braille">Volver a elegir nivel de dificultad</a></div>
       <div id="resultado" class="resultado" role="status" aria-live="polite">Selecciona una respuesta y comprueba.</div>
 
       <section id="panel-constancia" class="panel-constancia" aria-labelledby="titulo-panel-constancia" hidden>
