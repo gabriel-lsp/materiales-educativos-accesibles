@@ -13,7 +13,7 @@
 .encabezado-practica h2,.panel-informativo h2{margin:0;color:#072f57;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,3.6vw,2.65rem);line-height:1.1}
 .encabezado-practica p:not(.sobretitulo){max-width:720px;margin:14px 0 0;color:#486581;line-height:1.65}
 .progreso{display:grid;gap:8px;min-width:190px;padding:16px 18px;border-radius:18px;background:#e6f4f1;color:#0b4f4a;font-weight:800}
-.controles-practica{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:16px;margin-bottom:22px}
+.controles-practica{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:22px}
 .selector-modo,.control-opcion{min-width:0;padding:18px 20px;border:2px solid #d9e2ec;border-radius:20px;background:#f7fafc}
 .selector-modo{margin:0}.selector-modo legend{padding:0 8px;color:#0b3550;font-weight:900}
 .selector-modo label{display:inline-flex;align-items:center;gap:8px;margin:8px 12px 0 0;padding:9px 13px;border-radius:999px;background:#fff;color:#0b3550;font-weight:900;cursor:pointer}
