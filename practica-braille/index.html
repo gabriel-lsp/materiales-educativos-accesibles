@@ -7,138 +7,71 @@
   <meta name="author" content="Gabriel Berrospi">
   <title>Práctica del sistema Braille | MEA</title>
   <link rel="stylesheet" href="../estilos.css?v=17">
-  <link rel="stylesheet" href="estilos.css?v=5">
+  <link rel="stylesheet" href="estilos.css?v=6">
   <link rel="stylesheet" href="https://crebe-ucayali.github.io/accesos-complementarios/accesibilidad/accesibilidad.css?v=7">
 </head>
 <body>
   <a class="salto-contenido" href="#contenido-principal">Ir al contenido</a>
-
   <header class="cabecera cabecera-braille">
     <div class="patron-portada" aria-hidden="true"></div>
     <nav class="navegacion" aria-label="Navegación principal">
       <a class="marca marca-institucional" href="../index.html" aria-label="Volver al inicio de Materiales Educativos Accesibles">
         <img class="marca-logo-superior" src="https://crebe-ucayali.github.io/banco-digital-accesible/logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali">
-        <span class="marca-texto-superior">
-          <span class="marca-modulo">Materiales Educativos Accesibles</span>
-          <span class="marca-nombre-institucional">CREBE "Señor de los Milagros" - Ucayali</span>
-          <span class="marca-detalle-institucional">Centro de Recursos de Educación Básica Especial</span>
-        </span>
+        <span class="marca-texto-superior"><span class="marca-modulo">Materiales Educativos Accesibles</span><span class="marca-nombre-institucional">CREBE "Señor de los Milagros" - Ucayali</span><span class="marca-detalle-institucional">Centro de Recursos de Educación Básica Especial</span></span>
       </a>
-      <div class="enlaces-cabecera">
-        <a class="enlace-cabecera" href="../index.html">Volver a MEA</a>
-        <a class="enlace-cabecera" href="https://crebe-ucayali.github.io/">Inicio principal</a>
-        <a class="enlace-cabecera" href="https://crebe-ucayali.github.io/accesos-complementarios/paginas/contacto.html">Contacto</a>
-      </div>
+      <div class="enlaces-cabecera"><a class="enlace-cabecera" href="../index.html">Volver a MEA</a><a class="enlace-cabecera" href="https://crebe-ucayali.github.io/">Inicio principal</a><a class="enlace-cabecera" href="https://crebe-ucayali.github.io/accesos-complementarios/paginas/contacto.html">Contacto</a></div>
     </nav>
-
-    <div class="portada">
-      <p class="etiqueta">RECURSO INTERACTIVO ACCESIBLE</p>
-      <h1>Práctica del sistema Braille</h1>
-      <p class="subtitulo">Reconoce signos en orientación de lectura y practica su escritura invertida en regleta Braille.</p>
-    </div>
+    <div class="portada"><p class="etiqueta">RECURSO INTERACTIVO ACCESIBLE</p><h1>Práctica del sistema Braille</h1><p class="subtitulo">Relaciona letras y signos Braille en orientación de lectura y de escritura invertida en regleta.</p></div>
   </header>
 
   <main id="contenido-principal" class="practica-contenido">
     <section class="panel-practica" aria-labelledby="titulo-practica">
       <div class="encabezado-practica">
-        <div>
-          <p class="sobretitulo">Nivel inicial</p>
-          <h2 id="titulo-practica">Modo lectura</h2>
-          <p id="instruccion">Observa el signo Braille en orientación de lectura y selecciona la letra que representa.</p>
-        </div>
-        <div class="progreso" aria-label="Progreso de la actividad">
-          <span>Ejercicio <strong id="numero-ejercicio">1</strong> de <strong id="total-ejercicios">10</strong></span>
-          <span>Aciertos: <strong id="aciertos">0</strong></span>
-        </div>
+        <div><p class="sobretitulo">Nivel inicial</p><h2 id="titulo-practica">Modo lectura</h2><p id="instruccion">Observa el signo Braille y selecciona la letra que representa.</p></div>
+        <div class="progreso" aria-label="Progreso"><span>Ejercicio <strong id="numero-ejercicio">1</strong> de <strong id="total-ejercicios">10</strong></span><span>Aciertos: <strong id="aciertos">0</strong></span></div>
       </div>
 
       <div class="controles-practica" aria-label="Configuración de la práctica">
-        <fieldset class="selector-modo">
-          <legend>Modo de práctica</legend>
-          <label><input type="radio" name="modo" value="lectura" checked> <span>Lectura</span></label>
-          <label><input type="radio" name="modo" value="escritura"> <span>Escritura en regleta</span></label>
-        </fieldset>
-
-        <div id="control-ayuda" class="control-opcion ayuda-encendida">
-          <div><h3>Ayuda</h3><p id="descripcion-ayuda">Las pistas están disponibles.</p></div>
-          <label class="interruptor-ayuda" for="interruptor-ayuda">
-            <input id="interruptor-ayuda" type="checkbox" checked>
-            <span class="interruptor-pista" aria-hidden="true"></span>
-            <span id="estado-ayuda">Activada</span>
-          </label>
-        </div>
-
-        <div id="control-numeros" class="control-opcion numeros-encendidos">
-          <div><h3>Numeración de puntos</h3><p id="descripcion-numeros">Los números están visibles.</p></div>
-          <label class="interruptor-ayuda" for="interruptor-numeros">
-            <input id="interruptor-numeros" type="checkbox" checked>
-            <span class="interruptor-pista" aria-hidden="true"></span>
-            <span id="estado-numeros">Visible</span>
-          </label>
-        </div>
+        <fieldset class="selector-modo"><legend>Modo de práctica</legend><label><input type="radio" name="modo" value="lectura" checked> <span>Lectura</span></label><label><input type="radio" name="modo" value="escritura"> <span>Escritura en regleta</span></label></fieldset>
+        <div id="control-ayuda" class="control-opcion ayuda-encendida"><div><h3>Ayuda</h3><p id="descripcion-ayuda">Las pistas están disponibles.</p></div><label class="interruptor-ayuda" for="interruptor-ayuda"><input id="interruptor-ayuda" type="checkbox" checked><span class="interruptor-pista" aria-hidden="true"></span><span id="estado-ayuda">Activada</span></label></div>
+        <div id="control-numeros" class="control-opcion numeros-encendidos"><div><h3>Numeración de puntos</h3><p id="descripcion-numeros">Los números están visibles.</p></div><label class="interruptor-ayuda" for="interruptor-numeros"><input id="interruptor-numeros" type="checkbox" checked><span class="interruptor-pista" aria-hidden="true"></span><span id="estado-numeros">Visible</span></label></div>
       </div>
 
-      <div id="aviso-orientacion" class="aviso-orientacion" role="note">
-        <strong id="titulo-orientacion">Orientación de lectura</strong>
-        <span id="texto-orientacion">La celda se observa de frente: puntos 1, 2 y 3 a la izquierda; puntos 4, 5 y 6 a la derecha.</span>
-      </div>
+      <div id="aviso-orientacion" class="aviso-orientacion" role="note"><strong id="titulo-orientacion">Orientación de lectura</strong><span id="texto-orientacion">Puntos 1, 2 y 3 a la izquierda; puntos 4, 5 y 6 a la derecha.</span></div>
 
-      <div class="zona-ejercicio">
-        <section class="reto" aria-labelledby="titulo-reto">
-          <p id="etiqueta-reto" class="etiqueta-reto">Selecciona la letra correcta</p>
-          <div id="letra-objetivo" class="letra-objetivo" aria-live="polite" hidden>A</div>
-          <div id="opciones-lectura" class="opciones-lectura" aria-label="Opciones de respuesta"></div>
-          <p id="titulo-reto" class="ayuda-reto">Observa la combinación y elige una respuesta.</p>
-          <div id="contenedor-pista" class="contenedor-pista">
-            <button id="boton-pista" class="boton-secundario" type="button">Escuchar pista</button>
-          </div>
-          <p id="mensaje-sin-ayuda" class="mensaje-sin-ayuda" hidden>Modo sin ayuda activado. Resuelve el ejercicio sin pistas.</p>
+      <div class="zona-ejercicio emparejamiento">
+        <section class="panel-respuesta" aria-labelledby="titulo-panel-izquierdo">
+          <p id="etiqueta-panel-izquierdo" class="etiqueta-reto">Opciones de letras</p>
+          <h3 id="titulo-panel-izquierdo">Elige la letra correcta</h3>
+          <div id="letra-objetivo" class="letra-objetivo" hidden>A</div>
+          <div id="opciones-letras" class="opciones-letras" aria-label="Opciones de letras"></div>
         </section>
 
-        <section class="celda-contenedor" aria-labelledby="titulo-celda">
-          <h3 id="titulo-celda">Celda Braille de seis puntos</h3>
-          <p id="ayuda-celda" class="ayuda-celda">Los puntos se numeran de arriba hacia abajo: 1, 2 y 3 a la izquierda; 4, 5 y 6 a la derecha.</p>
-          <div id="celda-braille" class="celda-braille modo-lectura" role="group" aria-label="Celda Braille en orientación de lectura">
-            <button class="punto" type="button" data-punto="1" aria-pressed="false" aria-label="Punto 1 desactivado"><span>1</span></button>
-            <button class="punto" type="button" data-punto="4" aria-pressed="false" aria-label="Punto 4 desactivado"><span>4</span></button>
-            <button class="punto" type="button" data-punto="2" aria-pressed="false" aria-label="Punto 2 desactivado"><span>2</span></button>
-            <button class="punto" type="button" data-punto="5" aria-pressed="false" aria-label="Punto 5 desactivado"><span>5</span></button>
-            <button class="punto" type="button" data-punto="3" aria-pressed="false" aria-label="Punto 3 desactivado"><span>3</span></button>
-            <button class="punto" type="button" data-punto="6" aria-pressed="false" aria-label="Punto 6 desactivado"><span>6</span></button>
-          </div>
+        <section class="panel-signo" aria-labelledby="titulo-panel-derecho">
+          <p id="etiqueta-panel-derecho" class="etiqueta-reto">Signo a identificar</p>
+          <h3 id="titulo-panel-derecho">Observa el signo Braille</h3>
+          <div id="signo-principal" class="signo-principal"></div>
+          <div id="opciones-signos" class="opciones-signos" aria-label="Opciones de signos Braille" hidden></div>
         </section>
       </div>
 
-      <div class="acciones-practica">
-        <button id="boton-limpiar" class="boton-secundario" type="button" hidden>Limpiar celda</button>
-        <button id="boton-comprobar" class="boton-principal" type="button">Comprobar respuesta</button>
-        <button id="boton-siguiente" class="boton-principal" type="button" disabled>Siguiente ejercicio</button>
+      <div class="apoyo-ejercicio">
+        <p id="titulo-reto" class="ayuda-reto">Relaciona ambos lados y selecciona una respuesta.</p>
+        <div id="contenedor-pista"><button id="boton-pista" class="boton-secundario" type="button">Escuchar pista</button></div>
+        <p id="mensaje-sin-ayuda" class="mensaje-sin-ayuda" hidden>Modo sin ayuda activado. Resuelve el ejercicio sin pistas.</p>
       </div>
 
-      <div id="resultado" class="resultado" role="status" aria-live="polite">Selecciona una letra y comprueba tu respuesta.</div>
+      <div class="acciones-practica"><button id="boton-comprobar" class="boton-principal" type="button">Comprobar respuesta</button><button id="boton-siguiente" class="boton-principal" type="button" disabled>Siguiente ejercicio</button></div>
+      <div id="resultado" class="resultado" role="status" aria-live="polite">Selecciona una respuesta y comprueba.</div>
     </section>
 
-    <section class="panel-informativo" aria-labelledby="titulo-aprender">
-      <div><p class="sobretitulo">Conoce el sistema</p><h2 id="titulo-aprender">Lectura y escritura en regleta</h2></div>
-      <p>En lectura, la celda se observa de izquierda a derecha. En la regleta, el punzado se realiza sobre el reverso del papel y la disposición se invierte horizontalmente. Al retirar y voltear el papel, los puntos quedan en la orientación correcta para ser leídos.</p>
-    </section>
-
-    <section class="aviso-pedagogico aviso-braille" aria-labelledby="titulo-aviso-braille">
-      <div class="aviso-icono" aria-hidden="true">i</div>
-      <div><h2 id="titulo-aviso-braille">Orientación pedagógica</h2><p>Esta actividad funciona como apoyo visual introductorio. No reemplaza el aprendizaje táctil del Braille ni la práctica directa con regleta, punzón, papel adecuado o máquina Braille.</p></div>
-    </section>
+    <section class="panel-informativo" aria-labelledby="titulo-aprender"><div><p class="sobretitulo">Conoce el sistema</p><h2 id="titulo-aprender">Lectura y escritura en regleta</h2></div><p>En lectura, se observa un signo y se identifica la letra correspondiente. En escritura en regleta, se observa una letra y se selecciona el signo que debe punzarse con la orientación horizontal invertida.</p></section>
+    <section class="aviso-pedagogico aviso-braille" aria-labelledby="titulo-aviso-braille"><div class="aviso-icono" aria-hidden="true">i</div><div><h2 id="titulo-aviso-braille">Orientación pedagógica</h2><p>Esta actividad funciona como apoyo visual introductorio. No reemplaza el aprendizaje táctil ni la práctica directa con regleta, punzón y papel adecuado.</p></div></section>
   </main>
 
-  <footer>
-    <div class="footer-contenido">
-      <div class="footer-bloque footer-marca"><img class="footer-logo" src="https://crebe-ucayali.github.io/banco-digital-accesible/logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali"><div><h2>Práctica del sistema Braille</h2><p>Recurso educativo interactivo del módulo Materiales Educativos Accesibles.</p></div></div>
-      <div class="footer-bloque"><h2>Enlaces de MEA</h2><p><a href="../index.html">Volver a Materiales Educativos Accesibles</a><br><a href="../generador/generador.html">Abrir Generador Braille</a><br><a href="https://crebe-ucayali.github.io/">Inicio principal</a></p></div>
-      <div class="footer-bloque"><h2>Contacto CREBE</h2><p>CREBE "Señor de los Milagros" - Ucayali<br>Centro de Recursos de Educación Básica Especial<br><a href="https://crebe-ucayali.github.io/accesos-complementarios/paginas/contacto.html">Contacto Institucional</a></p></div>
-    </div>
-    <div class="footer-final"><p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p></div>
-  </footer>
+  <footer><div class="footer-contenido"><div class="footer-bloque footer-marca"><img class="footer-logo" src="https://crebe-ucayali.github.io/banco-digital-accesible/logo-crebe.png" alt="Logo del CREBE Señor de los Milagros - Ucayali"><div><h2>Práctica del sistema Braille</h2><p>Recurso educativo interactivo del módulo Materiales Educativos Accesibles.</p></div></div><div class="footer-bloque"><h2>Enlaces de MEA</h2><p><a href="../index.html">Volver a Materiales Educativos Accesibles</a><br><a href="../generador/generador.html">Abrir Generador Braille</a><br><a href="https://crebe-ucayali.github.io/">Inicio principal</a></p></div><div class="footer-bloque"><h2>Contacto CREBE</h2><p>CREBE "Señor de los Milagros" - Ucayali<br>Centro de Recursos de Educación Básica Especial<br><a href="https://crebe-ucayali.github.io/accesos-complementarios/paginas/contacto.html">Contacto Institucional</a></p></div></div><div class="footer-final"><p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p></div></footer>
 
-  <script src="practica.js?v=5" defer></script>
+  <script src="practica.js?v=6" defer></script>
   <script src="https://crebe-ucayali.github.io/accesos-complementarios/accesibilidad/accesibilidad.js?v=7" defer></script>
 </body>
 </html>
