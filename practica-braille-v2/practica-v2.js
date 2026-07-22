@@ -274,6 +274,17 @@ panelPractica.hidden=false;
 mostrarEjercicio();
 panelPractica.scrollIntoView({behavior:'smooth'});
 }
+function volverAlPanelDeNiveles(){
+panelPractica.hidden=true;
+panelNiveles.hidden=false;
+$('panel-constancia').hidden=true;
+const tituloNiveles=$('titulo-niveles');
+panelNiveles.scrollIntoView({behavior:'smooth',block:'start'});
+window.setTimeout(()=>{
+tituloNiveles.setAttribute('tabindex','-1');
+tituloNiveles.focus({preventScroll:true});
+},350);
+}
 tarjetas.forEach(t=>t.addEventListener('click',()=>{
 nivelClave=t.dataset.nivel;
 configuracion=niveles[nivelClave];
@@ -317,12 +328,8 @@ actualizarApoyos();
 document.querySelectorAll('.mini-celda').forEach(c=>c.classList.toggle('sin-numeros',!numerosVisibles));
 });
 $('iniciar-nivel').addEventListener('click',iniciar);
-$('cambiar-nivel').addEventListener('click',()=>{
-panelPractica.hidden=true;
-panelNiveles.hidden=false;
-$('panel-constancia').hidden=true;
-panelNiveles.scrollIntoView({behavior:'smooth'});
-});
+$('cambiar-nivel').addEventListener('click',volverAlPanelDeNiveles);
+$('volver-niveles').addEventListener('click',volverAlPanelDeNiveles);
 $('boton-comprobar').addEventListener('click',()=>{
 if(!seleccion){
 resultado.className='resultado incorrecto';
