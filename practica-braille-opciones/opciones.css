@@ -1,0 +1,31 @@
+body .cabecera{position:relative;overflow:hidden;padding:30px 18px 145px;color:#fff;background:linear-gradient(135deg,#0b3550 0%,#0f4f57 48%,#0f766e 100%)}
+body .patron-portada{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("../patron-shipibo.webp?v=2");background-size:cover;background-position:center;opacity:.3}
+body .cabecera .navegacion,body .cabecera .portada{position:relative;z-index:1}
+body .navegacion{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+body .marca-institucional{display:inline-flex;align-items:center;gap:14px;max-width:min(560px,100%);color:#fff;text-decoration:none;font-weight:900}
+body .marca-logo-superior{display:block;width:58px;height:58px;object-fit:contain;flex-shrink:0;padding:4px;background:rgba(255,255,255,.96);border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+body .marca-texto-superior{display:block;padding-left:14px;border-left:2px solid rgba(255,255,255,.35)}
+body .marca-modulo{display:block;margin:0 0 3px;color:#c9f7ee;font-size:.76rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+body .marca-nombre-institucional{display:block;color:#fff;font-size:1.02rem;font-weight:900}
+body .marca-detalle-institucional{display:block;margin-top:4px;color:rgba(255,255,255,.94);font-size:.88rem;font-weight:750}
+body .enlaces-cabecera{display:flex;flex-wrap:wrap;gap:12px}
+body .enlace-cabecera{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 22px;border:1px solid rgba(255,255,255,.45);border-radius:999px;color:#fff;text-decoration:none;font-weight:800;background:rgba(255,255,255,.08)}
+body .portada{max-width:1120px;margin:70px auto 0}
+body .etiqueta{margin:0 0 14px;color:#c9f7ee;font-size:.86rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+body .portada h1{max-width:900px;margin:0 0 22px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:clamp(2.5rem,5.8vw,4.15rem);line-height:1.04;letter-spacing:-.04em}
+body .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1.22rem;line-height:1.65}
+.contenido-opciones{max-width:1120px;margin:-78px auto 0;padding:0 18px 64px;position:relative;z-index:2}
+.panel-opciones{background:#fff;border-radius:28px;padding:34px;box-shadow:0 18px 48px rgba(0,0,0,.14)}
+.encabezado-opciones{max-width:820px;margin-bottom:26px}
+.encabezado-opciones h2{margin:.2rem 0 1rem;font-size:clamp(1.8rem,4vw,2.6rem)}
+.grid-opciones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.tarjeta-opcion{display:flex;flex-direction:column;gap:14px;padding:28px;border:1px solid #cfd8dc;border-radius:22px;background:#f9fbfb}
+.tarjeta-opcion.destacada{border:2px solid #0f766e;background:#f0fdfa}
+.opcion-icono{display:grid;place-items:center;width:62px;height:62px;border-radius:18px;background:#0f766e;color:#fff;font-size:2rem;font-weight:900}
+.opcion-etiqueta{margin:0;color:#0f766e;font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.tarjeta-opcion h3{margin:0;font-size:1.55rem}
+.tarjeta-opcion p,.tarjeta-opcion li{line-height:1.6}
+.tarjeta-opcion ul{margin:0 0 8px;padding-left:1.2rem}
+.boton-opcion{margin-top:auto;display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:12px 18px;border-radius:999px;background:#0f766e;color:#fff;text-decoration:none;font-weight:900;text-align:center}
+.aviso-pedagogico{margin-top:28px}
+@media(max-width:760px){body .cabecera{padding:26px 18px 116px}body .navegacion{align-items:flex-start;flex-direction:column}body .portada{margin-top:54px}.contenido-opciones{margin-top:-58px}.panel-opciones{padding:22px}.grid-opciones{grid-template-columns:1fr}.tarjeta-opcion{padding:22px}.marca-institucional{align-items:flex-start}.marca-logo-superior{width:52px;height:52px}.marca-texto-superior{padding-left:12px}}
