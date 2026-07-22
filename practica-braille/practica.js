@@ -10,6 +10,7 @@
   ];
 
   const radiosModo = [...document.querySelectorAll('input[name="modo"]')];
+  const radiosTipo = [...document.querySelectorAll('input[name="tipo"]')];
   const interruptorAyuda = document.getElementById('interruptor-ayuda');
   const interruptorNumeros = document.getElementById('interruptor-numeros');
   const estadoAyuda = document.getElementById('estado-ayuda');
@@ -43,6 +44,7 @@
   const resultado = document.getElementById('resultado');
 
   let modo = 'lectura';
+  let tipo = 'signo-letra';
   let indice = 0;
   let aciertos = 0;
   let seleccion = '';
@@ -56,6 +58,10 @@
     return [...lista].sort(() => Math.random() - 0.5);
   }
 
+  function orientacionActual() {
+    return modo === 'escritura' ? 'regleta' : 'lectura';
+  }
+
   function obtenerOpciones() {
     const objetivo = ejercicios[indice];
     const conjunto = new Set([objetivo.letra]);
@@ -67,7 +73,8 @@
     return mezclar([...conjunto]).map(letra => ejercicios.find(item => item.letra === letra));
   }
 
-  function crearCelda(puntosActivos, orientacion, pequena = false) {
+  function crearCelda(puntosActivos, pequena = false) {
+    const orientacion = orientacionActual();
     const celda = document.createElement('div');
     celda.className = `mini-celda ${orientacion === 'regleta' ? 'modo-regleta' : 'modo-lectura'}${pequena ? ' pequena' : ''}${numerosVisibles ? '' : ' sin-numeros'}`;
     celda.setAttribute('aria-hidden', 'true');
@@ -87,7 +94,7 @@
     seleccion = valor;
   }
 
-  function renderLectura() {
+  function renderSignoALetra() {
     const ejercicio = ejercicios[indice];
     letraObjetivo.hidden = true;
     opcionesLetras.hidden = false;
@@ -95,7 +102,7 @@
     opcionesSignos.hidden = true;
     opcionesLetras.innerHTML = '';
     signoPrincipal.innerHTML = '';
-    signoPrincipal.appendChild(crearCelda(ejercicio.puntos, 'lectura'));
+    signoPrincipal.appendChild(crearCelda(ejercicio.puntos));
 
     obtenerOpciones().forEach(opcion => {
       const boton = document.createElement('button');
@@ -108,7 +115,7 @@
     });
   }
 
-  function renderEscritura() {
+  function renderLetraASigno() {
     const ejercicio = ejercicios[indice];
     letraObjetivo.hidden = false;
     letraObjetivo.textContent = ejercicio.letra;
@@ -122,8 +129,8 @@
       boton.type = 'button';
       boton.className = 'opcion-signo';
       boton.setAttribute('aria-pressed', 'false');
-      boton.setAttribute('aria-label', `Opción de signo Braille para la letra ${opcion.letra} en orientación de regleta`);
-      boton.appendChild(crearCelda(opcion.puntos, 'regleta', true));
+      boton.setAttribute('aria-label', `Opción de signo Braille para la letra ${opcion.letra} en orientación de ${modo === 'escritura' ? 'regleta' : 'lectura'}`);
+      boton.appendChild(crearCelda(opcion.puntos, true));
       boton.addEventListener('click', () => seleccionarBoton(opcionesSignos, boton, opcion.letra));
       opcionesSignos.appendChild(boton);
     });
@@ -134,8 +141,8 @@
     avisoOrientacion.classList.toggle('orientacion-regleta', escritura);
     tituloOrientacion.textContent = escritura ? 'Orientación de escritura en regleta' : 'Orientación de lectura';
     textoOrientacion.textContent = escritura
-      ? 'Las opciones muestran la celda invertida: 4, 5 y 6 a la izquierda; 1, 2 y 3 a la derecha.'
-      : 'El signo se observa de frente: 1, 2 y 3 a la izquierda; 4, 5 y 6 a la derecha.';
+      ? 'Todas las celdas se muestran invertidas: 4, 5 y 6 a la izquierda; 1, 2 y 3 a la derecha.'
+      : 'Todas las celdas se muestran en lectura normal: 1, 2 y 3 a la izquierda; 4, 5 y 6 a la derecha.';
   }
 
   function mostrarEjercicio() {
@@ -146,24 +153,32 @@
     botonSiguiente.disabled = true;
     actualizarOrientacion();
 
-    if (modo === 'lectura') {
-      tituloPractica.textContent = 'Modo lectura';
-      instruccion.textContent = 'Observa el signo Braille situado a la derecha y selecciona la letra correcta a la izquierda.';
+    const prefijo = modo === 'escritura' ? 'Escritura en regleta' : 'Lectura';
+
+    if (tipo === 'signo-letra') {
+      tituloPractica.textContent = `${prefijo}: signo a letra`;
+      instruccion.textContent = modo === 'escritura'
+        ? 'Observa el signo en orientación de regleta y selecciona la letra que representa.'
+        : 'Observa el signo en orientación de lectura y selecciona la letra que representa.';
       etiquetaIzquierda.textContent = 'Opciones de letras';
       tituloIzquierda.textContent = 'Elige la letra correcta';
-      etiquetaDerecha.textContent = 'Signo a identificar';
-      tituloDerecha.textContent = 'Observa el signo Braille';
+      etiquetaDerecha.textContent = modo === 'escritura' ? 'Signo invertido a identificar' : 'Signo a identificar';
+      tituloDerecha.textContent = modo === 'escritura' ? 'Observa el signo en regleta' : 'Observa el signo Braille';
       ayudaReto.textContent = 'Relaciona el signo con una de las letras disponibles.';
-      renderLectura();
+      renderSignoALetra();
     } else {
-      tituloPractica.textContent = 'Modo escritura en regleta';
-      instruccion.textContent = 'Observa la letra situada a la izquierda y selecciona a la derecha el signo que debe punzarse en la regleta.';
+      tituloPractica.textContent = `${prefijo}: letra a signo`;
+      instruccion.textContent = modo === 'escritura'
+        ? 'Observa la letra y selecciona el signo que debe punzarse en orientación de regleta.'
+        : 'Observa la letra y selecciona su signo en orientación normal de lectura.';
       etiquetaIzquierda.textContent = 'Letra determinada';
-      tituloIzquierda.textContent = 'Letra que debes escribir';
-      etiquetaDerecha.textContent = 'Opciones de signos';
+      tituloIzquierda.textContent = 'Letra a representar';
+      etiquetaDerecha.textContent = modo === 'escritura' ? 'Opciones de signos invertidos' : 'Opciones de signos';
       tituloDerecha.textContent = 'Elige el signo correcto';
-      ayudaReto.textContent = 'Selecciona la celda invertida que corresponde a la letra mostrada.';
-      renderEscritura();
+      ayudaReto.textContent = modo === 'escritura'
+        ? 'Selecciona la celda invertida que corresponde a la letra mostrada.'
+        : 'Selecciona la celda en lectura normal que corresponde a la letra mostrada.';
+      renderLetraASigno();
     }
 
     resultado.className = 'resultado';
@@ -192,8 +207,7 @@
     if (anunciar) resultado.textContent = numerosVisibles ? 'Numeración visible.' : 'Numeración oculta.';
   }
 
-  function cambiarModo(nuevoModo) {
-    modo = nuevoModo;
+  function reiniciarConfiguracion() {
     indice = 0;
     aciertos = 0;
     aciertosElemento.textContent = '0';
@@ -201,8 +215,19 @@
   }
 
   radiosModo.forEach(radio => radio.addEventListener('change', () => {
-    if (radio.checked) cambiarModo(radio.value);
+    if (radio.checked) {
+      modo = radio.value;
+      reiniciarConfiguracion();
+    }
   }));
+
+  radiosTipo.forEach(radio => radio.addEventListener('change', () => {
+    if (radio.checked) {
+      tipo = radio.value;
+      reiniciarConfiguracion();
+    }
+  }));
+
   interruptorAyuda.addEventListener('change', () => actualizarAyuda(true));
   interruptorNumeros.addEventListener('change', () => actualizarNumeros(true));
 
@@ -210,7 +235,7 @@
     const ejercicio = ejercicios[indice];
     if (!seleccion) {
       resultado.className = 'resultado incorrecto';
-      resultado.textContent = modo === 'lectura' ? 'Selecciona primero una letra.' : 'Selecciona primero uno de los signos.';
+      resultado.textContent = tipo === 'signo-letra' ? 'Selecciona primero una letra.' : 'Selecciona primero uno de los signos.';
       return;
     }
 
@@ -221,7 +246,7 @@
       aciertosElemento.textContent = String(aciertos);
       resultado.className = 'resultado correcto';
       resultado.textContent = ayudaActiva
-        ? `Respuesta correcta. La letra ${ejercicio.letra} corresponde a los puntos ${ejercicio.puntos.join(', ')}.`
+        ? `Respuesta correcta. La letra ${ejercicio.letra} corresponde a los puntos ${ejercicio.puntos.join(', ')} en orientación de ${modo === 'escritura' ? 'regleta' : 'lectura'}.`
         : 'Respuesta correcta.';
       botonSiguiente.disabled = false;
       botonComprobar.disabled = true;
@@ -246,9 +271,10 @@
   botonPista.addEventListener('click', () => {
     if (!ayudaActiva) return;
     const ejercicio = ejercicios[indice];
-    const mensaje = modo === 'lectura'
-      ? `El signo corresponde a la letra ${ejercicio.letra} y utiliza los puntos ${ejercicio.puntos.join(', ')}.`
-      : `Para escribir la letra ${ejercicio.letra} en regleta, selecciona la opción que contiene los puntos ${ejercicio.puntos.join(', ')} en orientación invertida.`;
+    const orientacion = modo === 'escritura' ? 'orientación invertida de regleta' : 'orientación normal de lectura';
+    const mensaje = tipo === 'signo-letra'
+      ? `El signo mostrado corresponde a la letra ${ejercicio.letra} y utiliza los puntos ${ejercicio.puntos.join(', ')} en ${orientacion}.`
+      : `La letra ${ejercicio.letra} corresponde a los puntos ${ejercicio.puntos.join(', ')} en ${orientacion}.`;
     resultado.className = 'resultado';
     resultado.textContent = mensaje;
     if ('speechSynthesis' in window) {
