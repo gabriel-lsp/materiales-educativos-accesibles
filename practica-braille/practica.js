@@ -42,6 +42,10 @@
   const ayudaReto = document.getElementById('titulo-reto');
   const ayudaCelda = document.getElementById('ayuda-celda');
   const celdaBraille = document.getElementById('celda-braille');
+  const tituloCelda = document.getElementById('titulo-celda');
+  const tituloOrientacion = document.getElementById('titulo-orientacion');
+  const textoOrientacion = document.getElementById('texto-orientacion');
+  const avisoOrientacion = document.getElementById('aviso-orientacion');
 
   let indice = 0;
   let aciertos = 0;
@@ -132,6 +136,27 @@
     }
   }
 
+  function actualizarOrientacion() {
+    const escritura = modo === 'escritura';
+    celdaBraille.classList.toggle('modo-lectura', !escritura);
+    celdaBraille.classList.toggle('modo-regleta', escritura);
+    avisoOrientacion.classList.toggle('orientacion-regleta', escritura);
+
+    if (escritura) {
+      tituloOrientacion.textContent = 'Orientación de escritura en regleta';
+      textoOrientacion.textContent = 'La disposición se invierte horizontalmente: puntos 4, 5 y 6 a la izquierda; puntos 1, 2 y 3 a la derecha. Se punza sobre el reverso del papel.';
+      tituloCelda.textContent = 'Celda Braille vista desde la regleta';
+      ayudaCelda.textContent = 'En la regleta, la celda se trabaja de derecha a izquierda. Al voltear el papel, recupera la orientación normal de lectura.';
+      celdaBraille.setAttribute('aria-label', 'Celda Braille en orientación invertida para escritura con regleta');
+    } else {
+      tituloOrientacion.textContent = 'Orientación de lectura';
+      textoOrientacion.textContent = 'La celda se observa de frente: puntos 1, 2 y 3 a la izquierda; puntos 4, 5 y 6 a la derecha.';
+      tituloCelda.textContent = 'Celda Braille de seis puntos';
+      ayudaCelda.textContent = 'Los puntos se numeran de arriba hacia abajo: 1, 2 y 3 a la izquierda; 4, 5 y 6 a la derecha.';
+      celdaBraille.setAttribute('aria-label', 'Celda Braille en orientación de lectura');
+    }
+  }
+
   function mostrarEjercicio() {
     const ejercicio = ejercicios[indice];
     numeroEjercicio.textContent = String(indice + 1);
@@ -139,29 +164,30 @@
     botonSiguiente.disabled = true;
     botonComprobar.disabled = false;
     letraSeleccionada = '';
+    actualizarOrientacion();
 
     if (modo === 'lectura') {
       tituloPractica.textContent = 'Modo lectura';
-      instruccion.textContent = 'Observa el signo Braille y selecciona la letra que representa.';
+      instruccion.textContent = 'Observa el signo Braille en orientación de lectura y selecciona la letra que representa.';
       etiquetaReto.textContent = 'Selecciona la letra correcta';
       letraObjetivo.hidden = true;
       opcionesLectura.hidden = false;
       botonLimpiar.hidden = true;
       establecerPuntos(ejercicio.puntos, false);
       crearOpcionesLectura();
-      ayudaReto.textContent = 'Observa la combinación y elige una respuesta.';
+      ayudaReto.textContent = 'Lee la combinación de izquierda a derecha y elige una respuesta.';
       resultado.textContent = ayudaActiva ? 'Selecciona una letra. Puedes usar una pista.' : 'Selecciona una letra sin ayuda.';
     } else {
-      tituloPractica.textContent = 'Modo escritura';
-      instruccion.textContent = 'Observa la letra y activa los puntos que forman su signo Braille.';
-      etiquetaReto.textContent = 'Letra a representar';
+      tituloPractica.textContent = 'Modo escritura en regleta';
+      instruccion.textContent = 'Observa la letra y punza los puntos en la orientación invertida de la regleta.';
+      etiquetaReto.textContent = 'Letra a escribir en regleta';
       letraObjetivo.textContent = ejercicio.letra;
       letraObjetivo.hidden = false;
       opcionesLectura.hidden = true;
       botonLimpiar.hidden = false;
       limpiarCelda();
-      ayudaReto.textContent = 'Activa los puntos de la celda Braille.';
-      resultado.textContent = ayudaActiva ? 'Selecciona los puntos. Puedes usar una pista.' : 'Selecciona los puntos sin ayuda.';
+      ayudaReto.textContent = 'Selecciona los puntos como se punzarían sobre el reverso del papel.';
+      resultado.textContent = ayudaActiva ? 'Selecciona los puntos en orientación de regleta. Puedes usar una pista.' : 'Selecciona los puntos en orientación de regleta sin ayuda.';
     }
     resultado.className = 'resultado';
   }
@@ -181,7 +207,7 @@
       if (modo !== 'escritura') return;
       const activo = punto.getAttribute('aria-pressed') === 'true';
       punto.setAttribute('aria-pressed', String(!activo));
-      punto.setAttribute('aria-label', `Punto ${punto.dataset.punto} ${activo ? 'desactivado' : 'seleccionado'}`);
+      punto.setAttribute('aria-label', `Punto ${punto.dataset.punto} ${activo ? 'desactivado' : 'seleccionado'} en orientación de regleta`);
     });
   });
 
@@ -195,14 +221,15 @@
     if (modo !== 'escritura') return;
     limpiarCelda();
     resultado.className = 'resultado';
-    resultado.textContent = 'La celda quedó limpia.';
+    resultado.textContent = 'La celda de regleta quedó limpia.';
   });
 
   botonComprobar.addEventListener('click', () => {
     const ejercicio = ejercicios[indice];
+    const seleccion = seleccionados();
     const correcta = modo === 'lectura'
       ? letraSeleccionada === ejercicio.letra
-      : seleccionados().length === ejercicio.puntos.length && seleccionados().every((valor, posicion) => valor === ejercicio.puntos[posicion]);
+      : seleccion.length === ejercicio.puntos.length && seleccion.every((valor, posicion) => valor === ejercicio.puntos[posicion]);
 
     if (correcta) {
       if (!respuestaCorrecta) aciertos += 1;
@@ -210,13 +237,15 @@
       aciertosElemento.textContent = String(aciertos);
       resultado.className = 'resultado correcto';
       resultado.textContent = ayudaActiva
-        ? `Respuesta correcta. La letra ${ejercicio.letra} utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`
-        : `Respuesta correcta. Has identificado la letra ${ejercicio.letra}.`;
+        ? modo === 'lectura'
+          ? `Respuesta correcta. La letra ${ejercicio.letra} utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')} en orientación de lectura.`
+          : `Respuesta correcta. En la regleta, la letra ${ejercicio.letra} se punza con ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')} en la disposición invertida mostrada.`
+        : `Respuesta correcta. Has completado el ejercicio en modo ${modo === 'lectura' ? 'lectura' : 'escritura en regleta'}.`;
       botonSiguiente.disabled = false;
       botonComprobar.disabled = true;
     } else {
       resultado.className = 'resultado incorrecto';
-      resultado.textContent = ayudaActiva ? 'La respuesta todavía no es correcta. Revisa o solicita una pista.' : 'La respuesta todavía no es correcta. Inténtalo nuevamente.';
+      resultado.textContent = ayudaActiva ? 'La respuesta todavía no es correcta. Revisa la orientación o solicita una pista.' : 'La respuesta todavía no es correcta. Inténtalo nuevamente.';
     }
   });
 
@@ -227,7 +256,7 @@
       return;
     }
     resultado.className = 'resultado correcto';
-    resultado.textContent = `Actividad completada en modo ${modo}. Obtuviste ${aciertos} aciertos de ${ejercicios.length}.`;
+    resultado.textContent = `Actividad completada en modo ${modo === 'lectura' ? 'lectura' : 'escritura en regleta'}. Obtuviste ${aciertos} aciertos de ${ejercicios.length}.`;
     botonSiguiente.disabled = true;
     botonComprobar.disabled = true;
     botonLimpiar.hidden = false;
@@ -239,8 +268,8 @@
     if (!ayudaActiva) return;
     const ejercicio = ejercicios[indice];
     const mensaje = modo === 'lectura'
-      ? `El signo utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`
-      : `La letra ${ejercicio.letra} utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`;
+      ? `El signo leído de frente utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`
+      : `En la regleta, punza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')} en la disposición invertida que aparece en pantalla.`;
     resultado.className = 'resultado';
     resultado.textContent = mensaje;
     if ('speechSynthesis' in window) {
@@ -253,5 +282,6 @@
 
   actualizarAyuda(false);
   actualizarNumeros(false);
+  actualizarOrientacion();
   mostrarEjercicio();
 })();
