@@ -26,7 +26,12 @@
   const botonPista = document.getElementById('boton-pista');
   const interruptorAyuda = document.getElementById('interruptor-ayuda');
   const estadoAyuda = document.getElementById('estado-ayuda');
+  const descripcionAyuda = document.getElementById('descripcion-ayuda');
+  const controlAyuda = document.getElementById('control-ayuda');
   const contenedorPista = document.getElementById('contenedor-pista');
+  const mensajeSinAyuda = document.getElementById('mensaje-sin-ayuda');
+  const ayudaReto = document.getElementById('titulo-reto');
+  const ayudaCelda = document.getElementById('ayuda-celda');
 
   let indice = 0;
   let aciertos = 0;
@@ -49,20 +54,30 @@
     });
   }
 
-  function actualizarAyuda() {
-    interruptorAyuda.setAttribute('aria-checked', String(ayudaActiva));
-    interruptorAyuda.setAttribute('aria-label', ayudaActiva ? 'Ayuda activada' : 'Ayuda desactivada');
+  function actualizarAyuda(anunciar = true) {
+    ayudaActiva = interruptorAyuda.checked;
     estadoAyuda.textContent = ayudaActiva ? 'Ayuda activada' : 'Ayuda desactivada';
+    descripcionAyuda.textContent = ayudaActiva
+      ? 'Las pistas están disponibles durante el ejercicio.'
+      : 'Las pistas y orientaciones están ocultas.';
+
+    controlAyuda.classList.toggle('ayuda-encendida', ayudaActiva);
+    controlAyuda.classList.toggle('ayuda-apagada', !ayudaActiva);
     contenedorPista.hidden = !ayudaActiva;
+    mensajeSinAyuda.hidden = ayudaActiva;
+    ayudaReto.hidden = !ayudaActiva;
+    ayudaCelda.hidden = !ayudaActiva;
 
     if (!ayudaActiva && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
 
-    resultado.className = 'resultado';
-    resultado.textContent = ayudaActiva
-      ? 'La ayuda está activada. Puedes solicitar una pista cuando la necesites.'
-      : 'La ayuda está desactivada. Resuelve el ejercicio sin pistas.';
+    if (anunciar) {
+      resultado.className = 'resultado';
+      resultado.textContent = ayudaActiva
+        ? 'Ayuda activada. Ya puedes solicitar una pista.'
+        : 'Ayuda desactivada. Las pistas y orientaciones quedaron ocultas.';
+    }
   }
 
   function mostrarEjercicio() {
@@ -91,10 +106,7 @@
     });
   });
 
-  interruptorAyuda.addEventListener('click', () => {
-    ayudaActiva = !ayudaActiva;
-    actualizarAyuda();
-  });
+  interruptorAyuda.addEventListener('change', () => actualizarAyuda(true));
 
   botonLimpiar.addEventListener('click', () => {
     limpiarCelda();
@@ -112,14 +124,16 @@
       respuestaCorrecta = true;
       aciertosElemento.textContent = String(aciertos);
       resultado.className = 'resultado correcto';
-      resultado.textContent = `Respuesta correcta. La letra ${ejercicio.letra} se forma con ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`;
+      resultado.textContent = ayudaActiva
+        ? `Respuesta correcta. La letra ${ejercicio.letra} se forma con ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`
+        : `Respuesta correcta. Has formado correctamente la letra ${ejercicio.letra}.`;
       botonSiguiente.disabled = false;
       botonComprobar.disabled = true;
     } else {
       resultado.className = 'resultado incorrecto';
       resultado.textContent = ayudaActiva
         ? 'La combinación todavía no es correcta. Revisa la posición de los puntos o solicita una pista.'
-        : 'La combinación todavía no es correcta. Revisa la posición de los puntos e inténtalo nuevamente.';
+        : 'La combinación todavía no es correcta. Inténtalo nuevamente sin ayuda.';
     }
   });
 
@@ -131,7 +145,7 @@
     }
 
     resultado.className = 'resultado correcto';
-    resultado.textContent = `Actividad completada. Obtuviste ${aciertos} aciertos de ${ejercicios.length}. Puedes volver a practicar limpiando la actividad.`;
+    resultado.textContent = `Actividad completada. Obtuviste ${aciertos} aciertos de ${ejercicios.length}.`;
     botonSiguiente.disabled = true;
     botonComprobar.disabled = true;
     botonLimpiar.textContent = 'Reiniciar actividad';
@@ -147,7 +161,6 @@
 
   botonPista.addEventListener('click', () => {
     if (!ayudaActiva) return;
-
     const ejercicio = ejercicios[indice];
     const mensaje = `La letra ${ejercicio.letra} utiliza ${ejercicio.puntos.length === 1 ? 'el punto' : 'los puntos'} ${ejercicio.puntos.join(', ')}.`;
     resultado.className = 'resultado';
@@ -161,6 +174,6 @@
     }
   });
 
-  actualizarAyuda();
+  actualizarAyuda(false);
   mostrarEjercicio();
 })();
