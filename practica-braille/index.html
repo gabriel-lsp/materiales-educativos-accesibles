@@ -7,7 +7,7 @@
   <meta name="author" content="Gabriel Berrospi">
   <title>Práctica del sistema Braille | MEA</title>
   <link rel="stylesheet" href="../estilos.css?v=17">
-  <link rel="stylesheet" href="estilos.css?v=4">
+  <link rel="stylesheet" href="estilos.css?v=5">
   <link rel="stylesheet" href="https://crebe-ucayali.github.io/accesos-complementarios/accesibilidad/accesibilidad.css?v=7">
 </head>
 <body>
@@ -34,7 +34,7 @@
     <div class="portada">
       <p class="etiqueta">RECURSO INTERACTIVO ACCESIBLE</p>
       <h1>Práctica del sistema Braille</h1>
-      <p class="subtitulo">Reconoce y forma signos Braille mediante actividades visuales progresivas, con niveles de apoyo y complejidad ajustables.</p>
+      <p class="subtitulo">Reconoce signos en orientación de lectura y practica su escritura invertida en regleta Braille.</p>
     </div>
   </header>
 
@@ -44,7 +44,7 @@
         <div>
           <p class="sobretitulo">Nivel inicial</p>
           <h2 id="titulo-practica">Modo lectura</h2>
-          <p id="instruccion">Observa el signo Braille y selecciona la letra que representa.</p>
+          <p id="instruccion">Observa el signo Braille en orientación de lectura y selecciona la letra que representa.</p>
         </div>
         <div class="progreso" aria-label="Progreso de la actividad">
           <span>Ejercicio <strong id="numero-ejercicio">1</strong> de <strong id="total-ejercicios">10</strong></span>
@@ -56,7 +56,7 @@
         <fieldset class="selector-modo">
           <legend>Modo de práctica</legend>
           <label><input type="radio" name="modo" value="lectura" checked> <span>Lectura</span></label>
-          <label><input type="radio" name="modo" value="escritura"> <span>Escritura</span></label>
+          <label><input type="radio" name="modo" value="escritura"> <span>Escritura en regleta</span></label>
         </fieldset>
 
         <div id="control-ayuda" class="control-opcion ayuda-encendida">
@@ -78,6 +78,11 @@
         </div>
       </div>
 
+      <div id="aviso-orientacion" class="aviso-orientacion" role="note">
+        <strong id="titulo-orientacion">Orientación de lectura</strong>
+        <span id="texto-orientacion">La celda se observa de frente: puntos 1, 2 y 3 a la izquierda; puntos 4, 5 y 6 a la derecha.</span>
+      </div>
+
       <div class="zona-ejercicio">
         <section class="reto" aria-labelledby="titulo-reto">
           <p id="etiqueta-reto" class="etiqueta-reto">Selecciona la letra correcta</p>
@@ -93,7 +98,7 @@
         <section class="celda-contenedor" aria-labelledby="titulo-celda">
           <h3 id="titulo-celda">Celda Braille de seis puntos</h3>
           <p id="ayuda-celda" class="ayuda-celda">Los puntos se numeran de arriba hacia abajo: 1, 2 y 3 a la izquierda; 4, 5 y 6 a la derecha.</p>
-          <div id="celda-braille" class="celda-braille" role="group" aria-label="Celda Braille interactiva">
+          <div id="celda-braille" class="celda-braille modo-lectura" role="group" aria-label="Celda Braille en orientación de lectura">
             <button class="punto" type="button" data-punto="1" aria-pressed="false" aria-label="Punto 1 desactivado"><span>1</span></button>
             <button class="punto" type="button" data-punto="4" aria-pressed="false" aria-label="Punto 4 desactivado"><span>4</span></button>
             <button class="punto" type="button" data-punto="2" aria-pressed="false" aria-label="Punto 2 desactivado"><span>2</span></button>
@@ -114,13 +119,13 @@
     </section>
 
     <section class="panel-informativo" aria-labelledby="titulo-aprender">
-      <div><p class="sobretitulo">Conoce el sistema</p><h2 id="titulo-aprender">¿Cómo funciona la celda Braille?</h2></div>
-      <p>La celda Braille básica está formada por seis puntos organizados en dos columnas. En modo lectura se identifica una combinación; en modo escritura se forma el signo correspondiente a una letra.</p>
+      <div><p class="sobretitulo">Conoce el sistema</p><h2 id="titulo-aprender">Lectura y escritura en regleta</h2></div>
+      <p>En lectura, la celda se observa de izquierda a derecha. En la regleta, el punzado se realiza sobre el reverso del papel y la disposición se invierte horizontalmente. Al retirar y voltear el papel, los puntos quedan en la orientación correcta para ser leídos.</p>
     </section>
 
     <section class="aviso-pedagogico aviso-braille" aria-labelledby="titulo-aviso-braille">
       <div class="aviso-icono" aria-hidden="true">i</div>
-      <div><h2 id="titulo-aviso-braille">Orientación pedagógica</h2><p>Esta actividad funciona como apoyo visual introductorio. No reemplaza el aprendizaje táctil del Braille ni el uso de materiales en relieve, regleta, punzón o máquina Braille.</p></div>
+      <div><h2 id="titulo-aviso-braille">Orientación pedagógica</h2><p>Esta actividad funciona como apoyo visual introductorio. No reemplaza el aprendizaje táctil del Braille ni la práctica directa con regleta, punzón, papel adecuado o máquina Braille.</p></div>
     </section>
   </main>
 
@@ -133,7 +138,7 @@
     <div class="footer-final"><p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p></div>
   </footer>
 
-  <script src="practica.js?v=4" defer></script>
+  <script src="practica.js?v=5" defer></script>
   <script src="https://crebe-ucayali.github.io/accesos-complementarios/accesibilidad/accesibilidad.js?v=7" defer></script>
 </body>
 </html>
