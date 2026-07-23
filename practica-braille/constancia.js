@@ -1,11 +1,16 @@
 (() => {
   'use strict';
 
+  const URL_SEGUIMIENTO = 'https://script.google.com/macros/s/AKfycbydvWB8q6EvafNemAr8YK53_7y-O5oWrpJPud9mf_JEOtqOzX0tjpC4JYO9vwsc1HOC/exec';
   const resultado = document.getElementById('resultado');
   const aciertos = document.getElementById('aciertos');
   const total = document.getElementById('total-ejercicios');
   const panel = document.getElementById('panel-constancia');
   const nombre = document.getElementById('nombre-constancia');
+  const campoNombre = document.getElementById('campo-nombre-opcional');
+  const radiosIdentidad = [...document.querySelectorAll('input[name="identidad-constancia"]')];
+  const consentimiento = document.getElementById('consentimiento-registro');
+  const estadoRegistro = document.getElementById('estado-registro');
   const botonGenerar = document.getElementById('generar-constancia');
   const dialogo = document.getElementById('dialogo-constancia');
   const nombreFinal = document.getElementById('constancia-nombre');
@@ -23,6 +28,20 @@
     return `MEA-BRAILLE-${sello}-${aleatorio}`;
   }
 
+  function obtenerUsuarioAnonimo() {
+    const clave = 'evaBrailleUsuario';
+    let usuario = localStorage.getItem(clave);
+    if (!usuario) {
+      usuario = `EVA-BR-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+      localStorage.setItem(clave, usuario);
+    }
+    return usuario;
+  }
+
+  function dispositivo() {
+    return window.matchMedia('(max-width: 768px)').matches ? 'Móvil' : 'Escritorio';
+  }
+
   function revisarFinalizacion() {
     const completo = resultado.textContent.includes('Actividad completada');
     const puntajePerfecto = Number(aciertos?.textContent || 0) === Number(total?.textContent || 0);
@@ -30,28 +49,87 @@
     if (!panel.hidden) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  function identidadSeleccionada() {
+    return radiosIdentidad.find(radio => radio.checked)?.value || 'anonimo';
+  }
+
+  function actualizarIdentidad() {
+    const usaNombre = identidadSeleccionada() === 'nombre';
+    campoNombre.hidden = !usaNombre;
+    if (!usaNombre) {
+      nombre.value = '';
+      nombre.setCustomValidity('');
+    }
+  }
+
+  async function registrar(datos) {
+    estadoRegistro.textContent = 'Registrando resultado…';
+    try {
+      await fetch(URL_SEGUIMIENTO, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(datos)
+      });
+      estadoRegistro.textContent = 'Resultado enviado para seguimiento educativo.';
+    } catch (error) {
+      estadoRegistro.textContent = 'La constancia se generó, pero el registro estadístico no pudo enviarse.';
+    }
+  }
+
   const observador = new MutationObserver(revisarFinalizacion);
   observador.observe(resultado, { childList: true, subtree: true, characterData: true });
+  radiosIdentidad.forEach(radio => radio.addEventListener('change', actualizarIdentidad));
+  actualizarIdentidad();
 
   botonGenerar.addEventListener('click', () => {
-    const participante = nombre.value.trim();
-    if (!participante) {
+    const usaNombre = identidadSeleccionada() === 'nombre';
+    const usuario = obtenerUsuarioAnonimo();
+    const participante = usaNombre ? nombre.value.trim() : `Usuario ${usuario}`;
+
+    if (usaNombre && !participante) {
       nombre.focus();
-      nombre.setCustomValidity('Escribe el nombre del participante.');
+      nombre.setCustomValidity('Escribe el nombre que deseas mostrar.');
       nombre.reportValidity();
       return;
     }
+
     nombre.setCustomValidity('');
+    const codigo = generarCodigo();
     nombreFinal.textContent = participante;
     fechaFinal.textContent = new Intl.DateTimeFormat('es-PE', { dateStyle: 'long' }).format(new Date());
-    codigoFinal.textContent = generarCodigo();
+    codigoFinal.textContent = codigo;
     dialogo.showModal();
+
+    if (consentimiento.checked) {
+      registrar({
+        consentimientoRegistro: true,
+        usuario,
+        tipoUsuario: usaNombre ? 'nominal' : 'anonimo',
+        consentimientoNombre: usaNombre,
+        nombre: usaNombre ? participante : '',
+        modalidad: 'Práctica Braille básica',
+        nivel: 'Inicial',
+        actividadIniciada: true,
+        actividadCompletada: true,
+        ejercicios: Number(total?.textContent || 10),
+        aciertosPrimerIntento: Number(aciertos?.textContent || 10),
+        errores: 0,
+        pistasUtilizadas: 0,
+        porcentaje: 100,
+        constanciaGenerada: true,
+        codigoConstancia: codigo,
+        dispositivo: dispositivo()
+      });
+    } else {
+      estadoRegistro.textContent = 'Constancia generada sin registrar datos de uso.';
+    }
   });
 
   nombre.addEventListener('input', () => nombre.setCustomValidity(''));
   cerrar.addEventListener('click', () => dialogo.close());
   imprimir.addEventListener('click', () => window.print());
-  dialogo.addEventListener('click', (evento) => {
+  dialogo.addEventListener('click', evento => {
     if (evento.target === dialogo) dialogo.close();
   });
 })();
