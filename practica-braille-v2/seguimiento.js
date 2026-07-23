@@ -22,6 +22,17 @@
 
   if (!panel || !botonGenerar || !dialogo) return;
 
+  function insertarEnlacePrivacidad() {
+    const aviso = panel.querySelector('.aviso-privacidad');
+    if (!aviso || aviso.querySelector('a')) return;
+    aviso.append(' ');
+    const enlace = document.createElement('a');
+    enlace.href = '../paginas/privacidad-seguimiento-braille.html';
+    enlace.textContent = 'Consulta el aviso de privacidad del seguimiento Braille.';
+    enlace.setAttribute('aria-label', 'Consultar el aviso de privacidad del seguimiento de las prácticas Braille');
+    aviso.appendChild(enlace);
+  }
+
   function obtenerUsuarioAnonimo() {
     const clave = 'evaBrailleUsuario';
     let usuario = localStorage.getItem(clave);
@@ -68,13 +79,14 @@
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(datos)
       });
-      estadoRegistro.textContent = 'Resultado enviado para seguimiento educativo.';
+      estadoRegistro.textContent = 'Se realizó el intento de envío del resultado para seguimiento educativo.';
     } catch (error) {
       estadoRegistro.textContent = 'La constancia se generó, pero el registro estadístico no pudo enviarse.';
     }
   }
 
   radiosIdentidad.forEach(radio => radio.addEventListener('change', actualizarIdentidad));
+  insertarEnlacePrivacidad();
   actualizarIdentidad();
 
   botonGenerar.addEventListener('click', () => {
