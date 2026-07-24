@@ -20,6 +20,11 @@
   const etiquetaNivel = document.getElementById('etiqueta-nivel');
   const nombreNivelSeleccionado = document.getElementById('nombre-nivel-seleccionado');
 
+  const footerFinal = document.querySelector('.footer-final');
+  if (footerFinal) {
+    footerFinal.innerHTML = '<p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p>';
+  }
+
   if (!panel || !botonGenerar || !dialogo) return;
 
   function insertarEnlacePrivacidad() {
