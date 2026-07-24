@@ -19,6 +19,11 @@
   const cerrar = document.getElementById('cerrar-constancia');
   const imprimir = document.getElementById('imprimir-constancia');
 
+  const footerFinal = document.querySelector('.footer-final');
+  if (footerFinal) {
+    footerFinal.innerHTML = '<p>© 2026 Gabriel Berrospi. Desarrollo original. Uso institucional autorizado al CREBE "Señor de los Milagros" - Ucayali.</p>';
+  }
+
   if (!resultado || !panel || !botonGenerar || !dialogo) return;
 
   function insertarEnlacePrivacidad() {
