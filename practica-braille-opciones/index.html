@@ -8,7 +8,7 @@
   <title>Práctica Braille | MEA</title>
   <link rel="stylesheet" href="../estilos.css?v=17">
   <link rel="stylesheet" href="https://crebe-ucayali.github.io/accesos-complementarios/accesibilidad/accesibilidad.css?v=7">
-  <link rel="stylesheet" href="opciones.css?v=4">
+  <link rel="stylesheet" href="opciones.css?v=5">
 </head>
 <body>
   <a class="salto-contenido" href="#contenido-principal">Ir al contenido</a>
@@ -127,38 +127,53 @@
           <div class="contenido-acordeon">
             <p>El alfabeto puede comprenderse por series. Esta organización ayuda a descubrir que muchas letras nuevas se forman a partir de configuraciones ya aprendidas.</p>
 
-            <article class="serie-teoria">
-              <h3>Primera serie: A a J</h3>
-              <p>Utiliza principalmente los puntos 1, 2, 4 y 5. Todavía no incorpora los puntos inferiores 3 y 6.</p>
-              <div class="linea-alfabeto" aria-label="Primera serie del alfabeto Braille">
-                <span>A ⠁</span><span>B ⠃</span><span>C ⠉</span><span>D ⠙</span><span>E ⠑</span>
-                <span>F ⠋</span><span>G ⠛</span><span>H ⠓</span><span>I ⠊</span><span>J ⠚</span>
-              </div>
-            </article>
+            <div class="estrategia-series" role="note" aria-label="Estrategia para recordar la construcción de las series Braille">
+              <strong>Clave para recordarlo</strong>
+              <p>Mira cada columna de arriba hacia abajo. La forma se conserva y en cada nueva serie se agrega un punto: primero se añade el punto 3 y luego el punto 6. Esta comparación puede usarse como estrategia mnemotécnica para reconocer las familias de letras sin aprender cada signo de manera aislada.</p>
+            </div>
 
-            <article class="serie-teoria">
-              <h3>Segunda serie: K a T</h3>
-              <p>Repite las formas de A a J y añade el punto 3. Por ejemplo, A se convierte en K, B en L y J en T.</p>
-              <div class="linea-alfabeto" aria-label="Segunda serie del alfabeto Braille">
-                <span>K ⠅</span><span>L ⠇</span><span>M ⠍</span><span>N ⠝</span><span>O ⠕</span>
-                <span>P ⠏</span><span>Q ⠟</span><span>R ⠗</span><span>S ⠎</span><span>T ⠞</span>
+            <div class="comparador-series" aria-label="Comparación vertical de las tres series del alfabeto Braille">
+              <div class="lineas-columnas" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
               </div>
-            </article>
 
-            <article class="serie-teoria">
-              <h3>Tercera serie: U, V, X, Y y Z</h3>
-              <p>Se toman las configuraciones K, L, M, N y O y se añade el punto 6.</p>
-              <div class="linea-alfabeto linea-tercera" aria-label="Tercera serie y letras complementarias alineadas con las series anteriores">
-                <span class="pos-1">U ⠥</span>
-                <span class="pos-2">V ⠧</span>
-                <span class="pos-3">X ⠭</span>
-                <span class="pos-4">Y ⠽</span>
-                <span class="pos-5">Z ⠵</span>
-                <span class="pos-9">W ⠺</span>
-                <span class="pos-10">Ñ ⠻</span>
-              </div>
-              <p class="aclaracion-serie">U, V, X, Y y Z se alinean con K, L, M, N y O para mostrar la incorporación del punto 6. La W es una excepción y la Ñ corresponde a una configuración propia del alfabeto español.</p>
-            </article>
+              <article class="serie-teoria serie-dentro-comparador">
+                <h3>Primera serie: A a J</h3>
+                <p>Serie base. Utiliza principalmente los puntos 1, 2, 4 y 5.</p>
+                <div class="linea-alfabeto" aria-label="Primera serie del alfabeto Braille">
+                  <span>A ⠁</span><span>B ⠃</span><span>C ⠉</span><span>D ⠙</span><span>E ⠑</span>
+                  <span>F ⠋</span><span>G ⠛</span><span>H ⠓</span><span>I ⠊</span><span>J ⠚</span>
+                </div>
+              </article>
+
+              <div class="indicador-transformacion"><span aria-hidden="true">+</span><strong>Añadir el punto 3</strong><small>La forma base se conserva.</small></div>
+
+              <article class="serie-teoria serie-dentro-comparador">
+                <h3>Segunda serie: K a T</h3>
+                <p>Repite las formas de A a J y añade el punto 3.</p>
+                <div class="linea-alfabeto" aria-label="Segunda serie del alfabeto Braille">
+                  <span>K ⠅</span><span>L ⠇</span><span>M ⠍</span><span>N ⠝</span><span>O ⠕</span>
+                  <span>P ⠏</span><span>Q ⠟</span><span>R ⠗</span><span>S ⠎</span><span>T ⠞</span>
+                </div>
+              </article>
+
+              <div class="indicador-transformacion"><span aria-hidden="true">+</span><strong>Añadir el punto 6</strong><small>Se parte de K, L, M, N y O.</small></div>
+
+              <article class="serie-teoria serie-dentro-comparador">
+                <h3>Tercera serie: U, V, X, Y y Z</h3>
+                <p>Se toman las configuraciones K, L, M, N y O y se añade el punto 6.</p>
+                <div class="linea-alfabeto linea-tercera" aria-label="Tercera serie y letras complementarias alineadas con las series anteriores">
+                  <span class="pos-1">U ⠥</span>
+                  <span class="pos-2">V ⠧</span>
+                  <span class="pos-3">X ⠭</span>
+                  <span class="pos-4">Y ⠽</span>
+                  <span class="pos-5">Z ⠵</span>
+                  <span class="pos-9">W ⠺</span>
+                  <span class="pos-10">Ñ ⠻</span>
+                </div>
+                <p class="aclaracion-serie">U, V, X, Y y Z se alinean con K, L, M, N y O para mostrar la incorporación del punto 6. La W es una excepción y la Ñ corresponde a una configuración propia del alfabeto español.</p>
+              </article>
+            </div>
           </div>
         </details>
 
