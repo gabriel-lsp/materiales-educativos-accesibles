@@ -59,9 +59,9 @@ body .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1
 
 .serie-teoria{margin-top:18px;padding:18px;background:#f8fbfc;border:1px solid #d5e1e6;border-radius:18px}
 .serie-teoria h3{margin-top:0}
-.linea-alfabeto{display:grid;grid-template-columns:repeat(5,minmax(72px,1fr));gap:10px;margin-top:14px}
-.linea-alfabeto span{display:grid;min-height:56px;place-items:center;padding:10px;color:#0b3550;background:#fff;border:1px solid #c7d8df;border-radius:12px;font-family:"Segoe UI Symbol","Noto Sans Symbols 2",Arial,sans-serif;font-size:1.28rem;font-weight:900;line-height:1.2}
-.linea-corta{grid-template-columns:repeat(7,minmax(72px,1fr))}
+.linea-alfabeto{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin-top:14px}
+.linea-alfabeto span{display:grid;min-height:48px;place-items:center;padding:6px 4px;color:#0b3550;background:#fff;border:1px solid #c7d8df;border-radius:10px;font-family:"Segoe UI Symbol","Noto Sans Symbols 2",Arial,sans-serif;font-size:1.18rem;font-weight:900;line-height:1.15;white-space:nowrap}
+.linea-corta{grid-template-columns:repeat(7,minmax(0,1fr))}
 .tabla-series-compacta{display:grid;gap:8px;margin:16px 0}
 .tabla-series-compacta>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .tabla-series-compacta span{display:grid;min-height:50px;place-items:center;padding:9px;background:#fff;border:1px solid #c7d8df;border-radius:10px;color:#0b3550;font-family:"Segoe UI Symbol","Noto Sans Symbols 2",Arial,sans-serif;font-size:1.16rem;font-weight:900;line-height:1.2}
@@ -93,7 +93,8 @@ body .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1
 @keyframes mostrar-contenido{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:980px){
-  .linea-corta{grid-template-columns:repeat(4,minmax(72px,1fr))}
+  .linea-alfabeto{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .linea-corta{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 
 @media(max-width:760px){
@@ -109,8 +110,8 @@ body .subtitulo{max-width:880px;margin:0;color:rgba(255,255,255,.96);font-size:1
   .marca-texto-superior{padding-left:12px}
   .contenido-acordeon{padding:8px 18px 22px}
   .dos-columnas-teoria,.comparacion-sentidos,.orientaciones-grid{grid-template-columns:1fr}
-  .linea-alfabeto{grid-template-columns:repeat(3,minmax(72px,1fr))}
-  .linea-corta{grid-template-columns:repeat(3,minmax(72px,1fr))}
+  .linea-alfabeto{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .linea-corta{grid-template-columns:repeat(3,minmax(0,1fr))}
   .acceso-teoria-completa{align-items:stretch;flex-direction:column}
 }
 
